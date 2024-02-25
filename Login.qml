@@ -177,7 +177,7 @@ SessionManagementScreen {
         }
         anchors.leftMargin: 8
         visible: opacity > 0
-        opacity: 1
+        opacity: 0
         MouseArea {
             anchors.fill: parent
             onClicked: startLogin();
@@ -204,8 +204,8 @@ SessionManagementScreen {
         anchors.fill: loginButton
         source: loginButton
         color: cattpuccin_green // Replace with your desired color
-        visible: opacity > 0
-        opacity: 1
+        visible: true
+        opacity: 0
         PropertyAnimation {
             id: showLoginButton_overlay
             target: loginButton_overlay
