@@ -110,7 +110,7 @@ SessionManagementScreen {
         implicitHeight: usernameFontSize * 2.85
         font.pointSize: usernameFontSize * 0.8
         // opacity: passwordFieldOutlined ? 0.75 : 0.5
-        opacity: 0.75
+        opacity: 1
         font.family: config.Font || "Noto Sans"
         placeholderText: config.PasswordFieldPlaceholderText == "Password" ? i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Password") : config.PasswordFieldPlaceholderText
         focus: !showUsernamePrompt || lastUserName
@@ -122,6 +122,7 @@ SessionManagementScreen {
             textColor: passwordFieldOutlined ? "white" : cattpuccin_text
             placeholderTextColor: passwordFieldOutlined ? "white" : cattpuccin_text
             passwordCharacter: config.PasswordFieldCharacter == "" ? "●" : config.PasswordFieldCharacter
+            opacity: 0
             background: Rectangle {
                 radius: 3
                 border.color: cattpuccin_base
