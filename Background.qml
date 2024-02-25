@@ -39,14 +39,15 @@ FocusScope {
                 );
 
                 void main() {
-                    vec4 srcColor = texture2D(source, qt_TexCoord0);
+                    vec2 texCoord = vec2(gl_FragCoord.x / width, gl_FragCoord.y / height);
+                    vec4 srcColor = texture2D(source, texCoord);
                     vec3 originalColor = srcColor.rgb;
 
                     // Apply ordered dithering
-                    ivec2 texCoord = ivec2(gl_FragCoord.xy);
-                    int x = texCoord.x % 4;
-                    int y = texCoord.y % 4;
-                    vec3 ditheredColor = originalColor + colorPalette[(x + 4 * y) % 4] - 0.5;
+                    ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
+                    int x = pixelCoord.x % 4;
+                    int y = pixelCoord.y % 4;
+                    vec3 ditheredColor = originalColor + colorPalette[x + 4 * y] - 0.5;
 
                     gl_FragColor = vec4(ditheredColor, srcColor.a);
                 }
