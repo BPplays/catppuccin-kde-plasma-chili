@@ -4,6 +4,8 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.2
 import QtQuick.Controls.Styles 1.4
 
+import QtGraphicalEffects 1.12
+
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
@@ -191,10 +193,10 @@ SessionManagementScreen {
             duration: 80
         }
         // Apply a color overlay to change the image color
-        ColorOverlay {
-            anchors.fill: parent
-            source: loginButton
-            color: cattpuccin_text // Replace with your desired color
-        }
+    }
+    ColorOverlay {
+        anchors.fill: loginButton
+        source: loginButton
+        color: cattpuccin_text // Replace with your desired color
     }
 }
