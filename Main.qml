@@ -180,7 +180,7 @@ PlasmaCore.ColorScope {
                     enabled: sddm.canPowerOff
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                }
+                },
                 ColorOverlay {
                     id: ab_shutdown
                     anchors.fill: ab_shutdown_base
