@@ -211,7 +211,7 @@ SessionManagementScreen {
             target: loginButton_overlay
             property: "color.alpha"
             from: 0
-            to: 1
+            to: 0.2
             duration: 100
         }
 
