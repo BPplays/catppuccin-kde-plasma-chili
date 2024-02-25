@@ -37,12 +37,13 @@ FocusScope {
 
         // Calculate the nearest integer scaling factor
         property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
-        transform: Scale {
-            origin.x: sceneImageBackground_base.width / 2
-            origin.y: sceneImageBackground_base.height / 2
-            xScale: scaleRatio
-            yScale: scaleRatio
-        }
+        scale: scaleRatio
+        // transform: Scale {
+        //     origin.x: sceneImageBackground_base.width / 2
+        //     origin.y: sceneImageBackground_base.height / 2
+        //     xScale: scaleRatio
+        //     yScale: scaleRatio
+        // }
     }
 
     // Image {
