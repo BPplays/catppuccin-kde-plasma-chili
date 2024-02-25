@@ -111,7 +111,7 @@ SessionManagementScreen {
 
         style: TextFieldStyle {
             textColor: passwordFieldOutlined ? "white" : cattpuccin_text
-            placeholderTextColor: passwordFieldOutlined ? "white" : "black"
+            placeholderTextColor: passwordFieldOutlined ? "white" : cattpuccin_text
             passwordCharacter: config.PasswordFieldCharacter == "" ? "●" : config.PasswordFieldCharacter
             background: Rectangle {
                 radius: 3
