@@ -205,6 +205,25 @@ SessionManagementScreen {
         source: loginButton
         color: cattpuccin_green // Replace with your desired color
         visible: loginButton.visible
+
+        // Synchronize the opacity animation with the Image
+        Behavior on opacity {
+            PropertyAnimation {
+                id: overlayShowAnimation
+                target: loginButton_overlay
+                properties: "opacity"
+                to: 0.75
+                duration: 100
+            }
+
+            PropertyAnimation {
+                id: overlayHideAnimation
+                target: loginButton_overlay
+                properties: "opacity"
+                to: 0
+                duration: 80
+            }
+        }
  
     }
 
