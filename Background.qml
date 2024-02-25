@@ -29,7 +29,8 @@ FocusScope {
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
         source: config.background || config.Background
-        smooth: false
+        // smooth: true
+        mipmap: true
     }
 
     RecursiveBlur {
