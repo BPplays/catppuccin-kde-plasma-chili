@@ -29,7 +29,7 @@ FocusScope {
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
         source: config.background || config.Background
-        smooth: true
+        smooth: false
     }
 
     RecursiveBlur {
