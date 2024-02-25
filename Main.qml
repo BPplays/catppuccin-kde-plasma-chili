@@ -345,20 +345,15 @@ PlasmaCore.ColorScope {
                 },
                 ActionButton {
                     id: ab_shutdown_base
-                    iconSource: "system-shutdown"
+                    // iconSource: "system-shutdown"
                     text: config.TranslationPowerOff ? config.TranslationPowerOff : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Shutdown")
                     onClicked: sddm.powerOff()
                     enabled: sddm.canPowerOff
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-
-                    Image {
-                        source: ab_shutdown_base.iconSource
-
-                        // Set the color of the icon
-                        fillMode: Image.PreserveAspectFit
-                        sourceSize: Qt.size(parent.width, parent.height)
-                        color: "red" // Replace "red" with your desired color
+                    IconButton {
+                        source: "system-shutdown" // Setting the icon source here
+                        color: "your_desired_color_here" // Specify the color you want for the icon
                     }
                 }
             ]
