@@ -87,9 +87,13 @@ SessionManagementScreen {
         placeholderText: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Username")
 
         style: TextFieldStyle {
-            textColor: "black"
+            textColor: cattpuccin_text
+            placeholderTextColor: cattpuccin_text
             background: Rectangle {
                 radius: 3
+                border.color: cattpuccin_base
+                border.width: 0
+                color: passwordFieldOutlined ? "transparent" : cattpuccin_base
             }
         }
     }
