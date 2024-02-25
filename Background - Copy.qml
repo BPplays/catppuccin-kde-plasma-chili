@@ -26,48 +26,50 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
-    // Custom color palette
-    property variant customPalette: ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"]
-
     Image {
         id: sceneImageBackground_base
         anchors.fill: parent
         fillMode: Image.Pad
         source: config.background || config.Background
         smooth: true
+        // mipmap: true
+        // antialiasing: true // Enable antialiasing for smoother scaling
 
         // Calculate the nearest integer scaling factor
         property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
+        // scale: scaleRatio
         transform: Scale {
             origin.x: sceneImageBackground_base.width / 2
             origin.y: sceneImageBackground_base.height / 2
             xScale: scaleRatio
             yScale: scaleRatio
         }
-
-        // Add ShaderEffectItem for ordered dithering
-        ShaderEffectItem {
-            id: ditherShader
-            anchors.fill: parent
-            sourceItem: sceneImageBackground_base
-            fragmentShader: "
-                varying highp vec2 qt_TexCoord0;
-                uniform sampler2D source;
-
-                void main() {
-                    highp vec4 texColor = texture2D(source, qt_TexCoord0);
-                    
-                    // Ordered dithering algorithm
-                    // You can replace this with your own ordered dithering shader
-                    int x = int(mod(gl_FragCoord.x, 4.0));
-                    int y = int(mod(gl_FragCoord.y, 4.0));
-                    float threshold = float((y * 4) + x) / 16.0;
-                    vec3 ditheredColor = floor(texColor.rgb * 16.0 + vec3(0.5)) / 16.0;
-                    vec3 resultColor = mix(ditheredColor, customPalette[int(threshold * float(customPalette.length))].rgb, step(threshold, ditheredColor));
-
-                    gl_FragColor = vec4(resultColor, texColor.a);
-                }"
-        }
     }
+
+    Image {
+        id: sceneImageBackground
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectFit
+        source: sceneImageBackground_base
+        smooth: true
+        // mipmap: true
+        // antialiasing: true // Enable antialiasing for smoother scaling
+
+        // Calculate the nearest integer scaling factor
+        // property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground.width))
+        // transform: Scale {
+        //     origin.x: sceneImageBackground.width / 2
+        //     origin.y: sceneImageBackground.height / 2
+        //     xScale: scaleRatio
+        //     yScale: scaleRatio
+        // }
+    }
+
+    // RecursiveBlur {
+    //     anchors.fill: sceneImageBackground
+    //     source: sceneImageBackground
+    //     radius: config.Blur == "true" ? config.RecursiveBlurRadius : 0
+    //     loops: config.Blur == "true" ? config.RecursiveBlurLoops : 0
+    // }
 }
 
