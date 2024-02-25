@@ -26,48 +26,52 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
-    // Custom color palette
-    property variant customPalette: ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"]
-
-    Image {
-        id: sceneImageBackground_base
+    ShaderEffect {
         anchors.fill: parent
-        fillMode: Image.Pad
-        source: config.background || config.Background
-        smooth: true
+        fragmentShader: "
+            #version 150
+            varying highp vec2 qt_TexCoord0;
+            uniform sampler2D source;
+            uniform highp float qt_Opacity;
+            uniform lowp vec4 qtColorPalette[256]; // Define your custom color palette here
 
-        // Calculate the nearest integer scaling factor
-        property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
-        transform: Scale {
-            origin.x: sceneImageBackground_base.width / 2
-            origin.y: sceneImageBackground_base.height / 2
-            xScale: scaleRatio
-            yScale: scaleRatio
-        }
+            void main() {
+                highp vec4 color = texture2D(source, qt_TexCoord0);
+                highp float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+                highp float threshold = mod(gray, 1.0);
 
-        // Add ShaderEffectItem for ordered dithering
-        ShaderEffectItem {
-            id: ditherShader
-            anchors.fill: parent
-            sourceItem: sceneImageBackground_base
-            fragmentShader: "
-                varying highp vec2 qt_TexCoord0;
-                uniform sampler2D source;
+                // Ordered dithering
+                highp float ditherValue = 0.0; // Adjust this value for dithering strength
+                highp vec4 ditheredColor = color;
+                if (threshold > ditherValue) {
+                    ditheredColor = qtColorPalette[int(gray * 255.0)];
+                }
 
-                void main() {
-                    highp vec4 texColor = texture2D(source, qt_TexCoord0);
-                    
-                    // Ordered dithering algorithm
-                    // You can replace this with your own ordered dithering shader
-                    int x = int(mod(gl_FragCoord.x, 4.0));
-                    int y = int(mod(gl_FragCoord.y, 4.0));
-                    float threshold = float((y * 4) + x) / 16.0;
-                    vec3 ditheredColor = floor(texColor.rgb * 16.0 + vec3(0.5)) / 16.0;
-                    vec3 resultColor = mix(ditheredColor, customPalette[int(threshold * float(customPalette.length))].rgb, step(threshold, ditheredColor));
+                gl_FragColor = ditheredColor * qt_Opacity;
+            }
+        "
 
-                    gl_FragColor = vec4(resultColor, texColor.a);
-                }"
+        property variant source: ShaderEffectSource {
+            sourceItem: Image {
+                id: sceneImageBackground_base
+                anchors.fill: parent
+                fillMode: Image.Pad
+                source: config.background || config.Background
+                smooth: true
+                // Other properties...
+
+                // Calculate the nearest integer scaling factor
+                property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
+                transform: Scale {
+                    origin.x: sceneImageBackground_base.width / 2
+                    origin.y: sceneImageBackground_base.height / 2
+                    xScale: scaleRatio
+                    yScale: scaleRatio
+                }
+            }
         }
     }
+
+    // Other elements...
 }
 
