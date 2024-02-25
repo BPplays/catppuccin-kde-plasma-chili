@@ -245,11 +245,11 @@ SessionManagementScreen {
             to: 0.75
             duration: 100
         }
-        PropertyAnimation {
+        PropertyAnimation { // this wont work
             id: hideLoginButton
             target: loginButton_overlay
             properties: "opacity"
-            to: 0
+            to: 0.01
             duration: 80
         }
     }
