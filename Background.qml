@@ -29,7 +29,7 @@ FocusScope {
     Image {
         id: sceneImageBackground_base
         anchors.fill: parent
-        // fillMode: Image.PreserveAspectFit
+        fillMode: Image.Pad
         source: config.background || config.Background
         smooth: false
         // mipmap: true
