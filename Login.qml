@@ -205,7 +205,7 @@ SessionManagementScreen {
         source: loginButton
         color: cattpuccin_green // Replace with your desired color
         visible: true
-        opacity: 0
+        opacity: 2
         PropertyAnimation {
             id: showLoginButton_overlay
             target: loginButton_overlay
