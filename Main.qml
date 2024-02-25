@@ -142,7 +142,7 @@ PlasmaCore.ColorScope {
                     iconSize: root.generalFontSize * 4.25
                 },
                 ActionButton {
-                    iconSource: "system-shutdown"
+                    iconSource: "system-reboot"
                     text: config.TranslationPowerOff ? config.TranslationPowerOff : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Shutdown")
                     onClicked: sddm.powerOff()
                     enabled: sddm.canPowerOff
