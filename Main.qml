@@ -360,7 +360,8 @@ PlasmaCore.ColorScope {
                 source: ab_shutdown_base
                 // smooth: true
 
-                color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
+                // color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
+                color: cattpuccin_green
                 visible: !inputPanel.keyboardActive
                 // opacity: 1
                 enabled: true
