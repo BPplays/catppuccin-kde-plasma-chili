@@ -180,7 +180,7 @@ PlasmaCore.ColorScope {
                     text: config.TranslationPowerOff ? config.TranslationPowerOff : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Shutdown")
                     onClicked: sddm.powerOff()
                     enabled: sddm.canPowerOff
-                    visible: !inputPanel.keyboardActive
+                    visible: false
                     iconSize: root.generalFontSize * 4.25
                 }
 
