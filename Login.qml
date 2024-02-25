@@ -177,7 +177,7 @@ SessionManagementScreen {
         }
         anchors.leftMargin: 8
         // visible: opacity > 0
-        visible: false
+        visible: true
         opacity: 0
         MouseArea {
             anchors.fill: parent
