@@ -83,7 +83,8 @@ SessionManagementScreen {
         implicitHeight: root.height / 28
         font.family: config.Font || "Noto Sans"
         font.pointSize: usernameFontSize
-        opacity: 0.5
+        // opacity: 0.5
+        opacity: 0.75
         text: lastUserName
         visible: showUsernamePrompt
         focus: showUsernamePrompt && !lastUserName //if there's a username prompt it gets focus first, otherwise password does
