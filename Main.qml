@@ -174,25 +174,28 @@ PlasmaCore.ColorScope {
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
                 },
-                ActionButton {
-                    id: ab_shutdown_base
-                    iconSource: "system-shutdown"
-                    text: config.TranslationPowerOff ? config.TranslationPowerOff : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Shutdown")
-                    onClicked: sddm.powerOff()
-                    enabled: sddm.canPowerOff
-                    visible: !inputPanel.keyboardActive
-                    iconSize: root.generalFontSize * 4.25
-                },
-                ColorOverlay {
-                    id: ab_shutdown
-                    anchors.fill: ab_shutdown_base
-                    source: ab_shutdown_base
-                    // smooth: true
+                Item {
+                    id: ab_shutdown_par
+                    ActionButton {
+                        id: ab_shutdown_base
+                        iconSource: "system-shutdown"
+                        text: config.TranslationPowerOff ? config.TranslationPowerOff : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Shutdown")
+                        onClicked: sddm.powerOff()
+                        enabled: sddm.canPowerOff
+                        visible: !inputPanel.keyboardActive
+                        iconSize: root.generalFontSize * 4.25
+                    }
+                    ColorOverlay {
+                        id: ab_shutdown
+                        anchors.fill: ab_shutdown_base
+                        source: ab_shutdown_base
+                        // smooth: true
 
-                    color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
-                    visible: !inputPanel.keyboardActive
-                    // opacity: 1
-                    enabled: true
+                        color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
+                        visible: !inputPanel.keyboardActive
+                        // opacity: 1
+                        enabled: true
+                    }
                 }
             ]
 
