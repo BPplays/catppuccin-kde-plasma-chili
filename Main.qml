@@ -158,21 +158,67 @@ PlasmaCore.ColorScope {
             }
 
             actionItems: [
-                ActionButton {
-                    iconSource: "system-suspend"
-                    text: config.TranslationSuspend ? config.TranslationSuspend : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Suspend")
-                    onClicked: sddm.suspend()
-                    enabled: sddm.canSuspend
-                    visible: !inputPanel.keyboardActive
-                    iconSize: root.generalFontSize * 4.25
+                // ActionButton {
+                //     iconSource: "system-suspend"
+                //     text: config.TranslationSuspend ? config.TranslationSuspend : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Suspend")
+                //     onClicked: sddm.suspend()
+                //     enabled: sddm.canSuspend
+                //     visible: !inputPanel.keyboardActive
+                //     iconSize: root.generalFontSize * 4.25
+                // },
+                // ActionButton {
+                //     iconSource: "system-reboot"
+                //     text: config.TranslationReboot ? config.TranslationReboot : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Restart")
+                //     onClicked: sddm.reboot()
+                //     enabled: sddm.canReboot
+                //     visible: !inputPanel.keyboardActive
+                //     iconSize: root.generalFontSize * 4.25
+                // },
+                Item {
+                    id: ab_suspend_par
+                    ActionButton {
+                        id: ab_suspend_base
+                        iconSource: "system-suspend"
+                        text: config.TranslationSuspend ? config.TranslationSuspend : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Suspend")
+                        onClicked: sddm.suspend()
+                        enabled: sddm.canSuspend
+                        visible: false
+                        iconSize: root.generalFontSize * 4.25
+                    }
+                    ColorOverlay {
+                        id: ab_suspend
+                        anchors.fill: ab_suspend_base
+                        source: ab_suspend_base
+                        // smooth: true
+
+                        color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
+                        visible: !inputPanel.keyboardActive
+                        // opacity: 1
+                        enabled: true
+                    }
                 },
-                ActionButton {
-                    iconSource: "system-reboot"
-                    text: config.TranslationReboot ? config.TranslationReboot : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Restart")
-                    onClicked: sddm.reboot()
-                    enabled: sddm.canReboot
-                    visible: !inputPanel.keyboardActive
-                    iconSize: root.generalFontSize * 4.25
+                Item {
+                    id: ab_reboot_par
+                    ActionButton {
+                        id: ab_reboot_base
+                        iconSource: "system-reboot"
+                        text: config.TranslationReboot ? config.TranslationReboot : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Restart")
+                        onClicked: sddm.reboot()
+                        enabled: sddm.canReboot
+                        visible: false
+                        iconSize: root.generalFontSize * 4.25
+                    }
+                    ColorOverlay {
+                        id: ab_reboot
+                        anchors.fill: ab_reboot_base
+                        source: ab_reboot_base
+                        // smooth: true
+
+                        color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
+                        visible: !inputPanel.keyboardActive
+                        // opacity: 1
+                        enabled: true
+                    }
                 },
                 Item {
                     id: ab_shutdown_par
