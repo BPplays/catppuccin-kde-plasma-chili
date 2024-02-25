@@ -186,7 +186,7 @@ SessionManagementScreen {
             id: showLoginButton
             target: loginButton
             properties: "opacity"
-            to: 0
+            to: 0.75
             duration: 100
         }
         PropertyAnimation {
@@ -205,12 +205,12 @@ SessionManagementScreen {
         source: loginButton
         color: cattpuccin_green // Replace with your desired color
         visible: opacity > 0
-        opacity: 0
+        opacity: 1
         PropertyAnimation {
             id: showLoginButton_overlay
             target: loginButton
             properties: "opacity"
-            to: 0.75
+            to: 1
             duration: 100
         }
         PropertyAnimation {
