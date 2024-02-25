@@ -203,28 +203,25 @@ SessionManagementScreen {
         id: loginButton_overlay
         anchors.fill: loginButton
         source: loginButton
-        color: cattpuccin_green // Replace with your desired color
+        color: Qt.rgba(cattpuccin_green.r, cattpuccin_green.g, cattpuccin_green.b, 0) // Set initial alpha to 0
         visible: loginButton.visible
 
-        // Synchronize the opacity animation with the Image
-        Behavior on opacity {
-            PropertyAnimation {
-                id: overlayShowAnimation
-                target: loginButton_overlay
-                properties: "opacity"
-                to: 0.01
-                duration: 100
-            }
-
-            PropertyAnimation {
-                id: overlayHideAnimation
-                target: loginButton_overlay
-                properties: "opacity"
-                to: 0
-                duration: 80
-            }
+        // Animate the alpha channel
+        PropertyAnimation {
+            target: loginButton_overlay
+            property: "color.alpha"
+            from: 0
+            to: 1
+            duration: 100
         }
- 
+
+        PropertyAnimation {
+            target: loginButton_overlay
+            property: "color.alpha"
+            from: 1
+            to: 0
+            duration: 80
+        }
     }
 
 }
