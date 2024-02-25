@@ -32,7 +32,7 @@ RowLayout {
     Label {
         font.family: config.Font || "Noto Sans"
         font.pointSize: clockSize
-        text: Qt.formatDateTime(timeSource.data["Local"]["DateTime"], " ddd dd MMMM yyyy,")
+        text: Qt.formatDateTime(timeSource.data["Local"]["DateTime"], "yyyy MMMM dddd,")
         renderType: Text.QtRendering
     }
     Label {
