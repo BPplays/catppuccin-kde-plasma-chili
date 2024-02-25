@@ -200,18 +200,19 @@ SessionManagementScreen {
     }
     // Apply a color overlay to change the image color
     ColorOverlay {
+        id: loginButton_overlay
         anchors.fill: loginButton
         source: loginButton
         color: cattpuccin_subtext1 // Replace with your desired color
         PropertyAnimation {
-            id: showLoginButton
+            id: showLoginButton_overlay
             target: loginButton
             properties: "opacity"
             to: 0.75
             duration: 100
         }
         PropertyAnimation {
-            id: hideLoginButton
+            id: hideLoginButton_overlay
             target: loginButton
             properties: "opacity"
             to: 0
