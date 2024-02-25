@@ -39,7 +39,7 @@ FocusScope {
     ShaderEffectSource {
         id: source
         sourceItem: Image {
-            id: sceneImageBackground
+            id: sceneImageBackground_2
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
             source: config.background || config.Background
@@ -68,6 +68,7 @@ FocusScope {
         height: parent.height
 
         Image {
+            id: sceneImageBackground
             anchors.fill: parent
             source: source
         }
