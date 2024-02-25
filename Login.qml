@@ -198,7 +198,7 @@ SessionManagementScreen {
     ColorOverlay {
         anchors.fill: loginButton
         source: loginButton
-        color: cattpuccin_crust // Replace with your desired color
+        color: cattpuccin_subtext1 // Replace with your desired color
     }
 
 }
