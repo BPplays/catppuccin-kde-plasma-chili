@@ -182,7 +182,7 @@ PlasmaCore.ColorScope {
                         text: config.TranslationSuspend ? config.TranslationSuspend : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Suspend")
                         onClicked: sddm.suspend()
                         enabled: sddm.canSuspend
-                        visible: false
+                        visible: !inputPanel.keyboardActive
                         iconSize: root.generalFontSize * 4.25
                     }
                     ColorOverlay {
@@ -205,7 +205,7 @@ PlasmaCore.ColorScope {
                         text: config.TranslationReboot ? config.TranslationReboot : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Restart")
                         onClicked: sddm.reboot()
                         enabled: sddm.canReboot
-                        visible: false
+                        visible: !inputPanel.keyboardActive
                         iconSize: root.generalFontSize * 4.25
                     }
                     ColorOverlay {
