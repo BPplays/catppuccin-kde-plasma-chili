@@ -24,13 +24,53 @@ import QtGraphicalEffects 1.0
 FocusScope {
     id: sceneBackground
 
-    Image {
-        id: sceneImageBackground
-        anchors.fill: parent
-        fillMode: Image.PreserveAspectCrop
-        source: config.background || config.Background
-        // smooth: true
-        mipmap: true
+    // Image {
+    //     id: sceneImageBackground
+    //     anchors.fill: parent
+    //     fillMode: Image.PreserveAspectCrop
+    //     source: config.background || config.Background
+    //     smooth: true
+    //     // mipmap: true
+    // }
+
+        width: 800
+    height: 600
+
+    ShaderEffectSource {
+        id: source
+        sourceItem: Image {
+            id: sceneImageBackground
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectCrop
+            source: config.background || config.Background
+        }
+
+        width: Math.floor(parent.width)
+        height: Math.floor(parent.height)
+
+        fragmentShader: "
+            varying highp vec2 qt_TexCoord0;
+            uniform sampler2D source;
+
+            void main() {
+                highp vec2 texCoord = qt_TexCoord0;
+                // Perform custom scaling to the nearest integer
+                texCoord *= vec2(textureSize(source, 0)) / vec2(parent.width, parent.height);
+
+                // Apply bilinear interpolation
+                gl_FragColor = texture2D(source, texCoord);
+            }
+        "
+    }
+
+    Rectangle {
+        width: parent.width
+        height: parent.height
+
+        Image {
+            anchors.fill: parent
+            source: source
+        }
     }
 
     RecursiveBlur {
