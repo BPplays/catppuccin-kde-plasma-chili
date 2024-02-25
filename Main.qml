@@ -182,22 +182,8 @@ PlasmaCore.ColorScope {
                     enabled: sddm.canPowerOff
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                },
-                ColorOverlay {
-                    id: ab_shutdown
-                    anchors.fill: ab_shutdown_base
-                    source: ab_shutdown_base
-                    // smooth: true
-
-                    color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
-                    visible: !inputPanel.keyboardActive
-                    // opacity: 1
-                    enabled: true
-                    
-
-
-
                 }
+
             ]
 
             onLoginRequest: {
@@ -210,6 +196,22 @@ PlasmaCore.ColorScope {
             OpacityAnimator {
                 duration: units.longDuration
             }
+        }
+
+        ColorOverlay {
+            id: ab_shutdown
+            anchors.fill: ab_shutdown_base
+            source: ab_shutdown_base
+            // smooth: true
+
+            color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
+            visible: !inputPanel.keyboardActive
+            // opacity: 1
+            enabled: true
+            
+
+
+
         }
     }
 
