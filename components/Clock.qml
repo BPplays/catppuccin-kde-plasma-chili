@@ -63,9 +63,13 @@ RowLayout {
     Label {
         font.family: config.Font || "Noto Sans"
         font.pointSize: clockSize
-        text: Qt.formatDateTime(timeSource.data["Local"]["DateTime"], "yyyy/MM/dd,") // MMMM shows month right
-        color: cattpuccin_text
+        // text: Qt.formatDateTime(timeSource.data["Local"]["DateTime"], "yyyy/MM/dd,") // MMMM shows month right
+        // color: cattpuccin_text
         renderType: Text.QtRendering
+        Text {
+            text: Qt.formatDateTime(timeSource.data["Local"]["DateTime"], "yyyy/MM/dd,")
+            color: cattpuccin_text
+        }
     }
     Label {
         font.family: config.Font || "Noto Sans"
