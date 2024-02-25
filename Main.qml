@@ -181,7 +181,7 @@ PlasmaCore.ColorScope {
                         // opacity: 1
                         enabled: true
                     }
-                },
+                }
                 Item {
                     id: ab_reboot_par
                     ActionButton {
@@ -204,7 +204,7 @@ PlasmaCore.ColorScope {
                         // opacity: 1
                         enabled: true
                     }
-                },
+                }
                 Item {
                     id: ab_shutdown_par
                     ActionButton {
