@@ -53,17 +53,9 @@ FocusScope {
                 varying highp vec2 qt_TexCoord0;
                 uniform lowp sampler2D source;
                 uniform lowp float qt_Opacity;
-                uniform lowp vec3 qt_CustomPalette [
-                // Define your custom color palette here
-                // Each color should be in the format: vec3(red, green, blue)
-                vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765),    // f5c2e7
-                vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666),    // 313244
-                vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451),    // 1e1e2e
-                vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826),    // 45475a
-                // Add more colors as needed
-            ];
+                uniform lowp vec3 qt_CustomPalette[16];
 
-                // qt_CustomPalette = customPalette
+                qt_CustomPalette = customPalette;
                 
                 void main() {
                     lowp vec4 color = texture2D(source, qt_TexCoord0);
