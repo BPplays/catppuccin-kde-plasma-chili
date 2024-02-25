@@ -252,9 +252,9 @@ SessionManagementScreen {
             to: 0
             duration: 80
 
-            onStopped: {
-                parent.visible = false; // Set visibility to false when animation stops
-            }
+            // onStopped: {
+            //     parent.visible = false; // Set visibility to false when animation stops
+            // }
         }
     }
 
