@@ -332,7 +332,7 @@ PlasmaCore.ColorScope {
                     text: config.TranslationSuspend ? config.TranslationSuspend : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Suspend")
                     onClicked: sddm.suspend()
                     enabled: sddm.canSuspend
-                    visible: !inputPanel.keyboardActive
+                    visible: false
                     iconSize: root.generalFontSize * 4.25
                 },
                 ActionButton {
