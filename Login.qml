@@ -204,22 +204,8 @@ SessionManagementScreen {
         anchors.fill: loginButton
         source: loginButton
         color: cattpuccin_green // Replace with your desired color
-        visible: true
-        opacity: 2
-        PropertyAnimation {
-            id: showLoginButton_overlay
-            target: loginButton_overlay
-            properties: "opacity"
-            to: 1
-            duration: 100
-        }
-        PropertyAnimation {
-            id: hideLoginButton_overlay
-            target: loginButton_overlay
-            properties: "opacity"
-            to: 0
-            duration: 80
-        }
+        visible: loginButton.visible
+ 
     }
 
 }
