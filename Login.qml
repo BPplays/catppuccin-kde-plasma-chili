@@ -203,6 +203,20 @@ SessionManagementScreen {
         anchors.fill: loginButton
         source: loginButton
         color: cattpuccin_subtext1 // Replace with your desired color
+        PropertyAnimation {
+            id: showLoginButton
+            target: loginButton
+            properties: "opacity"
+            to: 0.75
+            duration: 100
+        }
+        PropertyAnimation {
+            id: hideLoginButton
+            target: loginButton
+            properties: "opacity"
+            to: 0
+            duration: 80
+        }
     }
 
 }
