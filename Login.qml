@@ -80,8 +80,8 @@ SessionManagementScreen {
         onAccepted: startLogin()
 
         style: TextFieldStyle {
-            textColor: passwordFieldOutlined ? "black" : "black"
-            placeholderTextColor: passwordFieldOutlined ? "white" : "black"
+            textColor: passwordFieldOutlined ? "white" : "white"
+            placeholderTextColor: passwordFieldOutlined ? "white" : "white"
             passwordCharacter: config.PasswordFieldCharacter == "" ? "●" : config.PasswordFieldCharacter
             background: Rectangle {
                 radius: 3
