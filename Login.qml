@@ -203,7 +203,7 @@ SessionManagementScreen {
         id: loginButton_overlay
         anchors.fill: loginButton
         source: loginButton
-        color: Qt.rgba(cattpuccin_green.r, cattpuccin_green.g, cattpuccin_green.b, 0) // Set initial alpha to 0
+        color: Qt.rgba(cattpuccin_green.r, cattpuccin_green.g, cattpuccin_green.b, 0.5) // Set initial alpha to 0
         visible: loginButton.visible
 
         // Animate the alpha channel
