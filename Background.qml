@@ -18,60 +18,50 @@
  */
 
 import QtQuick 2.2
-
 import QtGraphicalEffects 1.0
 
 FocusScope {
-    id: sceneBackground
+    id: sceneBackground_base
 
-    // Image {
-    //     id: sceneImageBackground
-    //     anchors.fill: parent
-    //     fillMode: Image.PreserveAspectCrop
-    //     source: config.background || config.Background
-    //     smooth: true
-    //     // mipmap: true
-    // }
+    property int screenWidth: Screen.width
+    property int screenHeight: Screen.height
 
-        width: 800
-    height: 600
+    Image {
+        id: sceneImageBackground_base
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectFit
+        source: config.background || config.Background
+        smooth: false
+        // mipmap: true
+        // antialiasing: true // Enable antialiasing for smoother scaling
 
-    ShaderEffectSource {
-        id: source
-        sourceItem: Image {
-            id: sceneImageBackground_2
-            anchors.fill: parent
-            fillMode: Image.PreserveAspectCrop
-            source: config.background || config.Background
+        // Calculate the nearest integer scaling factor
+        property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
+        transform: Scale {
+            origin.x: sceneImageBackground_base.width / 2
+            origin.y: sceneImageBackground_base.height / 2
+            xScale: scaleRatio
+            yScale: scaleRatio
         }
-
-        width: Math.floor(parent.width)
-        height: Math.floor(parent.height)
-
-        fragmentShader: "
-            varying highp vec2 qt_TexCoord0;
-            uniform sampler2D source;
-
-            void main() {
-                highp vec2 texCoord = qt_TexCoord0;
-                // Perform custom scaling to the nearest integer
-                texCoord *= vec2(textureSize(source, 0)) / vec2(parent.width, parent.height);
-
-                // Apply bilinear interpolation
-                gl_FragColor = texture2D(source, texCoord);
-            }
-        "
     }
 
-    Rectangle {
-        width: parent.width
-        height: parent.height
+    Image {
+        id: sceneImageBackground
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectFit
+        source: sceneImageBackground_base
+        smooth: true
+        // mipmap: true
+        // antialiasing: true // Enable antialiasing for smoother scaling
 
-        Image {
-            id: sceneImageBackground
-            anchors.fill: parent
-            source: source
-        }
+        // Calculate the nearest integer scaling factor
+        // property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground.width))
+        // transform: Scale {
+        //     origin.x: sceneImageBackground.width / 2
+        //     origin.y: sceneImageBackground.height / 2
+        //     xScale: scaleRatio
+        //     yScale: scaleRatio
+        // }
     }
 
     RecursiveBlur {
@@ -81,3 +71,4 @@ FocusScope {
         loops: config.Blur == "true" ? config.RecursiveBlurLoops : 0
     }
 }
+
