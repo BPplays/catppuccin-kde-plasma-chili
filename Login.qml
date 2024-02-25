@@ -212,7 +212,7 @@ SessionManagementScreen {
                 id: overlayShowAnimation
                 target: loginButton_overlay
                 properties: "opacity"
-                to: 0.75
+                to: 0.01
                 duration: 100
             }
 
