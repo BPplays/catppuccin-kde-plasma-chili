@@ -168,7 +168,7 @@ SessionManagementScreen {
     }
 
     Image {
-        id: loginButton
+        id: loginButton_base
         source: "components/artwork/login.svgz"
         smooth: true
         sourceSize: Qt.size(passwordBox.height, passwordBox.height)
@@ -201,9 +201,9 @@ SessionManagementScreen {
     }
     // Apply a color overlay to change the image color
     ColorOverlay {
-        id: loginButton_overlay
-        anchors.fill: loginButton
-        source: loginButton
+        id: loginButton
+        anchors.fill: loginButton_base
+        source: loginButton_base
         smooth: true
 
         // // Extract RGB components from hex color
@@ -240,14 +240,14 @@ SessionManagementScreen {
         }
         PropertyAnimation {
             id: showLoginButton
-            target: loginButton_overlay
+            target: loginButton
             properties: "opacity"
             to: 0.75
             duration: 100
         }
         PropertyAnimation { // this wont work
             id: hideLoginButton
-            target: loginButton_overlay
+            target: loginButton
             properties: "opacity"
             to: 0
             duration: 80
