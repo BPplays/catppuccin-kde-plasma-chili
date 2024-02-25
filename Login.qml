@@ -204,24 +204,29 @@ SessionManagementScreen {
         id: loginButton_overlay
         anchors.fill: loginButton
         source: loginButton
-        color: Qt.rgba(1, 1, 0, 0.1) // Set initial alpha to 0
+
+        // Extract RGB components from hex color
+        property real redComponent: (cattpuccin_green >> 16) & 0xFF
+        property real greenComponent: (cattpuccin_green >> 8) & 0xFF
+        property real blueComponent: cattpuccin_green & 0xFF
+
+        color: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0) // Initial alpha is 0
         visible: loginButton.visible
 
-        // Animate the alpha channel
-        PropertyAnimation {
-            target: loginButton_overlay
-            property: "color.alpha"
-            from: 0
-            to: 0.2
-            duration: 100
-        }
+        SequentialAnimation {
+            PropertyAnimation {
+                target: loginButton_overlay
+                properties: "color"
+                to: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0.75)
+                duration: 100
+            }
 
-        PropertyAnimation {
-            target: loginButton_overlay
-            property: "color.alpha"
-            from: 1
-            to: 0
-            duration: 80
+            PropertyAnimation {
+                target: loginButton_overlay
+                properties: "color"
+                to: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0)
+                duration: 80
+            }
         }
     }
 
