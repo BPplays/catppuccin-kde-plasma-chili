@@ -54,6 +54,8 @@ FocusScope {
                 uniform lowp sampler2D source;
                 uniform lowp float qt_Opacity;
                 uniform lowp vec3 qt_CustomPalette[16];
+
+                qt_CustomPalette = customPalette
                 
                 void main() {
                     lowp vec4 color = texture2D(source, qt_TexCoord0);
