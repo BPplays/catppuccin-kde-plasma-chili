@@ -22,6 +22,8 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.1
 
+import QtGraphicalEffects 1.12
+
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
@@ -180,10 +182,23 @@ PlasmaCore.ColorScope {
                     enabled: sddm.canPowerOff
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
+                },
+                ColorOverlay {
+                    id: ab_shutdown
+                    anchors.fill: ab_shutdown_base
+                    source: ab_shutdown_base
+                    // smooth: true
+
+                    color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
+                    visible: !inputPanel.keyboardActive
+                    // opacity: 1
+                    enabled: true
+                    
+
+
+
                 }
             ]
-
-
 
             onLoginRequest: {
                 root.notificationMessage = ""
@@ -391,22 +406,6 @@ PlasmaCore.ColorScope {
         id: notificationResetTimer
         interval: 3000
         onTriggered: notificationMessage = ""
-    }
-
-    ColorOverlay {
-        id: ab_shutdown
-        anchors.fill: ab_shutdown_base
-        source: ab_shutdown_base
-        // smooth: true
-
-        color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
-        visible: !inputPanel.keyboardActive
-        // opacity: 1
-        enabled: true
-        
-
-
-
     }
 
 }
