@@ -35,17 +35,15 @@ FocusScope {
                 uniform lowp float qt_Opacity;
                 uniform lowp vec3 qt_CustomPalette[16];
 
-                qt_CustomPalette = customPalette;
-                
                 void main() {
                     lowp vec4 color = texture2D(source, qt_TexCoord0);
                     
                     // Convert to grayscale
                     lowp float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
                     
-                    // Quantize using ordered dithering
-                    lowp float nearestIndex = floor(gray * 15.0);
-                    lowp vec3 quantizedColor = qt_CustomPalette[int(nearestIndex)];
+                    // Index into the custom color palette
+                    lowp int index = int(gray * 15.0);
+                    lowp vec3 quantizedColor = qt_CustomPalette[index];
                     
                     gl_FragColor = vec4(quantizedColor, color.a) * qt_Opacity;
                 }"
