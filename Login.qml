@@ -204,6 +204,7 @@ SessionManagementScreen {
         id: loginButton_overlay
         anchors.fill: loginButton
         source: loginButton
+        smooth: true
 
         // // Extract RGB components from hex color
         // property real redComponent: (cattpuccin_green >> 16) & 0xFF
