@@ -249,8 +249,12 @@ SessionManagementScreen {
             id: hideLoginButton
             target: loginButton_overlay
             properties: "opacity"
-            to: 0.01
+            to: 0
             duration: 80
+
+            onStopped: {
+                parent.visible = false; // Set visibility to false when animation stops
+            }
         }
     }
 
