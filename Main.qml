@@ -350,6 +350,7 @@ PlasmaCore.ColorScope {
                     onClicked: sddm.powerOff()
                     enabled: sddm.canPowerOff
                     visible: !inputPanel.keyboardActive
+                    color: cattpuccin_blue
                     iconSize: root.generalFontSize * 4.25
                 }
             ]
