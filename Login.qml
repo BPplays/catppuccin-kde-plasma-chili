@@ -186,7 +186,7 @@ SessionManagementScreen {
             id: showLoginButton
             target: loginButton
             properties: "opacity"
-            to: 0
+            to: 0.75
             duration: 100
         }
         PropertyAnimation {
