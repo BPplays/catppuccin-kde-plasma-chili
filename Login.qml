@@ -245,7 +245,7 @@ SessionManagementScreen {
             to: 0.75
             duration: 100
         }
-        PropertyAnimation { // this wont work
+        PropertyAnimation { // this whole thing must be named loginButton  ~this wont work~
             id: hideLoginButton
             target: loginButton
             properties: "opacity"
