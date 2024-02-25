@@ -394,7 +394,6 @@ PlasmaCore.ColorScope {
                     enabled: sddm.canPowerOff
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                    icon.color: "red" // Set the desired color here
                 }
             ]
 
