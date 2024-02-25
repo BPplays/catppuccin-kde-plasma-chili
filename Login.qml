@@ -119,7 +119,7 @@ SessionManagementScreen {
         onAccepted: startLogin()
 
         style: TextFieldStyle {
-            textColor: passwordFieldOutlined ? "white" : cattpuccin_text
+            textColor: passwordFieldOutlined ? "white" : cattpuccin_green.g
             placeholderTextColor: passwordFieldOutlined ? "white" : cattpuccin_text
             passwordCharacter: config.PasswordFieldCharacter == "" ? "●" : config.PasswordFieldCharacter
             background: Rectangle {
