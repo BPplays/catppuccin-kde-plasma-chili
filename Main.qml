@@ -350,8 +350,16 @@ PlasmaCore.ColorScope {
                     onClicked: sddm.powerOff()
                     enabled: sddm.canPowerOff
                     visible: !inputPanel.keyboardActive
-                    color: cattpuccin_blue
                     iconSize: root.generalFontSize * 4.25
+
+                    Image {
+                        source: ab_shutdown_base.iconSource
+
+                        // Set the color of the icon
+                        fillMode: Image.PreserveAspectFit
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        color: "red" // Replace "red" with your desired color
+                    }
                 }
             ]
 
