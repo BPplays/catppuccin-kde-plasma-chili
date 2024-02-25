@@ -182,20 +182,20 @@ SessionManagementScreen {
             anchors.fill: parent
             onClicked: startLogin();
         }
-        // PropertyAnimation {
-        //     id: showLoginButton
-        //     target: loginButton
-        //     properties: "opacity"
-        //     to: 0.75
-        //     duration: 100
-        // }
-        // PropertyAnimation {
-        //     id: hideLoginButton
-        //     target: loginButton
-        //     properties: "opacity"
-        //     to: 0
-        //     duration: 80
-        // }
+        PropertyAnimation {
+            id: showLoginButton
+            target: loginButton
+            properties: "opacity"
+            to: 0.75
+            duration: 100
+        }
+        PropertyAnimation {
+            id: hideLoginButton
+            target: loginButton
+            properties: "opacity"
+            to: 0
+            duration: 80
+        }
 
     }
     // Apply a color overlay to change the image color
