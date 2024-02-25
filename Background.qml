@@ -26,57 +26,64 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
-
-    ShaderEffect {
+    Image {
+        id: sceneImageBackground_base
         anchors.fill: parent
-        fragmentShader: "
-            #version 150
-            varying highp vec2 qt_TexCoord0;
-            uniform sampler2D source;
-            uniform highp float qt_Opacity;
-            uniform lowp vec4 qtColorPalette[
-                Qt.rgba(1.0, 0.0, 0.0, 1.0),  // Red
-                Qt.rgba(0.0, 1.0, 0.0, 1.0),  // Green
-                Qt.rgba(0.0, 0.0, 1.0, 1.0)   // Blue
-            ]; // Define your custom color palette here
+        fillMode: Image.Pad
+        source: config.background || config.Background
+        smooth: true
 
-            void main() {
-                highp vec4 color = texture2D(source, qt_TexCoord0);
-                highp float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-                highp float threshold = mod(gray, 1.0);
+        // Calculate the nearest integer scaling factor
+        property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
+        // scale: scaleRatio
+        transform: Scale {
+            origin.x: sceneImageBackground_base.width / 2
+            origin.y: sceneImageBackground_base.height / 2
+            xScale: scaleRatio
+            yScale: scaleRatio
+        }
 
-                // Ordered dithering
-                highp float ditherValue = 0.0; // Adjust this value for dithering strength
-                highp vec4 ditheredColor = color;
-                if (threshold > ditherValue) {
-                    ditheredColor = qtColorPalette[int(gray * 255.0)];
-                }
+        // Apply shader effect for color quantization with ordered dithering
+        layer.enabled: true
+        layer.effect: ShaderEffect {
+            width: sceneImageBackground_base.width
+            height: sceneImageBackground_base.height
 
-                gl_FragColor = ditheredColor * qt_Opacity;
-            }
-        "
+            fragmentShader: "
+                varying highp vec2 qt_TexCoord0;
+                uniform lowp sampler2D source;
+                uniform lowp float qt_Opacity;
+                uniform lowp vec3 qt_CustomPalette[16];
+                
+                void main() {
+                    lowp vec4 color = texture2D(source, qt_TexCoord0);
+                    
+                    // Convert to grayscale
+                    lowp float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+                    
+                    // Quantize using ordered dithering
+                    lowp float nearestIndex = floor(gray * 15.0 + 0.5);
+                    lowp vec3 quantizedColor = qt_CustomPalette[int(nearestIndex)];
+                    
+                    gl_FragColor = vec4(quantizedColor, color.a) * qt_Opacity;
+                }"
 
-        property variant source: ShaderEffectSource {
-            sourceItem: Image {
-                id: sceneImageBackground_base
-                anchors.fill: parent
-                fillMode: Image.Pad
-                source: config.background || config.Background
-                smooth: true
-                // Other properties...
+            property var customPalette: [
+                // Define your custom color palette here
+                // Each color should be in the format: vec3(red, green, blue)
+                vec3(0.0, 0.0, 0.0),    // Black
+                vec3(1.0, 1.0, 1.0),    // White
+                // Add more colors as needed
+            ]
 
-                // Calculate the nearest integer scaling factor
-                property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
-                transform: Scale {
-                    origin.x: sceneImageBackground_base.width / 2
-                    origin.y: sceneImageBackground_base.height / 2
-                    xScale: scaleRatio
-                    yScale: scaleRatio
+            property var textureSource: sceneImageBackground_base
+
+            onEnabledChanged: {
+                if (enabled) {
+                    setUniformValue("qt_CustomPalette", customPalette);
                 }
             }
         }
     }
-
-    // Other elements...
 }
 
