@@ -178,7 +178,7 @@ SessionManagementScreen {
         anchors.leftMargin: 8
         // visible: opacity > 0
         visible: true
-        opacity: 0
+        opacity: 5
         MouseArea {
             anchors.fill: parent
             onClicked: startLogin();
