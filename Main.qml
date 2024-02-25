@@ -180,10 +180,20 @@ PlasmaCore.ColorScope {
                     text: config.TranslationPowerOff ? config.TranslationPowerOff : i18nd("plasma_lookandfeel_org.kde.lookandfeel","Shutdown")
                     onClicked: sddm.powerOff()
                     enabled: sddm.canPowerOff
-                    visible: false
+                    visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                }
+                },
+                ColorOverlay {
+                    id: ab_shutdown
+                    anchors.fill: ab_shutdown_base
+                    source: ab_shutdown_base
+                    // smooth: true
 
+                    color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
+                    visible: !inputPanel.keyboardActive
+                    // opacity: 1
+                    enabled: true
+                }
             ]
 
             onLoginRequest: {
@@ -196,23 +206,6 @@ PlasmaCore.ColorScope {
             OpacityAnimator {
                 duration: units.longDuration
             }
-        }
-
-        ColorOverlay {
-            id: ab_shutdown
-            anchors.fill: ab_shutdown_base
-            source: ab_shutdown_base
-            // smooth: true
-
-            // color: sddm.canPowerOff ? cattpuccin_overlay0 : cattpuccin_subtext0
-            color: cattpuccin_flamingo
-            visible: !inputPanel.keyboardActive
-            // opacity: 1
-            enabled: true
-            
-
-
-
         }
     }
 
