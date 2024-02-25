@@ -176,9 +176,8 @@ SessionManagementScreen {
             verticalCenter: passwordBox.verticalCenter
         }
         anchors.leftMargin: 8
-        // visible: opacity > 0
-        visible: true
-        opacity: 5
+        visible: opacity > 0
+        opacity: 0
         MouseArea {
             anchors.fill: parent
             onClicked: startLogin();
@@ -204,7 +203,7 @@ SessionManagementScreen {
         id: loginButton_overlay
         anchors.fill: loginButton
         source: loginButton
-        color: cattpuccin_subtext1 // Replace with your desired color
+        color: cattpuccin_green // Replace with your desired color
         visible: opacity > 0
         opacity: 0
         PropertyAnimation {
