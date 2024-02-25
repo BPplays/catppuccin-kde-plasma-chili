@@ -58,6 +58,7 @@ FocusScope {
 
 
             property var textureSource: sceneImageBackground_base
+            sourceItem: sceneImageBackground_base
 
 
         }
