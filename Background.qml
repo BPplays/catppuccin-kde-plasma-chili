@@ -30,12 +30,11 @@ FocusScope {
             height: sceneImageBackground_base.height
 
             fragmentShader: "
-                uniform lowp float qt_Opacity;
                 varying highp vec2 qt_TexCoord0;
-                uniform sampler2D source;
-
+                uniform lowp sampler2D source;
+                
                 // Color palette
-                vec3 colorPalette[4] = vec3[4](
+                const vec3 colorPalette[4] = vec3[4](
                     vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765),    // f5c2e7
                     vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666),   // 313244
                     vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451),    // 1e1e2e
@@ -52,15 +51,14 @@ FocusScope {
                     int y = texCoord.y % 4;
                     vec3 ditheredColor = originalColor + colorPalette[x + 4 * y] - 0.5;
 
-                    gl_FragColor = vec4(ditheredColor, srcColor.a) * qt_Opacity;
+                    gl_FragColor = vec4(ditheredColor, srcColor.a);
                 }
             "
 
-
-            property var textureSource: sceneImageBackground_base
-            sourceItem: sceneImageBackground_base
-
-
+            property variant source: ShaderEffectSource {
+                sourceItem: sceneImageBackground_base
+                hideSource: true
+            }
         }
     }
 }
