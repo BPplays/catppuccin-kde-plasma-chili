@@ -192,12 +192,13 @@ SessionManagementScreen {
             to: 0
             duration: 80
         }
-        // Apply a color overlay to change the image color
-        ColorOverlay {
-            anchors.fill: loginButton
-            source: loginButton
-            color: cattpuccin_text // Replace with your desired color
-        }
+
+    }
+    // Apply a color overlay to change the image color
+    ColorOverlay {
+        anchors.fill: loginButton
+        source: loginButton
+        color: cattpuccin_text // Replace with your desired color
     }
 
 }
