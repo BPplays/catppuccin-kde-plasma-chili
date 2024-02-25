@@ -36,7 +36,7 @@ SessionManagementScreen {
     property string cattpuccin_lavender: "#b4befe"
     property string cattpuccin_text: "#cdd6f4"
     property string cattpuccin_subtext1: "#bac2de"
-    property string cattpuccin_subtext1_halfop: "#00ac2de7F"
+    property string cattpuccin_subtext1_halfop: "#bac2de7F"
     property string cattpuccin_subtext0: "#a6adc8"
     property string cattpuccin_overlay2: "#9399b2"
     property string cattpuccin_overlay1: "#7f849c"
@@ -199,7 +199,7 @@ SessionManagementScreen {
     ColorOverlay {
         anchors.fill: loginButton
         source: loginButton
-        color: cattpuccin_subtext1_halfop // Replace with your desired color
+        color: cattpuccin_subtext1 // Replace with your desired color
     }
 
 }
