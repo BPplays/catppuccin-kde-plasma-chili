@@ -375,7 +375,6 @@ PlasmaCore.ColorScope {
                     enabled: sddm.canSuspend
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                    icon.color: "blue" // Set the desired color here
                 },
                 ActionButton {
                     iconSource: "system-reboot"
@@ -384,7 +383,6 @@ PlasmaCore.ColorScope {
                     enabled: sddm.canReboot
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                    icon.color: "green" // Set the desired color here
                 },
                 ActionButton {
                     id: ab_shutdown_base
