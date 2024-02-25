@@ -23,7 +23,7 @@ FocusScope {
             yScale: scaleRatio
         }
 
-        ShaderEffectItem {
+        ShaderEffect {
             width: sceneImageBackground_base.width
             height: sceneImageBackground_base.height
             anchors.fill: parent
