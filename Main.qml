@@ -161,6 +161,7 @@ PlasmaCore.ColorScope {
             actionItems: RowLayout {
                 Item {
                     id: ab_suspend_par
+                    width: ab_suspend_base.width
                     ActionButton {
                         id: ab_suspend_base
                         iconSource: "system-suspend"
