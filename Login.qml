@@ -112,14 +112,15 @@ SessionManagementScreen {
         // opacity: passwordFieldOutlined ? 0.75 : 0.5
         opacity: 1
         font.family: config.Font || "Noto Sans"
-        placeholderText: config.PasswordFieldPlaceholderText == "Password" ? i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Password") : config.PasswordFieldPlaceholderText
+        // placeholderText: config.PasswordFieldPlaceholderText == "Password" ? i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Password") : config.PasswordFieldPlaceholderText
+        placeholderText: cattpuccin_green.g
         focus: !showUsernamePrompt || lastUserName
         echoMode: TextInput.Password
         revealPasswordButtonShown: hidePasswordRevealIcon
         onAccepted: startLogin()
 
         style: TextFieldStyle {
-            textColor: passwordFieldOutlined ? "white" : cattpuccin_green.g
+            textColor: passwordFieldOutlined ? "white" : cattpuccin_text
             placeholderTextColor: passwordFieldOutlined ? "white" : cattpuccin_text
             passwordCharacter: config.PasswordFieldCharacter == "" ? "●" : config.PasswordFieldCharacter
             background: Rectangle {
@@ -203,7 +204,7 @@ SessionManagementScreen {
         id: loginButton_overlay
         anchors.fill: loginButton
         source: loginButton
-        color: Qt.rgba(cattpuccin_green.r, cattpuccin_green.g, cattpuccin_green.b, 0.5) // Set initial alpha to 0
+        color: Qt.rgba(cattpuccin_green.r, cattpuccin_green.g, cattpuccin_green.b, 0) // Set initial alpha to 0
         visible: loginButton.visible
 
         // Animate the alpha channel
