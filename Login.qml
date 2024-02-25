@@ -211,23 +211,43 @@ SessionManagementScreen {
         // property real blueComponent: cattpuccin_green & 0xFF
 
         // color: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0) // Initial alpha is 0
-        visible: false
+        visible: opacity > 0
+        opacity: 0
         color: cattpuccin_green
 
-        SequentialAnimation {
-            PropertyAnimation {
-                target: loginButton_overlay
-                properties: visible
-                to: true
-                duration: 100
-            }
+        // SequentialAnimation {
+        //     PropertyAnimation {
+        //         target: loginButton_overlay
+        //         properties: visible
+        //         to: true
+        //         duration: 100
+        //     }
 
-            PropertyAnimation {
-                target: loginButton_overlay
-                properties: visible
-                to: false
-                duration: 80
-            }
+        //     PropertyAnimation {
+        //         target: loginButton_overlay
+        //         properties: visible
+        //         to: false
+        //         duration: 80
+        //     }
+        // }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: startLogin();
+        }
+        PropertyAnimation {
+            id: showLoginButton
+            target: loginButton_overlay
+            properties: "opacity"
+            to: 0.75
+            duration: 100
+        }
+        PropertyAnimation {
+            id: hideLoginButton
+            target: loginButton_overlay
+            properties: "opacity"
+            to: 0
+            duration: 80
         }
     }
 
