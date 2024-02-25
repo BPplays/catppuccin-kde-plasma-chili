@@ -37,14 +37,11 @@ FocusScope {
 
                 void main() {
                     lowp vec4 color = texture2D(source, qt_TexCoord0);
-                    
-                    // Convert to grayscale
-                    lowp float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-                    
-                    // Index into the custom color palette
-                    lowp int index = int(gray * 15.0);
+
+                    // Use the red channel as an index into the custom color palette
+                    lowp int index = int(color.r * 15.0);
                     lowp vec3 quantizedColor = qt_CustomPalette[index];
-                    
+
                     gl_FragColor = vec4(quantizedColor, color.a) * qt_Opacity;
                 }"
 
