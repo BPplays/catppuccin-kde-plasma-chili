@@ -46,24 +46,24 @@ FocusScope {
         // }
     }
 
-    // Image {
-    //     id: sceneImageBackground
-    //     anchors.fill: parent
-    //     fillMode: Image.PreserveAspectFit
-    //     source: sceneImageBackground_base
-    //     smooth: true
-    //     // mipmap: true
-    //     // antialiasing: true // Enable antialiasing for smoother scaling
+    Image {
+        id: sceneImageBackground
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectFit
+        source: sceneImageBackground_base
+        smooth: true
+        // mipmap: true
+        // antialiasing: true // Enable antialiasing for smoother scaling
 
-    //     // Calculate the nearest integer scaling factor
-    //     // property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground.width))
-    //     // transform: Scale {
-    //     //     origin.x: sceneImageBackground.width / 2
-    //     //     origin.y: sceneImageBackground.height / 2
-    //     //     xScale: scaleRatio
-    //     //     yScale: scaleRatio
-    //     // }
-    // }
+        // Calculate the nearest integer scaling factor
+        // property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground.width))
+        // transform: Scale {
+        //     origin.x: sceneImageBackground.width / 2
+        //     origin.y: sceneImageBackground.height / 2
+        //     xScale: scaleRatio
+        //     yScale: scaleRatio
+        // }
+    }
 
     // RecursiveBlur {
     //     anchors.fill: sceneImageBackground
