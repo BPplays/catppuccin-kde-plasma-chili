@@ -204,6 +204,8 @@ SessionManagementScreen {
         anchors.fill: loginButton
         source: loginButton
         color: cattpuccin_subtext1 // Replace with your desired color
+        visible: opacity > 0
+        opacity: 0
         PropertyAnimation {
             id: showLoginButton_overlay
             target: loginButton
