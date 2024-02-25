@@ -25,12 +25,7 @@ FocusScope {
 
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
-    property var customPalette: [
-        Qt.rgba(1.0, 0.0, 0.0, 1.0),  // Red
-        Qt.rgba(0.0, 1.0, 0.0, 1.0),  // Green
-        Qt.rgba(0.0, 0.0, 1.0, 1.0)   // Blue
-        // Add more colors as needed
-    ]
+
 
     ShaderEffect {
         anchors.fill: parent
@@ -39,7 +34,11 @@ FocusScope {
             varying highp vec2 qt_TexCoord0;
             uniform sampler2D source;
             uniform highp float qt_Opacity;
-            uniform lowp vec4 qtColorPalette[256]; // Define your custom color palette here
+            uniform lowp vec4 qtColorPalette[
+                Qt.rgba(1.0, 0.0, 0.0, 1.0),  // Red
+                Qt.rgba(0.0, 1.0, 0.0, 1.0),  // Green
+                Qt.rgba(0.0, 0.0, 1.0, 1.0)   // Blue
+            ]; // Define your custom color palette here
 
             void main() {
                 highp vec4 color = texture2D(source, qt_TexCoord0);
