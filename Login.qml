@@ -216,15 +216,15 @@ SessionManagementScreen {
         SequentialAnimation {
             PropertyAnimation {
                 target: loginButton_overlay
-                properties: "color"
-                to: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0.75)
+                properties: color.alpha
+                to: 0.25
                 duration: 100
             }
 
             PropertyAnimation {
                 target: loginButton_overlay
-                properties: "color"
-                to: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0)
+                properties: color.alpha
+                to: 0
                 duration: 80
             }
         }
