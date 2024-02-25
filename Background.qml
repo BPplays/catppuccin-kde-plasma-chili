@@ -56,21 +56,10 @@ FocusScope {
                 }
             "
 
-            property var customPalette: [
-                vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765),    // f5c2e7
-                vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666),    // 313244
-                vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451),    // 1e1e2e
-                vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826),    // 45475a
-                // Add more colors as needed
-            ]
 
             property var textureSource: sceneImageBackground_base
 
-            onEnabledChanged: {
-                if (enabled) {
-                    setUniformValue("qt_CustomPalette", customPalette);
-                }
-            }
+
         }
     }
 }
