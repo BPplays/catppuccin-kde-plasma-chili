@@ -14,7 +14,6 @@ FocusScope {
         source: config.background || config.Background
         smooth: true
 
-        // Calculate the nearest integer scaling factor
         property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
         transform: Scale {
             origin.x: sceneImageBackground_base.width / 2
@@ -23,7 +22,6 @@ FocusScope {
             yScale: scaleRatio
         }
 
-        // Apply shader effect for color quantization with ordered dithering
         layer.enabled: true
         layer.effect: ShaderEffect {
             width: sceneImageBackground_base.width
@@ -32,8 +30,7 @@ FocusScope {
             fragmentShader: "
                 varying highp vec2 qt_TexCoord0;
                 uniform lowp sampler2D source;
-                
-                // Color palette
+
                 const vec3 colorPalette[4] = vec3[4](
                     vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765),    // f5c2e7
                     vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666),   // 313244
@@ -49,7 +46,7 @@ FocusScope {
                     ivec2 texCoord = ivec2(gl_FragCoord.xy);
                     int x = texCoord.x % 4;
                     int y = texCoord.y % 4;
-                    vec3 ditheredColor = originalColor + colorPalette[x + 4 * y] - 0.5;
+                    vec3 ditheredColor = originalColor + colorPalette[(x + 4 * y) % 4] - 0.5;
 
                     gl_FragColor = vec4(ditheredColor, srcColor.a);
                 }
