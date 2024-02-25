@@ -226,5 +226,6 @@ SessionManagementScreen {
                 duration: 80
             }
         }
+    }
 
 }
