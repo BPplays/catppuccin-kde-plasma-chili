@@ -163,7 +163,6 @@ SessionManagementScreen {
     Image {
         id: loginButton
         source: "components/artwork/login.svgz"
-        color: cattpuccin_text
         smooth: true
         sourceSize: Qt.size(passwordBox.height, passwordBox.height)
         anchors {
@@ -190,6 +189,12 @@ SessionManagementScreen {
             properties: "opacity"
             to: 0
             duration: 80
+        }
+        // Apply a color overlay to change the image color
+        ColorOverlay {
+            anchors.fill: parent
+            source: loginButton
+            color: cattpuccin_text // Replace with your desired color
         }
     }
 }
