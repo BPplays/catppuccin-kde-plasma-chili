@@ -7,14 +7,6 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
-    // Declare a uniform property for color palette
-    property var colorPalette: [
-        Qt.rgba(0.9607843137254902, 0.7607843137254902, 0.9058823529411765, 1.0),    // f5c2e7
-        Qt.rgba(0.19215686274509805, 0.19607843137254902, 0.26666666666666666, 1.0),   // 313244
-        Qt.rgba(0.11764705882352941, 0.11764705882352941, 0.1803921568627451, 1.0),    // 1e1e2e
-        Qt.rgba(0.27058823529411763, 0.2784313725490196, 0.35294117647058826, 1.0)    // 45475a
-    ]
-
     Image {
         id: sceneImageBackground_base
         anchors.fill: parent
@@ -41,7 +33,12 @@ FocusScope {
                 uniform lowp sampler2D source;
 
                 // Color palette
-                uniform lowp vec3 colorPalette[4];
+                const vec3 colorPalette[4] = vec3[4](
+                    vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765),    // f5c2e7
+                    vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666),   // 313244
+                    vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451),    // 1e1e2e
+                    vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826)    // 45475a
+                );
 
                 void main() {
                     vec4 srcColor = texture2D(source, qt_TexCoord0);
@@ -55,10 +52,6 @@ FocusScope {
             property variant source: ShaderEffectSource {
                 sourceItem: sceneImageBackground_base
                 hideSource: true
-            }
-            // Set the colorPalette uniform
-            onColorPaletteChanged: {
-                shaderEffect.colorPalette = colorPalette.map(function(color) { return Qt.rgba(color.r, color.g, color.b, 1.0); });
             }
         }
     }
