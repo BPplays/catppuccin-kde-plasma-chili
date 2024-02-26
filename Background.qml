@@ -27,6 +27,7 @@ FocusScope {
 					#define PIXEL_SIZE 2.0         // Size of pixels in the shader output
 					#define ENABLE_SORT            // Choose whether to enable the sorting procedures
 					#define OPTIMISED_KNOLL        // Run an optimised version of the algorithm
+					#define ENABLE      // Run an optimised version of the algorithm
 					uniform lowp sampler2D source;
 					varying highp vec2 qt_TexCoord0;
 
@@ -35,6 +36,13 @@ FocusScope {
 					void main() {
 						vec4 sourceColor = texture2D(source, qt_TexCoord0);
 
+						#if defined ENABLE
+						const vec3 palette[PALETTE_SIZE] = vec3[](
+							gl_FragColor = vec4(1.0 - sourceColor.rgb, sourceColor.a);
+						#else
+						const vec3 palette[PALETTE_SIZE] = vec3[](
+							gl_FragColor = vec4(sourceColor);
+						#endif
 						gl_FragColor = vec4(sourceColor);
 						// gl_FragColor = vec4(candidateList[index], sourceColor.a);
 					}
