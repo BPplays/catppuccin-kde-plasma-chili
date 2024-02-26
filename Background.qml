@@ -42,7 +42,7 @@ fragmentShader: "
         //     35.0, 19.0, 47.0, 31.0
         // );
 
-        mat4 bayerIndex = mat4(
+        mat4 thresholdMap = mat4(
             vec4(00.0/16.0, 12.0/16.0, 03.0/16.0, 15.0/16.0),
             vec4(08.0/16.0, 04.0/16.0, 11.0/16.0, 07.0/16.0),
             vec4(02.0/16.0, 14.0/16.0, 01.0/16.0, 13.0/16.0),
@@ -61,19 +61,10 @@ fragmentShader: "
             vec3 candidateList[16];
 
             for (int i = 0; i < 16; ++i) {
-                float attemptR = inputColor.r + error.r * threshold;
-                float attemptG = inputColor.g + error.g * threshold;
-                float attemptB = inputColor.b + error.b * threshold;
-
+                float attempt = inputColor + error * threshold;
                 vec3 candidate = colorPalette[int(thresholdMap[i])];
-                
-                float errorR = attemptR - candidate.r;
-                float errorG = attemptG - candidate.g;
-                float errorB = attemptB - candidate.b;
-
                 candidateList[i] = candidate;
-
-                error = vec3(errorR, errorG, errorB);
+                error = inputColor - candidate;
             }
 
             // Sort candidateList by luminance (you may need to implement a luminance function)
