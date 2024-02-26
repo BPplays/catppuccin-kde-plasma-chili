@@ -42,7 +42,7 @@ fragmentShader: "
 		//     35.0, 19.0, 47.0, 31.0
 		// );
 
-		const palette_size = 4;
+		// const palette_size = 4;
 
 		const vec3 palette[palette_size] = vec3[](
 			RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7));
