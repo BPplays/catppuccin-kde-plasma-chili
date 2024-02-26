@@ -22,6 +22,7 @@ FocusScope {
 
 			fragmentShader: "
 					#define N 32                   // Number of iterations per fragment (higher N = more samples)
+					#define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
 					#define PALETTE_SIZE 4        // Number of colours in the palette
 					#define ERROR_FACTOR 0.8       // Quantisation error coefficient (0 = no dithering)
 					#define PIXEL_SIZE 2.0         // Size of pixels in the shader output
@@ -44,15 +45,15 @@ FocusScope {
 
 					void main() {
 
-						// palette[0] = RGB8(0x1e1e2e);
-						// palette[1] = vec3(RGB8(0x313244));
-						// palette[2] = RGB8(0x45475a);
-						// palette[3] = RGB8(0xf5c2e7);
+						palette[0] = RGB8(0x1e1e2e);
+						palette[1] = RGB8(0x313244);
+						palette[2] = RGB8(0x45475a);
+						palette[3] = RGB8(0xf5c2e7);
 
-						palette[0] = vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765);    // f5c2e7
-						palette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
-						palette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
-						palette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
+						// palette[0] = vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765);    // f5c2e7
+						// palette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
+						// palette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
+						// palette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
 
 
 						
