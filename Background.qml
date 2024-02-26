@@ -54,11 +54,20 @@ fragmentShader: "
             float error = 0.0;
             vec3 candidateList[16];
 
-            for (int i = 0; i < 16; i++) {
-                float attempt = inputColor + error * threshold;
+            for (int i = 0; i < 16; ++i) {
+                float attemptR = inputColor.r + error.r * threshold;
+                float attemptG = inputColor.g + error.g * threshold;
+                float attemptB = inputColor.b + error.b * threshold;
+
                 vec3 candidate = colorPalette[int(thresholdMap[i])];
+                
+                float errorR = attemptR - candidate.r;
+                float errorG = attemptG - candidate.g;
+                float errorB = attemptB - candidate.b;
+
                 candidateList[i] = candidate;
-                error = inputColor - candidate;
+
+                error = vec3(errorR, errorG, errorB);
             }
 
             // Sort candidateList by luminance (you may need to implement a luminance function)
