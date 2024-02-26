@@ -77,10 +77,10 @@ fragmentShader: "
 
         vec3 originalColor = srcColor.rgb;
 
-        // Pattern dithering
-        float threshold = 0.5;
-        int x = int(mod(gl_FragCoord.x, 8.0));
-        int y = int(mod(gl_FragCoord.y, 8.0));
+        // // Pattern dithering
+        // float threshold = 0.5;
+        // int x = int(mod(gl_FragCoord.x, 8.0));
+        // int y = int(mod(gl_FragCoord.y, 8.0));
 
         // float error = 0.0;
         // int candidateList[16];
