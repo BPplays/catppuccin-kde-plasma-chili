@@ -36,11 +36,11 @@ fragmentShader: "
     vec3 colorPalette[256];
 
     // Bayer matrix for ordered dithering
-    mat3 bayerMatrix = mat3(
-        vec3(1.0, 9.0, 3.0),
-        vec3(11.0, 5.0, 13.0),
-        vec3(7.0, 15.0, 1.0)
-    ) / 16.0;
+    const mat3 bayerMatrix = mat3(
+        vec3( 3.0,  7.0,  4.0),
+        vec3(10.0,  0.0, 11.0),
+        vec3( 5.0,  8.0,  2.0)
+    );
 
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
@@ -48,22 +48,24 @@ fragmentShader: "
         return dot(diff, diff);
     }
 
-    // Function to find the closest color in the palette with ordered dithering
-    int closestColorIndex(vec3 originalColor) {
+    // Function to find the closest color in the palette with dithering
+    int closestColorIndex(vec3 originalColor, highp vec2 texCoord) {
         float minDist = colorDistance(originalColor, colorPalette[0]);
         int closestIndex = 0;
-
-        // Calculate dithering
-        vec3 dither = bayerMatrix[int(mod(gl_FragCoord.xy, 3.0))];
-
         for (int i = 1; i < 4; ++i) {
-            float dist = colorDistance(originalColor + dither, colorPalette[i]);
+            float dist = colorDistance(originalColor, colorPalette[i]);
             if (dist < minDist) {
                 minDist = dist;
                 closestIndex = i;
             }
         }
-        return closestIndex;
+
+        // Apply dithering
+        vec3 bayerColor = floor(originalColor * 255.0 / 16.0) / 16.0;
+        bayerColor += bayerMatrix[int(mod(texCoord.x * 3.0, 3.0))][int(mod(texCoord.y * 3.0, 3.0))] / 16.0;
+        int ditheredIndex = closestColorIndex(bayerColor, texCoord);
+
+        return ditheredIndex;
     }
 
     void main() {
@@ -76,12 +78,13 @@ fragmentShader: "
 
         vec3 originalColor = srcColor.rgb;
 
-        // Find the closest color in the palette with ordered dithering
-        int closestIndex = closestColorIndex(originalColor);
+        // Find the closest color in the palette with dithering
+        int closestIndex = closestColorIndex(originalColor, qt_TexCoord0);
 
         gl_FragColor = vec4(colorPalette[closestIndex], srcColor.a);
     }
 "
+
 
 
             property variant source: ShaderEffectSource {
