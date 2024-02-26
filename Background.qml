@@ -41,9 +41,11 @@ FocusScope {
                 );
 
                 void main() {
-                    // Debug: Print a random color from the palette to every pixel
-                    int randomIndex = int(rand() * 4.0);
-                    gl_FragColor = vec4(0.1 , 0.1, 0.1, 0..5);
+                    // Debug: Assign each quadrant a different color from the palette
+                    int xQuad = int(mod(gl_FragCoord.x / width, 2.0));
+                    int yQuad = int(mod(gl_FragCoord.y / height, 2.0));
+                    int quadrantIndex = xQuad + 2 * yQuad;
+                    gl_FragColor = vec4(colorPalette[quadrantIndex], 1.0);
                 }
             "
 
