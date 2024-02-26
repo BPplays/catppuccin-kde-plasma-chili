@@ -32,7 +32,7 @@ FocusScope {
 					#define ENABLE
 
 
-					// #define INFINITY 3.4e38        // 'Infinity'
+					#define INFINITY 3.4e38        // 'Infinity'
 
 
 
@@ -60,7 +60,7 @@ FocusScope {
 					}
 
 					int getClosestColour(vec3 inputColour) {
-						float closestDistance = 999999999999999
+						float closestDistance = INFINITY;
 						int closestColour = 0;
 						vec3 paletteColor;
 
