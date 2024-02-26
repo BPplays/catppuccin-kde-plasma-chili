@@ -94,7 +94,7 @@ fragmentShader: "
             error = originalColor - colorPalette[candidate];
         }
 
-        Sort candidateList by luminance (not implemented in this example)
+        // Sort candidateList by luminance (not implemented in this example)
 
         // int index = thresholdMap[x][y];
         gl_FragColor = vec4(srcColor);
