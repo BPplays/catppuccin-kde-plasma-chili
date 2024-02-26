@@ -56,7 +56,7 @@ FocusScope {
 						float closestDistance = INFINITY;
 						float closestColour = 0;
 						
-						for (int i = 0; i < PALETTE_SIZE; i++)
+						for (float i = 0; i < PALETTE_SIZE; i++)
 						{
 							vec3 difference = inputColour - sRGBtoLinear(palette[i]);
 							float distance = dot(difference, difference);
