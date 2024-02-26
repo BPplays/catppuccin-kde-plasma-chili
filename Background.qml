@@ -20,6 +20,9 @@ FocusScope {
             height: sceneImageBackground_base.height
 
             fragmentShader: "
+                varying highp vec2 qt_TexCoord0;
+                uniform sampler2D source;
+                uniform sampler2D threshold;
 
                 void main() {
 					// #define N 32                   // Number of iterations per fragment (higher N = more samples)
