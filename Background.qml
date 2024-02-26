@@ -40,7 +40,16 @@ FocusScope {
 					// colorPalette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
 
 
+					vec3 sRGBtoLinear(vec3 colour)
+					{
+						return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
+					}
 
+					// Get the luminance value of a given colour
+					float getLuminance(vec3 colour)
+					{
+						return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
+					}
 
 
 					void main() {
