@@ -42,6 +42,45 @@ fragmentShader: "
         //     35.0, 19.0, 47.0, 31.0
         // );
 
+        const vec3 palette[PALETTE_SIZE] = vec3[](
+            RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7));
+
+        vec3 sRGBtoLinear(vec3 colour) {
+            return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
+        }
+
+        float getLuminance(vec3 colour) {
+            return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
+        }
+
+        int getClosestColour(vec3 inputColour)
+        {
+            float closestDistance = INFINITY;
+            int closestColour = 0;
+            
+            for (int i = 0; i < PALETTE_SIZE; i++)
+            {
+                vec3 difference = inputColour - sRGBtoLinear(palette[i]);
+                float distance = dot(difference, difference);
+                
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestColour = i;
+                }
+            }
+            
+            return closestColour;
+        }
+
+        float sampleThreshold(vec2 coord) {
+            // Sample the centre of the texel
+            ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(iChannelResolution[1]);
+            vec2 uv = vec2(pixel) / iChannelResolution[1].xy;
+            vec2 offset = 0.5 / iChannelResolution[1].xy;
+            return texture(iChannel1, uv + offset).x * float(N - 1);
+        }
+
         mat4 thresholdMap = mat4(
             vec4(00.0/16.0, 12.0/16.0, 03.0/16.0, 15.0/16.0),
             vec4(08.0/16.0, 04.0/16.0, 11.0/16.0, 07.0/16.0),
@@ -60,22 +99,12 @@ fragmentShader: "
             float error = 0.0;
             vec3 candidateList[16];
 
-        for (int i = 0; i < 16; ++i) {
-            // Calculate attempt color
-            vec3 attempt = inputColor + error * threshold;
-            
-            // Find the index in the threshold map
-            int thresholdIndex = int(thresholdMap[i]);
-            
-            // Get the corresponding color from the palette
-            vec3 candidate = colorPalette[thresholdIndex];
-            
-            // Store the candidate color
-            candidateList[i] = candidate;
-            
-            // Update the error
-            error = inputColor - candidate;
-        }
+            for (int i = 0; i < 16; ++i) {
+                float attempt = inputColor + error * threshold;
+                vec3 candidate = colorPalette[int(thresholdMap[i])];
+                candidateList[i] = candidate;
+                error = inputColor - candidate;
+            }
 
             // Sort candidateList by luminance (you may need to implement a luminance function)
             // ...
