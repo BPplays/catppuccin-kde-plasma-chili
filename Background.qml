@@ -24,6 +24,8 @@ FocusScope {
 				varying highp vec2 qt_TexCoord0;
 
                 void main() {
+					vec4 sourceColor = texture2D(source, qt_TexCoord0);
+					vec3 inputColor = sourceColor.rgb;
 					// #define N 32                   // Number of iterations per fragment (higher N = more samples)
 					// #define PALETTE_SIZE 16        // Number of colours in the palette
 					// #define ERROR_FACTOR 0.8       // Quantisation error coefficient (0 = no dithering)
