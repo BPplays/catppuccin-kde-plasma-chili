@@ -40,7 +40,7 @@ FocusScope {
                 //     vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826)    // 45475a
                 // );
 
-                vec3 colorPalette[4];
+                vec3 colorPalette[40];
 
                 void main() {
                     vec4 srcColor = texture2D(source, qt_TexCoord0);
