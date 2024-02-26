@@ -81,16 +81,12 @@ fragmentShader: "
         int y = int(mod(float(pixelCoord.y), 3.0));
         float ditherValue = bayerMatrix[x][y];
 
-        // Adjust dither intensity based on pixel position
-        ditherValue = clamp(ditherValue + 0.25 * (float(pixelCoord.x) / float(gl_FragCoord.x) + float(pixelCoord.y) / float(gl_FragCoord.y)), 0.0, 1.0);
-
-        // Blend within the color palette based on dithering value
-        vec3 ditheredColor = mix(colorPalette[closestIndex], colorPalette[(closestIndex + 1) % 4], ditherValue);
+        // Directly use the color from the palette without mixing with the original color
+        vec3 ditheredColor = colorPalette[closestIndex];
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
     }
 "
-
 
             property variant source: ShaderEffectSource {
                 sourceItem: sceneImageBackground_base
