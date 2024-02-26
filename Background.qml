@@ -33,19 +33,19 @@ fragmentShader: "
     uniform lowp sampler2D source;
 
     // Color palette
-    vec3 colorPalette[256];
+    vec3 colorPalette[4];
 
-    // 8x8 threshold map for pattern dithering
-    const int thresholdMap[8][8] = {
-        0, 48, 12, 60, 3, 51, 15, 63,
-        32, 16, 44, 28, 35, 19, 47, 31,
-        8, 56, 4, 52, 11, 59, 7, 55,
-        40, 24, 36, 20, 43, 27, 39, 23,
-        2, 50, 14, 62, 1, 49, 13, 61,
-        34, 18, 46, 30, 33, 17, 45, 29,
-        10, 58, 6, 54, 9, 57, 5, 53,
-        42, 26, 38, 22, 41, 25, 37, 21
-    };
+    // 8x8 threshold map (Note: patented pattern dithering algorithm uses 4x4)
+    int thresholdMap[8][8] = int[8][8](
+        int[8](0, 48, 12, 60, 3, 51, 15, 63),
+        int[8](32, 16, 44, 28, 35, 19, 47, 31),
+        int[8](8, 56, 4, 52, 11, 59, 7, 55),
+        int[8](40, 24, 36, 20, 43, 27, 39, 23),
+        int[8](2, 50, 14, 62, 1, 49, 13, 61),
+        int[8](34, 18, 46, 30, 33, 17, 45, 29),
+        int[8](10, 58, 6, 54, 9, 57, 5, 53),
+        int[8](42, 26, 38, 22, 41, 25, 37, 21)
+    );
 
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
@@ -74,22 +74,30 @@ fragmentShader: "
         colorPalette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
         colorPalette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
         colorPalette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
-        //colorPalette[4] = vec3(0.8470588235294118, 0.7019607843137254, 0.8313725490196079);    // ! remove later D8B3D4
 
         vec3 originalColor = srcColor.rgb;
 
         // Pattern dithering
-        int x = int(gl_FragCoord.x) % 8;
-        int y = int(gl_FragCoord.y) % 8;
-        float threshold = float(thresholdMap[x][y]) / 63.0;
+        float threshold = 0.5;
+        int x = int(mod(gl_FragCoord.x, 8.0));
+        int y = int(mod(gl_FragCoord.y, 8.0));
 
-        // Apply dithering threshold
-        originalColor += threshold * (originalColor - colorPalette[closestColorIndex(originalColor)]);
+        float error = 0.0;
+        int candidateList[16];
+        int candidateCount = 0;
 
-        // Find the closest color in the palette
-        int closestIndex = closestColorIndex(originalColor);
+        while (candidateCount < 16) {
+            float attempt = originalColor + error * threshold;
+            int candidate = closestColorIndex(attempt);
+            candidateList[candidateCount] = candidate;
+            candidateCount += 1;
+            error = originalColor - colorPalette[candidate];
+        }
 
-        gl_FragColor = vec4(colorPalette[closestIndex], srcColor.a);
+        // Sort candidateList by luminance (not implemented in this example)
+
+        int index = thresholdMap[x][y];
+        gl_FragColor = vec4(colorPalette[candidateList[index]], srcColor.a);
     }
 "
 
