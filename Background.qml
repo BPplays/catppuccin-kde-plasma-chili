@@ -40,37 +40,10 @@ FocusScope {
                     vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826)    // 45475a
                 );
 
-                // Function to calculate distance between two colors
-                float colorDistance(vec3 c1, vec3 c2) {
-                    vec3 diff = c1 - c2;
-                    return dot(diff, diff);
-                }
-
                 void main() {
-                    vec4 srcColor = texture2D(source, qt_TexCoord0);
-                    vec3 originalColor = srcColor.rgb;
-
-                    // Find the closest color in the palette
-                    float minDist = distance(originalColor, colorPalette[0]);
-                    int closestColorIndex = 0;
-                    for (int i = 1; i < 4; ++i) {
-                        float dist = distance(originalColor, colorPalette[i]);
-                        if (dist < minDist) {
-                            minDist = dist;
-                            closestColorIndex = i;
-                        }
-                    }
-
-                    // Apply ordered dithering
-                    ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
-                    int x = pixelCoord.x % 2;
-                    int y = pixelCoord.y % 2;
-                    float ditherValue = float(x + 2 * y) / 3.0;
-                    if (originalColor.r < colorPalette[closestColorIndex].r - ditherValue) {
-                        gl_FragColor = vec4(colorPalette[closestColorIndex], srcColor.a);
-                    } else {
-                        gl_FragColor = vec4(originalColor, srcColor.a);
-                    }
+                    // Debug: Print a random color from the palette to every pixel
+                    int randomIndex = int(rand() * 4.0);
+                    gl_FragColor = vec4(colorPalette[randomIndex], 1.0);
                 }
             "
 
