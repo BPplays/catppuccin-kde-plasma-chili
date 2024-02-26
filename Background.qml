@@ -42,8 +42,10 @@ fragmentShader: "
         //     35.0, 19.0, 47.0, 31.0
         // );
 
-        // const vec3 palette[PALETTE_SIZE] = vec3[](
-        //     RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7));
+        const palette_size = 4;
+
+        const vec3 palette[palette_size] = vec3[](
+            RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7));
 
         // vec3 sRGBtoLinear(vec3 colour) {
         //     return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
@@ -53,33 +55,31 @@ fragmentShader: "
             return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
         }
 
-        // int getClosestColour(vec3 inputColour)
-        // {
-        //     float closestDistance = INFINITY;
-        //     int closestColour = 0;
+        int getClosestColour(vec3 inputColour) {
+            float closestDistance = INFINITY;
+            int closestColour = 0;
             
-        //     for (int i = 0; i < PALETTE_SIZE; i++)
-        //     {
-        //         vec3 difference = inputColour - sRGBtoLinear(palette[i]);
-        //         float distance = dot(difference, difference);
+            for (int i = 0; i < palette_size; i++) {
+                vec3 difference = inputColour - sRGBtoLinear(palette[i]);
+                float distance = dot(difference, difference);
                 
-        //         if (distance < closestDistance)
-        //         {
-        //             closestDistance = distance;
-        //             closestColour = i;
-        //         }
-        //     }
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestColour = i;
+                }
+            }
             
-        //     return closestColour;
-        // }
+            return closestColour;
+        }
 
-        // float sampleThreshold(vec2 coord) {
-        //     // Sample the centre of the texel
-        //     ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(iChannelResolution[1]);
-        //     vec2 uv = vec2(pixel) / iChannelResolution[1].xy;
-        //     vec2 offset = 0.5 / iChannelResolution[1].xy;
-        //     return texture(iChannel1, uv + offset).x * float(N - 1);
-        // }
+        float sampleThreshold(vec2 coord) {
+            // Sample the centre of the texel
+            ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(iChannelResolution[1]);
+            vec2 uv = vec2(pixel) / iChannelResolution[1].xy;
+            vec2 offset = 0.5 / iChannelResolution[1].xy;
+            return texture(iChannel1, uv + offset).x * float(N - 1);
+        }
 
         mat4 thresholdMap = mat4(
             vec4(00.0/16.0, 12.0/16.0, 03.0/16.0, 15.0/16.0),
