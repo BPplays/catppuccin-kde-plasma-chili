@@ -55,13 +55,6 @@ fragmentShader: "
         return closestIndex;
     }
 
-    // Bayer matrix for ordered dithering
-    const mat3 bayerMatrix = mat3(
-        vec3(0.0, 0.5, 0.125),
-        vec3(0.75, 0.375, 0.625),
-        vec3(0.1875, 0.9375, 0.0625)
-    );
-
     void main() {
         vec4 srcColor = texture2D(source, qt_TexCoord0);
 
@@ -75,14 +68,12 @@ fragmentShader: "
         // Find the closest color in the palette
         int closestIndex = closestColorIndex(originalColor);
 
-        // Apply ordered dithering using Bayer matrix
-        ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
-        int x = int(mod(float(pixelCoord.x), 3.0));
-        int y = int(mod(float(pixelCoord.y), 3.0));
-        float ditherValue = bayerMatrix[x][y];
+        // Apply simple threshold-based dithering
+        float threshold = 0.5;
+        float ditherValue = fract(srcColor.r + srcColor.g + srcColor.b) / 3.0; // Adjust as needed
 
-        // Directly use the color from the palette without mixing with the original color
-        vec3 ditheredColor = colorPalette[closestIndex];
+        // Select color based on threshold
+        vec3 ditheredColor = (ditherValue < threshold) ? colorPalette[closestIndex] : originalColor;
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
     }
