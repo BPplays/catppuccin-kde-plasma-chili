@@ -44,7 +44,7 @@ fragmentShader: "
 
 		// const palette_size = 4;
 
-		const vec3 palette[palette_size] = vec3[](
+		const vec3 palette[4] = vec3[](
 			RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7));
 
 		// vec3 sRGBtoLinear(vec3 colour) {
