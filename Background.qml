@@ -35,18 +35,29 @@ fragmentShader: "
     // Color palette
     vec3 colorPalette[256];
 
+    // Bayer matrix for ordered dithering
+    mat3 bayerMatrix = mat3(
+        vec3(1.0, 9.0, 3.0),
+        vec3(11.0, 5.0, 13.0),
+        vec3(7.0, 15.0, 1.0)
+    ) / 16.0;
+
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
         vec3 diff = c1 - c2;
         return dot(diff, diff);
     }
 
-    // Function to find the closest color in the palette
+    // Function to find the closest color in the palette with ordered dithering
     int closestColorIndex(vec3 originalColor) {
         float minDist = colorDistance(originalColor, colorPalette[0]);
         int closestIndex = 0;
+
+        // Calculate dithering
+        vec3 dither = bayerMatrix[int(mod(gl_FragCoord.xy, 3.0))];
+
         for (int i = 1; i < 4; ++i) {
-            float dist = colorDistance(originalColor, colorPalette[i]);
+            float dist = colorDistance(originalColor + dither, colorPalette[i]);
             if (dist < minDist) {
                 minDist = dist;
                 closestIndex = i;
@@ -55,8 +66,6 @@ fragmentShader: "
         return closestIndex;
     }
 
-
-
     void main() {
         vec4 srcColor = texture2D(source, qt_TexCoord0);
 
@@ -64,18 +73,16 @@ fragmentShader: "
         colorPalette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
         colorPalette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
         colorPalette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
-        //colorPalette[4] = vec3(0.8470588235294118, 0.7019607843137254, 0.8313725490196079);    // ! remove later D8B3D4
-
 
         vec3 originalColor = srcColor.rgb;
 
-        // Find the closest color in the palette
+        // Find the closest color in the palette with ordered dithering
         int closestIndex = closestColorIndex(originalColor);
-
 
         gl_FragColor = vec4(colorPalette[closestIndex], srcColor.a);
     }
 "
+
 
             property variant source: ShaderEffectSource {
                 sourceItem: sceneImageBackground_base
