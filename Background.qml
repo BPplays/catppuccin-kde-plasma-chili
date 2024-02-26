@@ -38,13 +38,15 @@ FocusScope {
 					// colorPalette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
 					// colorPalette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
 
-					// palette[0] = RGB8(0x1e1e2e);
-					// palette[1] = RGB8(0x313244);
-					// palette[2] = RGB8(0x45475a);
-					// palette[3] = RGB8(0xf5c2e7);
+
 
 
 					void main() {
+
+						palette[0] = RGB8(0x1e1e2e);
+						palette[1] = RGB8(0x313244);
+						palette[2] = RGB8(0x45475a);
+						palette[3] = RGB8(0xf5c2e7);
 
 
 
