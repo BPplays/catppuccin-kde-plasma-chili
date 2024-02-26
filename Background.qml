@@ -26,9 +26,9 @@ FocusScope {
 					#define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
 					#define PALETTE_SIZE 4        // Number of colours in the palette
 					#define ERROR_FACTOR 0.8       // Quantisation error coefficient (0 = no dithering)
-					#define PIXEL_SIZE 2.0         // Size of pixels in the shader output
+					#define PIXEL_SIZE 1.0         // Size of pixels in the shader output
 					#define ENABLE_SORT            // Choose whether to enable the sorting procedures
-					#define OPTIMISED_KNOLL        // Run an optimised version of the algorithm
+					// #define OPTIMISED_KNOLL        // Run an optimised version of the algorithm
 					#define ENABLE
 					uniform lowp sampler2D source;
 					varying highp vec2 qt_TexCoord0;
@@ -52,7 +52,30 @@ FocusScope {
 						return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
 					}
 
+					float getClosestColour(vec3 inputColour) {
+						float closestDistance = 1e6; // Use a large value instead of INFINITY
+						float closestColour = 0;
+						vec3 paletteColor;
 
+						for (float i = 0; i < PALETTE_SIZE; i++) {
+							// Assuming palette colors are predefined
+							vec3 paletteColor = palette[i]
+							// if (i == 0) paletteColor = vec3(0.0); // Example color
+							// else if (i == 1) paletteColor = vec3(1.0); // Example color
+							// Define other palette colors similarly
+
+							// Calculate the difference manually
+							vec3 difference = inputColour - sRGBtoLinear(paletteColor);
+							float distance = dot(difference, difference);
+
+							if (distance < closestDistance) {
+								closestDistance = distance;
+								closestColour = i;
+							}
+						}
+
+						return closestColour;
+					}
 
 					// float getClosestColour(vec3 inputColour)
 					// {
@@ -76,31 +99,6 @@ FocusScope {
 
 
 					void main() {
-
-						int getClosestColour(vec3 inputColour) {
-							float closestDistance = 1e6; // Use a large value instead of INFINITY
-							int closestColour = 0;
-							vec3 paletteColor;
-
-							for (int i = 0; i < PALETTE_SIZE; i++) {
-								// Assuming palette colors are predefined
-								vec3 paletteColor = palette[i]
-								// if (i == 0) paletteColor = vec3(0.0); // Example color
-								// else if (i == 1) paletteColor = vec3(1.0); // Example color
-								// Define other palette colors similarly
-
-								// Calculate the difference manually
-								vec3 difference = inputColour - sRGBtoLinear(paletteColor);
-								float distance = dot(difference, difference);
-
-								if (distance < closestDistance) {
-									closestDistance = distance;
-									closestColour = i;
-								}
-							}
-
-							return closestColour;
-						}
 
 						// palette[0] = RGB8(0x1e1e2e);
 						// palette[1] = RGB8(0x313244);
