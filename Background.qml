@@ -22,49 +22,49 @@ FocusScope {
             fragmentShader: "
 
                 void main() {
-					#define N 32                   // Number of iterations per fragment (higher N = more samples)
-					#define PALETTE_SIZE 16        // Number of colours in the palette
-					#define ERROR_FACTOR 0.8       // Quantisation error coefficient (0 = no dithering)
+					// #define N 32                   // Number of iterations per fragment (higher N = more samples)
+					// #define PALETTE_SIZE 16        // Number of colours in the palette
+					// #define ERROR_FACTOR 0.8       // Quantisation error coefficient (0 = no dithering)
 
-					#define INFINITY 3.4e38        // 'Infinity'
+					// #define INFINITY 3.4e38        // 'Infinity'
 
-					// Helper macro to convert an RGB hex code to a vec3
-					#define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
+					// // Helper macro to convert an RGB hex code to a vec3
+					// #define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
 
-						/*
-						Thomas Knoll's Pattern Dithering algorithm[1]. For every iteration, we find the closest palette 
-						colour to the 'goal' colour, which is first set to the current fragment colour. When the closest
-						colour is found, we record it as the candidate for this iteration and calculate the quantisation
-						error (the difference between it and our fragment colour). The sum of the quantisation error
-						and the current fragment is then used as the goal colour for the next iteration. Every time 
-						we find a new candidate, we accumulate the total quantisation error. At the end, the frequency
-						of each candidate represents the proportion of its contribution to the input colour. An error
-						coefficient controls the intensity of the dither.
+					// 	/*
+					// 	Thomas Knoll's Pattern Dithering algorithm[1]. For every iteration, we find the closest palette 
+					// 	colour to the 'goal' colour, which is first set to the current fragment colour. When the closest
+					// 	colour is found, we record it as the candidate for this iteration and calculate the quantisation
+					// 	error (the difference between it and our fragment colour). The sum of the quantisation error
+					// 	and the current fragment is then used as the goal colour for the next iteration. Every time 
+					// 	we find a new candidate, we accumulate the total quantisation error. At the end, the frequency
+					// 	of each candidate represents the proportion of its contribution to the input colour. An error
+					// 	coefficient controls the intensity of the dither.
 						
-						The original algorithm maintains an array of candidates of size N, where N is the number of
-						iterations. The colour of the final pixel is selected by randomly (or psuedo-randomly) indexing
-						into the array of candidates - in this case, we use a texture, although any noise function will 
-						also do. An intermediate step involves sorting the candidate array by luminance before we select 
-						the final colour. This is done to ensure that candidate colours are in a consistent relative position 
-						in the array, and it also ensures that colours with similar luminance values appear further apart 
-						in the final image, minimising the appearance of 'clumps'.
+					// 	The original algorithm maintains an array of candidates of size N, where N is the number of
+					// 	iterations. The colour of the final pixel is selected by randomly (or psuedo-randomly) indexing
+					// 	into the array of candidates - in this case, we use a texture, although any noise function will 
+					// 	also do. An intermediate step involves sorting the candidate array by luminance before we select 
+					// 	the final colour. This is done to ensure that candidate colours are in a consistent relative position 
+					// 	in the array, and it also ensures that colours with similar luminance values appear further apart 
+					// 	in the final image, minimising the appearance of 'clumps'.
 						
-						Included is an optimised version of the algorithm which forgoes the candidate array in favour of an 
-						array representing the frequency of each palette colour by index. Selecting from the frequency array 
-						is done by obtaining a random value from 0 to N-1 and summing the cumulative frequency until the sum 
-						is greater than the value. Instead of sorting the entire array of candidates each time, we simply
-						pre-sort the palette. For large values of N, the performance difference is quite noticeable.
+					// 	Included is an optimised version of the algorithm which forgoes the candidate array in favour of an 
+					// 	array representing the frequency of each palette colour by index. Selecting from the frequency array 
+					// 	is done by obtaining a random value from 0 to N-1 and summing the cumulative frequency until the sum 
+					// 	is greater than the value. Instead of sorting the entire array of candidates each time, we simply
+					// 	pre-sort the palette. For large values of N, the performance difference is quite noticeable.
 						
-						[1] https://patents.google.com/patent/US6606166B1/en
-						*/
+					// 	[1] https://patents.google.com/patent/US6606166B1/en
+					// 	*/
 
-					// Using the PICO-8 palette. Optimised version uses a pre-sorted palette.
+					// // Using the PICO-8 palette. Optimised version uses a pre-sorted palette.
 
-					const vec3 palette[PALETTE_SIZE] = vec3[](
-						RGB8(0x000000), RGB8(0x1D2B53), RGB8(0x7E2553), RGB8(0x008751),
-						RGB8(0xAB5236), RGB8(0x5F574F), RGB8(0xC2C3C7), RGB8(0xFFF1E8),
-						RGB8(0xFF004D), RGB8(0xFFA300), RGB8(0xFFEC27), RGB8(0x00E436),
-						RGB8(0x29ADFF), RGB8(0x83769C), RGB8(0xFF77A8), RGB8(0xFFCCAA));
+					// const vec3 palette[PALETTE_SIZE] = vec3[](
+					// 	RGB8(0x000000), RGB8(0x1D2B53), RGB8(0x7E2553), RGB8(0x008751),
+					// 	RGB8(0xAB5236), RGB8(0x5F574F), RGB8(0xC2C3C7), RGB8(0xFFF1E8),
+					// 	RGB8(0xFF004D), RGB8(0xFFA300), RGB8(0xFFEC27), RGB8(0x00E436),
+					// 	RGB8(0x29ADFF), RGB8(0x83769C), RGB8(0xFF77A8), RGB8(0xFFCCAA));
 
 
 					// // Convert a gamma-encoded sRGB value to linear RGB
