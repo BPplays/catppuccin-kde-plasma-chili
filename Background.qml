@@ -34,7 +34,7 @@ FocusScope {
 					varying highp vec2 qt_TexCoord0;
 
 					vec3 palette[PALETTE_SIZE];
-
+					precision mediump float;
 					// colorPalette[0] = vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765);    // f5c2e7
 					// colorPalette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
 					// colorPalette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
