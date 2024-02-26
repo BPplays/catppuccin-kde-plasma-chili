@@ -84,6 +84,15 @@ FocusScope {
 						return closestColour;
 					}
 
+					float sampleThreshold(vec2 coord)
+					{
+						// Sample the centre of the texel
+						ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(iChannelResolution[1]);
+						vec2 uv = vec2(pixel) / iChannelResolution[1].xy;
+						vec2 offset = 0.5 / iChannelResolution[1].xy;
+						return texture(iChannel1, uv + offset).x * float(N - 1);
+					}
+
 					// float getClosestColour(vec3 inputColour)
 					// {
 					// 	float closestDistance = INFINITY;
