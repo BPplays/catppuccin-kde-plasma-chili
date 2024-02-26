@@ -67,7 +67,7 @@ fragmentShader: "
         // Apply ordered dithering with reduced strength
         int x = int(mod(gl_FragCoord.x / 2.0, 2.0));
         int y = int(mod(gl_FragCoord.y / 2.0, 2.0));
-        float ditherValue = float(x + 2 * y) / 5.0;  // Adjust the denominator for milder dithering
+        float ditherValue = float(x + 2 * y) / 1.0;  // Adjust the denominator for milder dithering
         vec3 ditheredColor = mix(originalColor, colorPalette[closestColorIndex], ditherValue);
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
