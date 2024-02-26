@@ -20,7 +20,12 @@ FocusScope {
             height: sceneImageBackground_base.height
 
 			fragmentShader: "
-					#define N 32
+					#define N 32                   // Number of iterations per fragment (higher N = more samples)
+					#define PALETTE_SIZE 16        // Number of colours in the palette
+					#define ERROR_FACTOR 0.8       // Quantisation error coefficient (0 = no dithering)
+					#define PIXEL_SIZE 2.0         // Size of pixels in the shader output
+					#define ENABLE_SORT            // Choose whether to enable the sorting procedures
+					#define OPTIMISED_KNOLL        // Run an optimised version of the algorithm
 					uniform lowp sampler2D source;
 					varying highp vec2 qt_TexCoord0;
 
@@ -29,7 +34,7 @@ FocusScope {
 					void main() {
 						vec4 sourceColor = texture2D(source, qt_TexCoord0);
 
-						gl_FragColor = vec4(sourceColor.rg, N/999, sourceColor.a);
+						gl_FragColor = vec4(sourceColor);
 						// gl_FragColor = vec4(candidateList[index], sourceColor.a);
 					}
 				"
