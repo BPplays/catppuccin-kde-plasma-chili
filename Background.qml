@@ -32,16 +32,16 @@ fragmentShader: "
     varying highp vec2 qt_TexCoord0;
     uniform lowp sampler2D source;
 
-    // Color palette
-    vec3 colorPalette[4];
-
-    // 8x8 threshold map (Note: patented pattern dithering algorithm uses 4x4)
-    mat4 thresholdMap = mat4(
-        0, 48, 12, 60,
-        32, 16, 44, 28,
-        8, 56, 4, 52,
-        40, 24, 36, 20
+    // 8x8 threshold map (note: the patented pattern dithering algorithm uses 4x4)
+    const mat4 thresholdMatrix = mat4(
+        vec4(0.0, 0.48, 0.12, 0.60),
+        vec4(0.03, 0.51, 0.15, 0.63),
+        vec4(0.32, 0.16, 0.44, 0.28),
+        vec4(0.35, 0.19, 0.47, 0.31)
     );
+
+    // Color palette
+    vec3 colorPalette[16];
 
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
@@ -66,36 +66,48 @@ fragmentShader: "
     void main() {
         vec4 srcColor = texture2D(source, qt_TexCoord0);
 
-        colorPalette[0] = vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765);    // f5c2e7
-        colorPalette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
-        colorPalette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
-        colorPalette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
+        // Set the color palette
+        colorPalette[0] = vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765);
+        colorPalette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);
+        colorPalette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);
+        colorPalette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);
 
+        // Get the original color
         vec3 originalColor = srcColor.rgb;
 
-        // Pattern dithering
-        float threshold = 0.5;
-        int x = int(mod(gl_FragCoord.x, 4.0));
-        int y = int(mod(gl_FragCoord.y, 4.0));
-
+        // Initialize error
         float error = 0.0;
-        int candidateList[16];
-        int candidateCount = 0;
 
-        while (candidateCount < 16) {
-            float attempt = originalColor + error * threshold;
-            int candidate = closestColorIndex(attempt);
-            candidateList[candidateCount] = candidate;
-            candidateCount = candidateCount + 1;
-            error = originalColor - colorPalette[candidate];
+        // Candidate list
+        int candidateList[16];
+
+        // Populate candidate list
+        for (int i = 0; i < 16; ++i) {
+            float attempt = originalColor + error * thresholdMatrix[i % 4][i / 4];
+            candidateList[i] = closestColorIndex(attempt);
+            error = originalColor - colorPalette[candidateList[i]];
         }
 
-        // Sort candidateList by luminance (not implemented in this example)
+        // Sort candidate list by luminance
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15 - i; ++j) {
+                if (colorDistance(colorPalette[candidateList[j]], colorPalette[candidateList[j + 1]]) >
+                    colorDistance(colorPalette[candidateList[j + 1]], colorPalette[candidateList[j]])) {
+                    int temp = candidateList[j];
+                    candidateList[j] = candidateList[j + 1];
+                    candidateList[j + 1] = temp;
+                }
+            }
+        }
 
-        // int index = int(thresholdMap[x][y]);
-        gl_FragColor = vec4(srcColor);
+        // Get the index from threshold matrix
+        int index = int(mod(gl_FragCoord.x, 4.0)) + int(mod(gl_FragCoord.y, 4.0)) * 4;
+
+        // Draw pixel using CandidateList[Index]
+        gl_FragColor = vec4(colorPalette[candidateList[index]], srcColor.a);
     }
 "
+
 
 
 
