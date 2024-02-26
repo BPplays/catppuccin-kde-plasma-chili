@@ -42,36 +42,36 @@ fragmentShader: "
         //     35.0, 19.0, 47.0, 31.0
         // );
 
-        const vec3 palette[PALETTE_SIZE] = vec3[](
-            RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7));
+        // const vec3 palette[PALETTE_SIZE] = vec3[](
+        //     RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7));
 
-        vec3 sRGBtoLinear(vec3 colour) {
-            return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
-        }
+        // vec3 sRGBtoLinear(vec3 colour) {
+        //     return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
+        // }
 
-        float getLuminance(vec3 colour) {
-            return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
-        }
+        // float getLuminance(vec3 colour) {
+        //     return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
+        // }
 
-        int getClosestColour(vec3 inputColour)
-        {
-            float closestDistance = INFINITY;
-            int closestColour = 0;
+        // int getClosestColour(vec3 inputColour)
+        // {
+        //     float closestDistance = INFINITY;
+        //     int closestColour = 0;
             
-            for (int i = 0; i < PALETTE_SIZE; i++)
-            {
-                vec3 difference = inputColour - sRGBtoLinear(palette[i]);
-                float distance = dot(difference, difference);
+        //     for (int i = 0; i < PALETTE_SIZE; i++)
+        //     {
+        //         vec3 difference = inputColour - sRGBtoLinear(palette[i]);
+        //         float distance = dot(difference, difference);
                 
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestColour = i;
-                }
-            }
+        //         if (distance < closestDistance)
+        //         {
+        //             closestDistance = distance;
+        //             closestColour = i;
+        //         }
+        //     }
             
-            return closestColour;
-        }
+        //     return closestColour;
+        // }
 
         float sampleThreshold(vec2 coord) {
             // Sample the centre of the texel
