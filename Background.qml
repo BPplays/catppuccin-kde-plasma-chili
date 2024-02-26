@@ -33,15 +33,14 @@ fragmentShader: "
     uniform lowp sampler2D source;
 
     // Color palette
-    vec3 colorPalette[4];
+    vec3 colorPalette[256];
 
-    // 16x16 Bayer matrix for Pattern dithering
-    mat4x4 thresholdMatrix = mat4x4(
-        vec4(  0.0, 48.0, 12.0, 60.0),
-        vec4(  3.0, 51.0, 15.0, 63.0),
-        vec4( 32.0, 16.0, 44.0, 28.0),
-        vec4( 35.0, 19.0, 47.0, 31.0)
-    ) / 64.0; // Normalizing to [0, 1]
+    // Bayer matrix for ordered dithering
+    mat3 bayerMatrix = mat3(
+        vec3(1.0, 9.0, 3.0),
+        vec3(11.0, 5.0, 13.0),
+        vec3(7.0, 15.0, 1.0)
+    ) / 16.0;
 
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
@@ -49,17 +48,16 @@ fragmentShader: "
         return dot(diff, diff);
     }
 
-    // Function to find the closest color index in the palette with Pattern dithering
+    // Function to find the closest color in the palette with ordered dithering
     int closestColorIndex(vec3 originalColor) {
         float minDist = colorDistance(originalColor, colorPalette[0]);
         int closestIndex = 0;
 
         // Calculate dithering
-        ivec2 texCoord = ivec2(gl_FragCoord.xy);
-        float threshold = thresholdMatrix[texCoord.x % 4][texCoord.y % 4]; // Using the 16x16 matrix
+        vec3 dither = bayerMatrix[int(mod(gl_FragCoord.xy, 3.0))];
 
         for (int i = 1; i < 4; ++i) {
-            float dist = colorDistance(originalColor, colorPalette[i]);
+            float dist = colorDistance(originalColor + dither, colorPalette[i]);
             if (dist < minDist) {
                 minDist = dist;
                 closestIndex = i;
@@ -83,7 +81,6 @@ fragmentShader: "
         gl_FragColor = vec4(colorPalette[closestIndex], srcColor.a);
     }
 "
-
 
 
             property variant source: ShaderEffectSource {
