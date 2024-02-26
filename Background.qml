@@ -40,23 +40,26 @@ FocusScope {
                     vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826)    // 45475a
                 );
 
-                // Ordered dithering matrix
-                const mat4 ditherMatrix = mat4(
-                     0.0, 0.5, 0.125, 0.625,
-                    0.75, 0.25, 0.875, 0.375,
-                    0.1875, 0.6875, 0.0625, 0.5625,
-                    0.9375, 0.4375, 1.0, 0.5
-                );
-
                 void main() {
                     vec4 srcColor = texture2D(source, qt_TexCoord0);
-                    vec3 originalColor = srcColor.rgb;
+
+                    // Quantize the color to the nearest color in the palette
+                    float minDist = distance(srcColor.rgb, colorPalette[0]);
+                    int closestColorIndex = 0;
+                    for (int i = 1; i < 4; ++i) {
+                        float dist = distance(srcColor.rgb, colorPalette[i]);
+                        if (dist < minDist) {
+                            minDist = dist;
+                            closestColorIndex = i;
+                        }
+                    }
+                    vec3 quantizedColor = colorPalette[closestColorIndex];
 
                     // Apply ordered dithering
-                    int x = int(mod(qt_TexCoord0.x * 4.0, 4.0));
-                    int y = int(mod(qt_TexCoord0.y * 4.0, 4.0));
-                    float ditherValue = ditherMatrix[x + 4 * y];
-                    vec3 ditheredColor = originalColor + colorPalette[int(ditherValue * 4.0)] - 0.5;
+                    ivec2 texCoord = ivec2(gl_FragCoord.xy);
+                    int x = texCoord.x % 2;
+                    int y = texCoord.y % 2;
+                    vec3 ditheredColor = quantizedColor + (vec3(x, y, 0) - 0.5) * 0.1; // Adjust dithering strength as needed
 
                     gl_FragColor = vec4(ditheredColor, srcColor.a);
                 }
