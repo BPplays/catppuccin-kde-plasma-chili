@@ -32,7 +32,6 @@ FocusScope {
                 varying highp vec2 qt_TexCoord0;
                 uniform lowp sampler2D source;
 
-                // Color palette
                 const vec3 colorPalette[4] = vec3[4](
                     vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765),    // f5c2e7
                     vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666),   // 313244
@@ -44,22 +43,13 @@ FocusScope {
                     vec4 srcColor = texture2D(source, qt_TexCoord0);
 
                     // Quantize the color to the nearest color in the palette
-                    float minDist = distance(srcColor.rgb, colorPalette[0]);
-                    int closestColorIndex = 0;
-                    for (int i = 1; i < 4; ++i) {
-                        float dist = distance(srcColor.rgb, colorPalette[i]);
-                        if (dist < minDist) {
-                            minDist = dist;
-                            closestColorIndex = i;
-                        }
-                    }
-                    vec3 quantizedColor = colorPalette[closestColorIndex];
+                    vec3 quantizedColor = colorPalette[int(srcColor.r * 3.999)];
 
                     // Apply ordered dithering
                     ivec2 texCoord = ivec2(gl_FragCoord.xy);
                     int x = texCoord.x % 2;
                     int y = texCoord.y % 2;
-                    vec3 ditheredColor = quantizedColor + (vec3(x, y, 0) - 0.5) * 0.1; // Adjust dithering strength as needed
+                    vec3 ditheredColor = quantizedColor + vec3(x, y, 0) * 0.5; // Adjust dithering strength as needed
 
                     gl_FragColor = vec4(ditheredColor, srcColor.a);
                 }
