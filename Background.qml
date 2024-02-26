@@ -45,7 +45,7 @@ FocusScope {
                     int xQuad = int(mod(gl_FragCoord.x / width, 2.0));
                     int yQuad = int(mod(gl_FragCoord.y / height, 2.0));
                     int quadrantIndex = xQuad + 2 * yQuad;
-                    gl_FragColor = vec4(colorPalette[quadrantIndex], 1.0);
+                    gl_FragColor = vec4(0.0,0.0,0.0, 1.0);
                 }
             "
 
