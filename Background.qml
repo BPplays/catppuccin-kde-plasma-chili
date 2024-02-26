@@ -8,11 +8,11 @@ FocusScope {
     property int screenHeight: Screen.height
 
     // Declare a uniform property for color palette
-    property color colorPalette[4]: [
-        "#f5c2e7",
-        "#313244",
-        "#1e1e2e",
-        "#45475a"
+    property var colorPalette: [
+        Qt.rgba(0.9607843137254902, 0.7607843137254902, 0.9058823529411765, 1.0),    // f5c2e7
+        Qt.rgba(0.19215686274509805, 0.19607843137254902, 0.26666666666666666, 1.0),   // 313244
+        Qt.rgba(0.11764705882352941, 0.11764705882352941, 0.1803921568627451, 1.0),    // 1e1e2e
+        Qt.rgba(0.27058823529411763, 0.2784313725490196, 0.35294117647058826, 1.0)    // 45475a
     ]
 
     Image {
