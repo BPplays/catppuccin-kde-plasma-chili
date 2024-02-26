@@ -35,6 +35,33 @@ fragmentShader: "
     // Color palette
     vec3 colorPalette[4];
 
+    // Function to calculate distance between two colors
+    float colorDistance(vec3 c1, vec3 c2) {
+        vec3 diff = c1 - c2;
+        return dot(diff, diff);
+    }
+
+    // Function to find the closest color in the palette
+    int closestColorIndex(vec3 originalColor) {
+        float minDist = colorDistance(originalColor, colorPalette[0]);
+        int closestIndex = 0;
+        for (int i = 1; i < 4; ++i) {
+            float dist = colorDistance(originalColor, colorPalette[i]);
+            if (dist < minDist) {
+                minDist = dist;
+                closestIndex = i;
+            }
+        }
+        return closestIndex;
+    }
+
+    // Bayer matrix for ordered dithering
+    const mat3 bayerMatrix = mat3(
+        vec3(0.0, 0.5, 0.125),
+        vec3(0.75, 0.375, 0.625),
+        vec3(0.1875, 0.9375, 0.0625)
+    );
+
     void main() {
         vec4 srcColor = texture2D(source, qt_TexCoord0);
 
@@ -46,22 +73,15 @@ fragmentShader: "
         vec3 originalColor = srcColor.rgb;
 
         // Find the closest color in the palette
-        float minDist = distance(originalColor, colorPalette[0]);
-        int closestColorIndex = 0;
-        for (int i = 1; i < 4; ++i) {
-            float dist = distance(originalColor, colorPalette[i]);
-            if (dist < minDist) {
-                minDist = dist;
-                closestColorIndex = i;
-            }
-        }
+        int closestIndex = closestColorIndex(originalColor);
 
-        // Apply ordered dithering between colors in the palette
+        // Apply ordered dithering using Bayer matrix
         ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
-        int x = int(mod(float(pixelCoord.x), 2.0));
-        int y = int(mod(float(pixelCoord.y), 2.0));
-        float ditherValue = float(x + 2 * y) / 3.0;
-        vec3 ditheredColor = mix(colorPalette[closestColorIndex], colorPalette[(closestColorIndex + 1) % 4], ditherValue);
+        int x = int(mod(float(pixelCoord.x), 3.0));
+        int y = int(mod(float(pixelCoord.y), 3.0));
+        float ditherValue = bayerMatrix[x][y];
+
+        vec3 ditheredColor = mix(originalColor, colorPalette[closestIndex], ditherValue);
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
     }
