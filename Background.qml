@@ -169,7 +169,7 @@ FocusScope {
 
 					// } 
 				
-					fragColor = vec4(source);
+					gl_FragColor = vec4(source);
 				}
             "
 
