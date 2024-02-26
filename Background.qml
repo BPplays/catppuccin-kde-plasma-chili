@@ -10,7 +10,8 @@ FocusScope {
     Image {
         id: sceneImageBackground_base
         anchors.fill: parent
-        fillMode: Image.PreserveAspectFit
+        // fillMode: Image.PreserveAspectFit
+		fillMode: Image.PreserveAspectFill
         source: config.background || config.Background
         smooth: true
 
