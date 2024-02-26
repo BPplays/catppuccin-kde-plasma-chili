@@ -35,12 +35,6 @@ fragmentShader: "
     // Color palette
     vec3 colorPalette[4];
 
-    // Function to calculate distance between two colors
-    float colorDistance(vec3 c1, vec3 c2) {
-        vec3 diff = c1 - c2;
-        return dot(diff, diff);
-    }
-
     void main() {
         vec4 srcColor = texture2D(source, qt_TexCoord0);
 
@@ -52,10 +46,10 @@ fragmentShader: "
         vec3 originalColor = srcColor.rgb;
 
         // Find the closest color in the palette
-        float minDist = colorDistance(originalColor, colorPalette[0]);
+        float minDist = distance(originalColor, colorPalette[0]);
         int closestColorIndex = 0;
         for (int i = 1; i < 4; ++i) {
-            float dist = colorDistance(originalColor, colorPalette[i]);
+            float dist = distance(originalColor, colorPalette[i]);
             if (dist < minDist) {
                 minDist = dist;
                 closestColorIndex = i;
