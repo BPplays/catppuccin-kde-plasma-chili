@@ -59,7 +59,7 @@ FocusScope {
 
 						for (int i = 0; i < PALETTE_SIZE; i++) {
 							// Assuming palette colors are predefined
-							vec3 paletteColor = palette[i]
+							// vec3 paletteColor = palette[i]
 							// if (i == 0) paletteColor = vec3(0.0); // Example color
 							// else if (i == 1) paletteColor = vec3(1.0); // Example color
 							// Define other palette colors similarly
