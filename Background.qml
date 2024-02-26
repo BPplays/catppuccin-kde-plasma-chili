@@ -36,12 +36,12 @@ fragmentShader: "
     vec3 colorPalette[4];
 
     // 8x8 threshold map (Note: patented pattern dithering algorithm uses 4x4)
-    // mat4 thresholdMap = mat4(
-    //     0, 48, 12, 60,
-    //     32, 16, 44, 28,
-    //     8, 56, 4, 52,
-    //     40, 24, 36, 20
-    // );
+    mat4 thresholdMap = mat4(
+        0, 48, 12, 60,
+        32, 16, 44, 28,
+        8, 56, 4, 52,
+        40, 24, 36, 20
+    );
 
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
@@ -93,7 +93,7 @@ fragmentShader: "
         // Sort candidateList by luminance (not implemented in this example)
 
         // int index = int(thresholdMap[x][y]);
-        gl_FragColor = vec4(colorPalette[candidateList[index]], srcColor.a);
+        gl_FragColor = vec4(srcColor);
     }
 "
 
