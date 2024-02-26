@@ -31,7 +31,7 @@ FocusScope {
 					uniform lowp sampler2D source;
 					varying highp vec2 qt_TexCoord0;
 
-					vec3 palette[PALETTE_SIZE];
+					vec3 palette[4];
 
 					// colorPalette[0] = vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765);    // f5c2e7
 					// colorPalette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
