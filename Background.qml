@@ -41,30 +41,18 @@ fragmentShader: "
         return dot(diff, diff);
     }
 
-    // Function to find the two closest colors in the palette
-    void closestColors(vec3 originalColor, out int closestIndex, out int secondClosestIndex) {
+    // Function to find the closest color in the palette
+    int closestColorIndex(vec3 originalColor) {
         float minDist = colorDistance(originalColor, colorPalette[0]);
-        closestIndex = 0;
-        secondClosestIndex = 1;
-        float secondMinDist = colorDistance(originalColor, colorPalette[1]);
-        if (secondMinDist < minDist) {
-            minDist = secondMinDist;
-            closestIndex = 1;
-            secondMinDist = colorDistance(originalColor, colorPalette[0]);
-            secondClosestIndex = 0;
-        }
-        for (int i = 2; i < 4; ++i) {
+        int closestIndex = 0;
+        for (int i = 1; i < 4; ++i) {
             float dist = colorDistance(originalColor, colorPalette[i]);
             if (dist < minDist) {
-                secondClosestIndex = closestIndex;
-                secondMinDist = minDist;
                 minDist = dist;
                 closestIndex = i;
-            } else if (dist < secondMinDist) {
-                secondClosestIndex = i;
-                secondMinDist = dist;
             }
         }
+        return closestIndex;
     }
 
     // Bayer matrix for ordered dithering
@@ -84,10 +72,8 @@ fragmentShader: "
 
         vec3 originalColor = srcColor.rgb;
 
-        // Find the two closest colors in the palette
-        int closestIndex;
-        int secondClosestIndex;
-        closestColors(originalColor, closestIndex, secondClosestIndex);
+        // Find the closest color in the palette
+        int closestIndex = closestColorIndex(originalColor);
 
         // Apply ordered dithering using Bayer matrix
         ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
@@ -98,10 +84,10 @@ fragmentShader: "
         // Adjust dither intensity based on pixel position
         ditherValue = clamp(ditherValue + 0.25 * (float(pixelCoord.x) / float(gl_FragCoord.x) + float(pixelCoord.y) / float(gl_FragCoord.y)), 0.0, 1.0);
 
-        // Blend between the two closest colors
-        vec3 blendedColor = mix(colorPalette[closestIndex], colorPalette[secondClosestIndex], ditherValue);
+        // Directly use the color from the palette and blend within the palette
+        vec3 ditheredColor = mix(colorPalette[closestIndex], colorPalette[(closestIndex + 1) % 4], ditherValue);
 
-        gl_FragColor = vec4(blendedColor, srcColor.a);
+        gl_FragColor = vec4(ditheredColor, srcColor.a);
     }
 "
 
