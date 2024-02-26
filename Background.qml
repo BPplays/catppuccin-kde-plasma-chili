@@ -97,7 +97,7 @@ fragmentShader: "
         // Sort candidateList by luminance (not implemented in this example)
 
         int index = thresholdMap[x][y];
-        gl_FragColor = vec4(colorPalette[candidateList[index]], srcColor.a);
+        gl_FragColor = vec4(srcColor.a);
     }
 "
 
