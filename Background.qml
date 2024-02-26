@@ -35,12 +35,18 @@ fragmentShader: "
         vec3 colorPalette[4];
         
         // 8x8 threshold map (note: the patented pattern dithering algorithm uses 4x4)
-        const mat4 thresholdMap = mat4(
-            0.0, 48.0, 12.0, 60.0,
-            3.0, 51.0, 15.0, 63.0,
-            32.0, 16.0, 44.0, 28.0,
-            35.0, 19.0, 47.0, 31.0
-        );
+        // const mat4 thresholdMap = mat4(
+        //     0.0, 48.0, 12.0, 60.0,
+        //     3.0, 51.0, 15.0, 63.0,
+        //     32.0, 16.0, 44.0, 28.0,
+        //     35.0, 19.0, 47.0, 31.0
+        // );
+
+        mat4 bayerIndex = mat4(
+            vec4(00.0/16.0, 12.0/16.0, 03.0/16.0, 15.0/16.0),
+            vec4(08.0/16.0, 04.0/16.0, 11.0/16.0, 07.0/16.0),
+            vec4(02.0/16.0, 14.0/16.0, 01.0/16.0, 13.0/16.0),
+            vec4(10.0/16.0, 06.0/16.0, 09.0/16.0, 05.0/16.0));
 
         void main() {
             vec4 sourceColor = texture2D(source, qt_TexCoord0);
@@ -54,21 +60,21 @@ fragmentShader: "
             float error = 0.0;
             vec3 candidateList[16];
 
-            // for (int i = 0; i < 16; ++i) {
-            //     float attemptR = inputColor.r + error.r * threshold;
-            //     float attemptG = inputColor.g + error.g * threshold;
-            //     float attemptB = inputColor.b + error.b * threshold;
+            for (int i = 0; i < 16; ++i) {
+                float attemptR = inputColor.r + error.r * threshold;
+                float attemptG = inputColor.g + error.g * threshold;
+                float attemptB = inputColor.b + error.b * threshold;
 
-            //     vec3 candidate = colorPalette[int(thresholdMap[i])];
+                vec3 candidate = colorPalette[int(thresholdMap[i])];
                 
-            //     float errorR = attemptR - candidate.r;
-            //     float errorG = attemptG - candidate.g;
-            //     float errorB = attemptB - candidate.b;
+                float errorR = attemptR - candidate.r;
+                float errorG = attemptG - candidate.g;
+                float errorB = attemptB - candidate.b;
 
-            //     candidateList[i] = candidate;
+                candidateList[i] = candidate;
 
-            //     error = vec3(errorR, errorG, errorB);
-            // }
+                error = vec3(errorR, errorG, errorB);
+            }
 
             // Sort candidateList by luminance (you may need to implement a luminance function)
             // ...
