@@ -41,37 +41,28 @@ fragmentShader: "
         return dot(diff, diff);
     }
 
-    // Function to find the closest and second closest colors in the palette
-    void findClosestColors(vec3 originalColor, inout int closestIndex, inout int secondClosestIndex) {
+    // Function to find the two closest colors in the palette
+    void closestColors(vec3 originalColor, out int closestIndex, out int secondClosestIndex) {
         float minDist = colorDistance(originalColor, colorPalette[0]);
         closestIndex = 0;
-
-        float secondMinDist = colorDistance(originalColor, colorPalette[1]);
         secondClosestIndex = 1;
-
+        float secondMinDist = colorDistance(originalColor, colorPalette[1]);
         if (secondMinDist < minDist) {
-            // Swap if the second color is closer than the first
-            float tempDist = minDist;
             minDist = secondMinDist;
-            secondMinDist = tempDist;
-
-            int tempIndex = closestIndex;
-            closestIndex = secondClosestIndex;
-            secondClosestIndex = tempIndex;
+            closestIndex = 1;
+            secondMinDist = colorDistance(originalColor, colorPalette[0]);
+            secondClosestIndex = 0;
         }
-
         for (int i = 2; i < 4; ++i) {
             float dist = colorDistance(originalColor, colorPalette[i]);
-
             if (dist < minDist) {
-                secondMinDist = minDist;
                 secondClosestIndex = closestIndex;
-
+                secondMinDist = minDist;
                 minDist = dist;
                 closestIndex = i;
             } else if (dist < secondMinDist) {
-                secondMinDist = dist;
                 secondClosestIndex = i;
+                secondMinDist = dist;
             }
         }
     }
@@ -93,10 +84,10 @@ fragmentShader: "
 
         vec3 originalColor = srcColor.rgb;
 
-        // Find the closest and second closest colors in the palette
+        // Find the two closest colors in the palette
         int closestIndex;
         int secondClosestIndex;
-        findClosestColors(originalColor, closestIndex, secondClosestIndex);
+        closestColors(originalColor, closestIndex, secondClosestIndex);
 
         // Apply ordered dithering using Bayer matrix
         ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
@@ -107,10 +98,10 @@ fragmentShader: "
         // Adjust dither intensity based on pixel position
         ditherValue = clamp(ditherValue + 0.25 * (float(pixelCoord.x) / float(gl_FragCoord.x) + float(pixelCoord.y) / float(gl_FragCoord.y)), 0.0, 1.0);
 
-        // Blend between the closest and second closest colors
-        vec3 ditheredColor = mix(colorPalette[closestIndex], colorPalette[secondClosestIndex], ditherValue);
+        // Blend between the two closest colors
+        vec3 blendedColor = mix(colorPalette[closestIndex], colorPalette[secondClosestIndex], ditherValue);
 
-        gl_FragColor = vec4(ditheredColor, srcColor.a);
+        gl_FragColor = vec4(blendedColor, srcColor.a);
     }
 "
 
