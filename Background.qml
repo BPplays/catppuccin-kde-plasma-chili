@@ -43,7 +43,7 @@ FocusScope {
                 void main() {
                     // Debug: Print a random color from the palette to every pixel
                     int randomIndex = int(rand() * 4.0);
-                    gl_FragColor = vec4(colorPalette[randomIndex], 1.0);
+                    gl_FragColor = vec4(0.5,0.5,0.5, 1.0);
                 }
             "
 
