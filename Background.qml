@@ -33,7 +33,7 @@ fragmentShader: "
     uniform lowp sampler2D source;
 
     // Color palette
-    vec3 colorPalette[5];
+    vec3 colorPalette[256];
 
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
