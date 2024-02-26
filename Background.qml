@@ -53,8 +53,8 @@ FocusScope {
 
 					float getClosestColour(vec3 inputColour)
 					{
-						// float closestDistance = INFINITY;
-						// float closestColour = 0;
+						float closestDistance = INFINITY;
+						float closestColour = 0;
 						
 						for (float i = 0; i < PALETTE_SIZE; i++)
 						{
