@@ -29,7 +29,7 @@ FocusScope {
 					void main() {
 						vec4 sourceColor = texture2D(source, qt_TexCoord0);
 
-						gl_FragColor = vec4(sourceColor);
+						gl_FragColor = vec4(sourceColor.rg, N/64, sourceColor.a);
 						// gl_FragColor = vec4(candidateList[index], sourceColor.a);
 					}
 				"
