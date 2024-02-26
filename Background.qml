@@ -20,6 +20,7 @@ FocusScope {
             height: sceneImageBackground_base.height
 
 			fragmentShader: "
+					#define N 32
 					uniform lowp sampler2D source;
 					varying highp vec2 qt_TexCoord0;
 
