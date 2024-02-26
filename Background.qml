@@ -44,13 +44,11 @@ fragmentShader: "
     void main() {
         vec4 srcColor = texture2D(source, qt_TexCoord0);
 
-        // Define the color palette
         colorPalette[0] = vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765);    // f5c2e7
         colorPalette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
         colorPalette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
         colorPalette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
 
-        // Get the original color
         vec3 originalColor = srcColor.rgb;
 
         // Find the closest color in the palette
@@ -64,10 +62,11 @@ fragmentShader: "
             }
         }
 
-        // Apply ordered dithering with reduced strength
-        int x = int(mod(gl_FragCoord.x / 2.0, 2.0));
-        int y = int(mod(gl_FragCoord.y / 2.0, 2.0));
-        float ditherValue = float(x + 2 * y) / 1.0;  // Adjust the denominator for milder dithering
+        // Apply ordered dithering
+        ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
+        int x = int(mod(float(pixelCoord.x), 2.0));
+        int y = int(mod(float(pixelCoord.y), 2.0));
+        float ditherValue = float(x + 2 * y) / 3.0;
         vec3 ditheredColor = mix(originalColor, colorPalette[closestColorIndex], ditherValue);
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
