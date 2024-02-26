@@ -82,13 +82,13 @@ fragmentShader: "
         int candidateList[16];
         int candidateCount = 0;
 
-        // while (candidateCount < 16) {
-        //     float attempt = originalColor + error * threshold;
-        //     int candidate = closestColorIndex(attempt);
-        //     candidateList[candidateCount] = candidate;
-        //     candidateCount += 1;
-        //     error = originalColor - colorPalette[candidate];
-        // }
+        while (candidateCount < 16) {
+            float attempt = originalColor + error * threshold;
+            int candidate = closestColorIndex(attempt);
+            candidateList[candidateCount] = candidate;
+            candidateCount += 1;
+            error = originalColor - colorPalette[candidate];
+        }
 
         // Sort candidateList by luminance (not implemented in this example)
 
