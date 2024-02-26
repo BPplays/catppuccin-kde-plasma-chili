@@ -21,6 +21,7 @@ FocusScope {
             height: sceneImageBackground_base.height
 
 			fragmentShader: "
+					#version 330 core
 					#define N 32                   // Number of iterations per fragment (higher N = more samples)
 					#define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
 					#define PALETTE_SIZE 4        // Number of colours in the palette
@@ -51,12 +52,12 @@ FocusScope {
 						return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
 					}
 
-					float getClosestColour(vec3 inputColour)
+					int getClosestColour(vec3 inputColour)
 					{
 						float closestDistance = INFINITY;
-						float closestColour = 0;
+						int closestColour = 0;
 						
-						for (float i = 0; i < PALETTE_SIZE; i++)
+						for (int i = 0; i < PALETTE_SIZE; i++)
 						{
 							vec3 difference = inputColour - sRGBtoLinear(palette[i]);
 							float distance = dot(difference, difference);
