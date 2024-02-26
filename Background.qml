@@ -56,19 +56,19 @@ FocusScope {
 						float closestDistance = INFINITY;
 						float closestColour = 0;
 						
-						for (float i = 0; i < PALETTE_SIZE; i++)
-						{
-							vec3 difference = inputColour - sRGBtoLinear(palette[i]);
-							float distance = dot(difference, difference);
+						// for (float i = 0; i < PALETTE_SIZE; i++)
+						// {
+						// 	vec3 difference = inputColour - sRGBtoLinear(palette[i]);
+						// 	float distance = dot(difference, difference);
 							
-							if (distance < closestDistance)
-							{
-								closestDistance = distance;
-								closestColour = i;
-							}
-						}
+						// 	if (distance < closestDistance)
+						// 	{
+						// 		closestDistance = distance;
+						// 		closestColour = i;
+						// 	}
+						// }
 						
-						return closestColour;
+						// return closestColour;
 					}
 
 
