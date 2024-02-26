@@ -33,14 +33,15 @@ fragmentShader: "
     uniform lowp sampler2D source;
 
     // Color palette
-    vec3 colorPalette[256];
+    vec3 colorPalette[4];
 
-    // Bayer matrix for ordered dithering
-    const mat3 bayerMatrix = mat3(
-        vec3( 3.0,  7.0,  4.0),
-        vec3(10.0,  0.0, 11.0),
-        vec3( 5.0,  8.0,  2.0)
-    );
+    // 16x16 Bayer matrix for Pattern dithering
+    mat4x4 thresholdMatrix = mat4x4(
+        vec4(  0.0, 48.0, 12.0, 60.0),
+        vec4(  3.0, 51.0, 15.0, 63.0),
+        vec4( 32.0, 16.0, 44.0, 28.0),
+        vec4( 35.0, 19.0, 47.0, 31.0)
+    ) / 64.0; // Normalizing to [0, 1]
 
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
@@ -48,10 +49,15 @@ fragmentShader: "
         return dot(diff, diff);
     }
 
-    // Function to find the closest color in the palette with dithering
-    int closestColorIndex(vec3 originalColor, highp vec2 texCoord) {
+    // Function to find the closest color index in the palette with Pattern dithering
+    int closestColorIndex(vec3 originalColor) {
         float minDist = colorDistance(originalColor, colorPalette[0]);
         int closestIndex = 0;
+
+        // Calculate dithering
+        ivec2 texCoord = ivec2(gl_FragCoord.xy);
+        float threshold = thresholdMatrix[texCoord.x % 4][texCoord.y % 4]; // Using the 16x16 matrix
+
         for (int i = 1; i < 4; ++i) {
             float dist = colorDistance(originalColor, colorPalette[i]);
             if (dist < minDist) {
@@ -59,13 +65,7 @@ fragmentShader: "
                 closestIndex = i;
             }
         }
-
-        // Apply dithering
-        vec3 bayerColor = floor(originalColor * 255.0 / 16.0) / 16.0;
-        bayerColor += bayerMatrix[int(mod(texCoord.x * 3.0, 3.0))][int(mod(texCoord.y * 3.0, 3.0))] / 16.0;
-        int ditheredIndex = closestColorIndex(bayerColor, texCoord);
-
-        return ditheredIndex;
+        return closestIndex;
     }
 
     void main() {
@@ -78,8 +78,7 @@ fragmentShader: "
 
         vec3 originalColor = srcColor.rgb;
 
-        // Find the closest color in the palette with dithering
-        int closestIndex = closestColorIndex(originalColor, qt_TexCoord0);
+        int closestIndex = closestColorIndex(originalColor);
 
         gl_FragColor = vec4(colorPalette[closestIndex], srcColor.a);
     }
