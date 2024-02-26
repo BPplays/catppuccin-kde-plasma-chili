@@ -1,30 +1,36 @@
-import QtQuick 2.2
-import QtGraphicalEffects 1.0
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Window 2.15
+import QtQuick.ShaderEffects 1.12
 
-FocusScope {
-    id: sceneBackground_base
+Window {
+    visible: true
+    width: 800
+    height: 600
 
-    property int screenWidth: Screen.width
-    property int screenHeight: Screen.height
+    Rectangle {
+        width: 800
+        height: 600
 
-    Image {
-        id: sceneImageBackground_base
-        anchors.fill: parent
-        fillMode: Image.PreserveAspectFit
-        source: config.background || config.Background
-        smooth: true
-
-        layer.enabled: true
-        layer.effect: ShaderEffect {
-            width: sceneImageBackground_base.width
-            height: sceneImageBackground_base.height
+        ShaderEffect {
+            width: 800
+            height: 600
 
             fragmentShader: "
                 varying highp vec2 qt_TexCoord0;
                 uniform sampler2D source;
-                uniform sampler2D threshold;
 
-                const float INFINITY = 3.4e38;
+                const int N = 32;
+                const int PALETTE_SIZE = 16;
+                const float ERROR_FACTOR = 0.8;
+                const float PIXEL_SIZE = 2.0;
+                
+                const vec3 palette[PALETTE_SIZE] = vec3[](
+                    vec3(0.0, 0.0, 0.0), vec3(0.117647, 0.168627, 0.325490), vec3(0.494118, 0.145098, 0.325490), vec3(1.0, 0.0, 0.301961),
+                    vec3(0.372549, 0.223529, 0.305882), vec3(0.670588, 0.258824, 0.211765), vec3(0.0, 0.529412, 0.317647), vec3(0.513725, 0.462745, 0.694118),
+                    vec3(1.0, 0.466667, 0.658824), vec3(1.0, 0.643137, 0.0), vec3(0.160784, 0.678431, 1.0), vec3(0.760784, 0.764706, 0.780392),
+                    vec3(0.0, 0.894118, 0.211765), vec3(1.0, 0.8, 0.666667), vec3(1.0, 0.92549, 0.152941), vec3(1.0, 0.945098, 0.909804)
+                );
 
                 vec3 sRGBtoLinear(vec3 colour) {
                     return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
@@ -35,11 +41,11 @@ FocusScope {
                 }
 
                 int getClosestColour(vec3 inputColour) {
-                    float closestDistance = INFINITY;
+                    float closestDistance = 3.4e38;
                     int closestColour = 0;
 
                     for (int i = 0; i < PALETTE_SIZE; i++) {
-                        vec3 difference = inputColour - sRGBtoLinear(texture2D(source, qt_TexCoord0).rgb);
+                        vec3 difference = inputColour - sRGBtoLinear(palette[i]);
                         float distance = dot(difference, difference);
 
                         if (distance < closestDistance) {
@@ -52,8 +58,8 @@ FocusScope {
                 }
 
                 float sampleThreshold(vec2 coord) {
-                    vec2 uv = coord / PIXEL_SIZE / textureSize(threshold, 0);
-                    return texture2D(threshold, uv).r * float(N - 1);
+                    vec2 uv = coord / PIXEL_SIZE / iResolution.xy;
+                    return texture(source, uv).r * float(N - 1);
                 }
 
                 void main() {
@@ -62,7 +68,7 @@ FocusScope {
                     // Get the colour for this fragment
                     vec2 pixelSizeNormalised = PIXEL_SIZE * (1.0 / iResolution.xy);
                     vec2 uv = pixelSizeNormalised * floor(fragCoord / iResolution.xy / pixelSizeNormalised);
-                    vec3 colour = texture2D(source, uv).rgb;
+                    vec3 colour = texture(source, uv).rgb;
 
                     // Screen wipe effect
                     if (fragCoord.x < iMouse.x) {
@@ -80,22 +86,8 @@ FocusScope {
                         int closestColour = getClosestColour(goalColour);
 
                         candidates[i] = closestColour;
-                        quantError += colourLinear - sRGBtoLinear(texture2D(source, uv).rgb);
+                        quantError += colourLinear - sRGBtoLinear(palette[closestColour]);
                     }
-
-                    #if ENABLE_SORT
-                    // Sort the candidate array by luminance (bubble sort)
-                    for (int i = N - 1; i > 0; i--) {
-                        for (int j = 0; j < i; j++) {
-                            if (getLuminance(texture2D(source, uv).rgb) > getLuminance(texture2D(source, uv).rgb)) {
-                                // Swap the candidates
-                                int t = candidates[j];
-                                candidates[j] = candidates[j + 1];
-                                candidates[j + 1] = t;
-                            }
-                        }
-                    }
-                    #endif
 
                     // Select from the candidate array, using the value in the threshold matrix
                     int index = int(sampleThreshold(fragCoord));
@@ -103,10 +95,13 @@ FocusScope {
                 }
             "
 
-            property variant source: ShaderEffectSource {
-                sourceItem: sceneImageBackground_base
-                hideSource: true
-            }
+            property alias source: item.source
+        }
+
+        Image {
+            id: item
+            source: "your_image.jpg"
+            anchors.fill: parent
         }
     }
 }
