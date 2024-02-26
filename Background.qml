@@ -31,13 +31,15 @@ FocusScope {
 					uniform lowp sampler2D source;
 					varying highp vec2 qt_TexCoord0;
 
-					const vec3 palette[PALETTE_SIZE] = vec3[](
-						RGB8(0x000000), RGB8(0x1D2B53), RGB8(0x7E2553), RGB8(0x008751),
-						RGB8(0xAB5236), RGB8(0x5F574F), RGB8(0xC2C3C7), RGB8(0xFFF1E8),
-						RGB8(0xFF004D), RGB8(0xFFA300), RGB8(0xFFEC27), RGB8(0x00E436),
-						RGB8(0x29ADFF), RGB8(0x83769C), RGB8(0xFF77A8), RGB8(0xFFCCAA));
+
 
 					void main() {
+
+						const vec3 palette[PALETTE_SIZE] = vec3[](
+							RGB8(0x000000), RGB8(0x1D2B53), RGB8(0x7E2553), RGB8(0x008751),
+							RGB8(0xAB5236), RGB8(0x5F574F), RGB8(0xC2C3C7), RGB8(0xFFF1E8),
+							RGB8(0xFF004D), RGB8(0xFFA300), RGB8(0xFFEC27), RGB8(0x00E436),
+							RGB8(0x29ADFF), RGB8(0x83769C), RGB8(0xFF77A8), RGB8(0xFFCCAA));
 						vec4 sourceColor = texture2D(source, qt_TexCoord0);
 
 						#if defined ENABLE
