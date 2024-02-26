@@ -51,20 +51,20 @@ fragmentShader: "
             colorPalette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
             colorPalette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
 
-            // float error = 0.0;
-            // vec3 candidateList[16];
+            float error = 0.0;
+            vec3 candidateList[16];
 
-            // for (int i = 0; i < 16; ++i) {
-            //     float attempt = inputColor + error * threshold;
-            //     vec3 candidate = colorPalette[int(thresholdMap[i])];
-            //     candidateList[i] = candidate;
-            //     error = inputColor - candidate;
-            // }
+            for (int i = 0; i < 16; ++i) {
+                float attempt = inputColor + error * threshold;
+                vec3 candidate = colorPalette[int(thresholdMap[i])];
+                candidateList[i] = candidate;
+                error = inputColor - candidate;
+            }
 
             // Sort candidateList by luminance (you may need to implement a luminance function)
             // ...
 
-            // int index = int(thresholdMap[int(mod(gl_FragCoord.x, 4.0))][int(mod(gl_FragCoord.y, 4.0))]);
+            int index = int(thresholdMap[int(mod(gl_FragCoord.x, 4.0))][int(mod(gl_FragCoord.y, 4.0))]);
             gl_FragColor = vec4(sourceColor);
             // gl_FragColor = vec4(candidateList[index], sourceColor.a);
         }
