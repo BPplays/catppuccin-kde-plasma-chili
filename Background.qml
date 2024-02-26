@@ -51,6 +51,26 @@ FocusScope {
 						return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
 					}
 
+					float getClosestColour(vec3 inputColour)
+					{
+						float closestDistance = INFINITY;
+						int closestColour = 0;
+						
+						for (int i = 0; i < PALETTE_SIZE; i++)
+						{
+							vec3 difference = inputColour - sRGBtoLinear(palette[i]);
+							float distance = dot(difference, difference);
+							
+							if (distance < closestDistance)
+							{
+								closestDistance = distance;
+								closestColour = i;
+							}
+						}
+						
+						return closestColour;
+					}
+
 
 					void main() {
 
