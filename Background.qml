@@ -81,7 +81,8 @@ fragmentShader: "
         int y = int(mod(float(pixelCoord.y), 3.0));
         float ditherValue = bayerMatrix[x][y];
 
-        vec3 ditheredColor = mix(originalColor, colorPalette[closestIndex], ditherValue);
+        // Directly use the color from the palette without mixing with the original color
+        vec3 ditheredColor = colorPalette[closestIndex];
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
     }
