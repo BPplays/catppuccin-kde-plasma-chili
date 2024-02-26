@@ -37,13 +37,11 @@ FocusScope {
 						vec4 sourceColor = texture2D(source, qt_TexCoord0);
 
 						#if defined ENABLE
-						const vec3 palette[PALETTE_SIZE] = vec3[](
 							gl_FragColor = vec4(1.0 - sourceColor.rgb, sourceColor.a);
 						#else
-						const vec3 palette[PALETTE_SIZE] = vec3[](
 							gl_FragColor = vec4(sourceColor);
 						#endif
-						gl_FragColor = vec4(sourceColor);
+						// gl_FragColor = vec4(sourceColor);
 						// gl_FragColor = vec4(candidateList[index], sourceColor.a);
 					}
 				"
