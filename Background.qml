@@ -36,15 +36,11 @@ fragmentShader: "
     vec3 colorPalette[4];
 
     // 8x8 threshold map (Note: patented pattern dithering algorithm uses 4x4)
-    int thresholdMap[8][8] = int[8][8](
-        int[8](0, 48, 12, 60, 3, 51, 15, 63),
-        int[8](32, 16, 44, 28, 35, 19, 47, 31),
-        int[8](8, 56, 4, 52, 11, 59, 7, 55),
-        int[8](40, 24, 36, 20, 43, 27, 39, 23),
-        int[8](2, 50, 14, 62, 1, 49, 13, 61),
-        int[8](34, 18, 46, 30, 33, 17, 45, 29),
-        int[8](10, 58, 6, 54, 9, 57, 5, 53),
-        int[8](42, 26, 38, 22, 41, 25, 37, 21)
+    mat4 thresholdMap = mat4(
+        0, 48, 12, 60,
+        32, 16, 44, 28,
+        8, 56, 4, 52,
+        40, 24, 36, 20
     );
 
     // Function to calculate distance between two colors
@@ -79,27 +75,28 @@ fragmentShader: "
 
         // Pattern dithering
         float threshold = 0.5;
-        int x = int(mod(gl_FragCoord.x, 8.0));
-        int y = int(mod(gl_FragCoord.y, 8.0));
+        int x = int(mod(gl_FragCoord.x, 4.0));
+        int y = int(mod(gl_FragCoord.y, 4.0));
 
         float error = 0.0;
         int candidateList[16];
         int candidateCount = 0;
 
-        // while (candidateCount < 16) {
-        //     float attempt = originalColor + error * threshold;
-        //     int candidate = closestColorIndex(attempt);
-        //     candidateList[candidateCount] = candidate;
-        //     candidateCount += 1;
-        //     error = originalColor - colorPalette[candidate];
-        // }
+        while (candidateCount < 16) {
+            float attempt = originalColor + error * threshold;
+            int candidate = closestColorIndex(attempt);
+            candidateList[candidateCount] = candidate;
+            candidateCount += 1;
+            error = originalColor - colorPalette[candidate];
+        }
 
         // Sort candidateList by luminance (not implemented in this example)
 
-        // int index = thresholdMap[x][y];
-        gl_FragColor = vec4(srcColor);
+        int index = int(thresholdMap[x][y]);
+        gl_FragColor = vec4(colorPalette[candidateList[index]], srcColor.a);
     }
 "
+
 
 
             property variant source: ShaderEffectSource {
