@@ -49,7 +49,7 @@ FocusScope {
                     ivec2 texCoord = ivec2(gl_FragCoord.xy);
                     int x = texCoord.x % 2;
                     int y = texCoord.y % 2;
-                    vec3 ditheredColor = quantizedColor + vec3(x, y, 0) * 0.5; // Adjust dithering strength as needed
+                    vec3 ditheredColor = quantizedColor + vec3(x, y, 0) * 0.1; // Adjust dithering strength as needed
 
                     gl_FragColor = vec4(ditheredColor, srcColor.a);
                 }
