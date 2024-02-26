@@ -64,18 +64,9 @@ fragmentShader: "
 
         // Apply ordered dithering
         ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
-        int x = int(mod(float(pixelCoord.x), 4.0));
-        int y = int(mod(float(pixelCoord.y), 4.0));
-
-        // Ordered dithering matrix
-        float ditherMatrix[4][4] = float[4][4](
-            float[4](0.0, 8.0, 2.0, 10.0),
-            float[4](12.0, 4.0, 14.0, 6.0),
-            float[4](3.0, 11.0, 1.0, 9.0),
-            float[4](15.0, 7.0, 13.0, 5.0)
-        );
-
-        float ditherValue = ditherMatrix[x][y] / 16.0;
+        int x = int(mod(float(pixelCoord.x), 2.0));
+        int y = int(mod(float(pixelCoord.y), 2.0));
+        float ditherValue = float(x + 2 * y) / 3.0;
         vec3 ditheredColor = mix(originalColor, colorPalette[closestColorIndex], ditherValue);
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
