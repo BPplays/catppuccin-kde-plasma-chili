@@ -35,6 +35,18 @@ fragmentShader: "
     // Color palette
     vec3 colorPalette[256];
 
+    // 8x8 threshold map for pattern dithering
+    const int thresholdMap[8][8] = {
+        0, 48, 12, 60, 3, 51, 15, 63,
+        32, 16, 44, 28, 35, 19, 47, 31,
+        8, 56, 4, 52, 11, 59, 7, 55,
+        40, 24, 36, 20, 43, 27, 39, 23,
+        2, 50, 14, 62, 1, 49, 13, 61,
+        34, 18, 46, 30, 33, 17, 45, 29,
+        10, 58, 6, 54, 9, 57, 5, 53,
+        42, 26, 38, 22, 41, 25, 37, 21
+    };
+
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
         vec3 diff = c1 - c2;
@@ -55,8 +67,6 @@ fragmentShader: "
         return closestIndex;
     }
 
-
-
     void main() {
         vec4 srcColor = texture2D(source, qt_TexCoord0);
 
@@ -66,16 +76,23 @@ fragmentShader: "
         colorPalette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
         //colorPalette[4] = vec3(0.8470588235294118, 0.7019607843137254, 0.8313725490196079);    // ! remove later D8B3D4
 
-
         vec3 originalColor = srcColor.rgb;
+
+        // Pattern dithering
+        int x = int(gl_FragCoord.x) % 8;
+        int y = int(gl_FragCoord.y) % 8;
+        float threshold = float(thresholdMap[x][y]) / 63.0;
+
+        // Apply dithering threshold
+        originalColor += threshold * (originalColor - colorPalette[closestColorIndex(originalColor)]);
 
         // Find the closest color in the palette
         int closestIndex = closestColorIndex(originalColor);
 
-
         gl_FragColor = vec4(colorPalette[closestIndex], srcColor.a);
     }
 "
+
 
             property variant source: ShaderEffectSource {
                 sourceItem: sceneImageBackground_base
