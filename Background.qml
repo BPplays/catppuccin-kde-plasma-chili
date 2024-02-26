@@ -27,7 +27,7 @@ FocusScope {
 					#define PIXEL_SIZE 2.0         // Size of pixels in the shader output
 					#define ENABLE_SORT            // Choose whether to enable the sorting procedures
 					#define OPTIMISED_KNOLL        // Run an optimised version of the algorithm
-					// #define ENABLE
+					#define ENABLE
 					uniform lowp sampler2D source;
 					varying highp vec2 qt_TexCoord0;
 
