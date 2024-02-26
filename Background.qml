@@ -60,7 +60,7 @@ FocusScope {
 					}
 
 					int getClosestColour(vec3 inputColour) {
-						float closestDistance = 3.4e30
+						float closestDistance = 999999999999999
 						int closestColour = 0;
 						vec3 paletteColor;
 
