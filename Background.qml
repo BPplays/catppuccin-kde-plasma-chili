@@ -86,7 +86,7 @@ fragmentShader: "
             float attempt = originalColor + error * threshold;
             int candidate = closestColorIndex(attempt);
             candidateList[candidateCount] = candidate;
-            candidateCount += 1;
+            candidateCount = candidateCount + 1;
             error = originalColor - colorPalette[candidate];
         }
 
