@@ -84,8 +84,8 @@ fragmentShader: "
         // Adjust dither intensity based on pixel position
         ditherValue = clamp(ditherValue + 0.25 * (float(pixelCoord.x) / float(gl_FragCoord.x) + float(pixelCoord.y) / float(gl_FragCoord.y)), 0.0, 1.0);
 
-        // Directly use the color from the palette without mixing with the original color
-        vec3 ditheredColor = mix(originalColor, colorPalette[closestIndex], ditherValue);
+        // Directly use the color from the palette without blending with the original color
+        vec3 ditheredColor = mix(colorPalette[closestIndex], colorPalette[closestIndex], ditherValue);
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
     }
