@@ -10,17 +10,18 @@ FocusScope {
     Image {
         id: sceneImageBackground_base
         anchors.fill: parent
-        fillMode: Image.Pad
+        // fillMode: Image.Pad
+        fillMode: Image.PreserveAspectFit
         source: config.background || config.Background
         smooth: true
 
-        property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
-        transform: Scale {
-            origin.x: sceneImageBackground_base.width / 2
-            origin.y: sceneImageBackground_base.height / 2
-            xScale: scaleRatio
-            yScale: scaleRatio
-        }
+        // property real scaleRatio: Math.max(1, Math.round(screenWidth / sceneImageBackground_base.width))
+        // transform: Scale {
+        //     origin.x: sceneImageBackground_base.width / 2
+        //     origin.y: sceneImageBackground_base.height / 2
+        //     xScale: scaleRatio
+        //     yScale: scaleRatio
+        // }
 
         layer.enabled: true
         layer.effect: ShaderEffect {
