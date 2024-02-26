@@ -35,6 +35,13 @@ fragmentShader: "
     // Color palette
     vec3 colorPalette[4];
 
+    // Threshold map
+    const mat3 thresholdMap = mat3(
+        vec3(0.0, 0.5, 0.125),
+        vec3(0.75, 0.375, 0.625),
+        vec3(0.1875, 0.9375, 0.0625)
+    );
+
     // Function to calculate distance between two colors
     float colorDistance(vec3 c1, vec3 c2) {
         vec3 diff = c1 - c2;
@@ -55,13 +62,6 @@ fragmentShader: "
         return closestIndex;
     }
 
-    // Bayer matrix for ordered dithering
-    const mat3 bayerMatrix = mat3(
-        vec3(0.0, 0.5, 0.125),
-        vec3(0.75, 0.375, 0.625),
-        vec3(0.1875, 0.9375, 0.0625)
-    );
-
     void main() {
         vec4 srcColor = texture2D(source, qt_TexCoord0);
 
@@ -75,14 +75,17 @@ fragmentShader: "
         // Find the closest color in the palette
         int closestIndex = closestColorIndex(originalColor);
 
-        // Apply ordered dithering using Bayer matrix
+        // Apply ordered dithering using arbitrary size threshold map
         ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
-        int x = int(mod(float(pixelCoord.x), 3.0));
-        int y = int(mod(float(pixelCoord.y), 3.0));
-        float ditherValue = bayerMatrix[x][y];
+        int x = int(mod(float(pixelCoord.x), float(length(thresholdMap))));
+        int y = int(mod(float(pixelCoord.y), float(length(thresholdMap[y]))));
+        float ditherValue = thresholdMap[x][y];
 
-        // Directly use the color from the palette without mixing with the original color
-        vec3 ditheredColor = colorPalette[closestIndex];
+        // Adjust dither intensity based on pixel position
+        ditherValue = clamp(ditherValue + 0.25 * (float(pixelCoord.x) / float(gl_FragCoord.x) + float(pixelCoord.y) / float(gl_FragCoord.y)), 0.0, 1.0);
+
+        // Directly use the color from the palette without blending with the original color
+        vec3 ditheredColor = mix(colorPalette[closestIndex], colorPalette[closestIndex], ditherValue);
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
     }
