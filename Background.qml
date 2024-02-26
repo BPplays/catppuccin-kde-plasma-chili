@@ -41,20 +41,6 @@ fragmentShader: "
         return dot(diff, diff);
     }
 
-    // Function to find the closest color in the palette
-    int closestColorIndex(vec3 originalColor) {
-        float minDist = colorDistance(originalColor, colorPalette[0]);
-        int closestIndex = 0;
-        for (int i = 1; i < 4; ++i) {
-            float dist = colorDistance(originalColor, colorPalette[i]);
-            if (dist < minDist) {
-                minDist = dist;
-                closestIndex = i;
-            }
-        }
-        return closestIndex;
-    }
-
     void main() {
         vec4 srcColor = texture2D(source, qt_TexCoord0);
 
@@ -65,16 +51,31 @@ fragmentShader: "
 
         vec3 originalColor = srcColor.rgb;
 
-        // Find the closest color in the palette
-        int closestIndex = closestColorIndex(originalColor);
+        // Find the two closest colors in the palette
+        float minDist1 = colorDistance(originalColor, colorPalette[0]);
+        float minDist2 = colorDistance(originalColor, colorPalette[1]);
+        int closestColorIndex1 = 0;
+        int closestColorIndex2 = 1;
 
-        // Apply modified ordered dithering
-        ivec2 pixelCoord = ivec2(gl_FragCoord.xy);
-        int x = int(mod(float(pixelCoord.x), 2.0));
-        int y = int(mod(float(pixelCoord.y), 2.0));
-        float ditherValue = float(x + 2 * y) / 3.0;
+        for (int i = 1; i < 4; ++i) {
+            float dist = colorDistance(originalColor, colorPalette[i]);
+            if (dist < minDist1) {
+                minDist2 = minDist1;
+                closestColorIndex2 = closestColorIndex1;
 
-        vec3 ditheredColor = mix(originalColor, colorPalette[closestIndex], ditherValue);
+                minDist1 = dist;
+                closestColorIndex1 = i;
+            } else if (dist < minDist2) {
+                minDist2 = dist;
+                closestColorIndex2 = i;
+            }
+        }
+
+        // Calculate the dithering weight
+        float ditherValue = fract(dot(fract(qt_TexCoord0 * 4.0), vec2(2.0, 2.0)));
+
+        // Interpolate between the two closest colors based on the dithering value
+        vec3 ditheredColor = mix(colorPalette[closestColorIndex1], colorPalette[closestColorIndex2], ditherValue);
 
         gl_FragColor = vec4(ditheredColor, srcColor.a);
     }
