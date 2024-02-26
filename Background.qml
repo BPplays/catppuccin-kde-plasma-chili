@@ -52,30 +52,7 @@ FocusScope {
 						return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
 					}
 
-					int getClosestColour(vec3 inputColour) {
-						float closestDistance = 1e6; // Use a large value instead of INFINITY
-						int closestColour = 0;
-						vec3 paletteColor;
 
-						for (int i = 0; i < PALETTE_SIZE; i++) {
-							// Assuming palette colors are predefined
-							// vec3 paletteColor = palette[i]
-							// if (i == 0) paletteColor = vec3(0.0); // Example color
-							// else if (i == 1) paletteColor = vec3(1.0); // Example color
-							// Define other palette colors similarly
-
-							// Calculate the difference manually
-							vec3 difference = inputColour - sRGBtoLinear(paletteColor);
-							float distance = dot(difference, difference);
-
-							if (distance < closestDistance) {
-								closestDistance = distance;
-								closestColour = i;
-							}
-						}
-
-						return closestColour;
-					}
 
 					// float getClosestColour(vec3 inputColour)
 					// {
@@ -99,6 +76,31 @@ FocusScope {
 
 
 					void main() {
+
+						int getClosestColour(vec3 inputColour) {
+							float closestDistance = 1e6; // Use a large value instead of INFINITY
+							int closestColour = 0;
+							vec3 paletteColor;
+
+							for (int i = 0; i < PALETTE_SIZE; i++) {
+								// Assuming palette colors are predefined
+								vec3 paletteColor = palette[i]
+								// if (i == 0) paletteColor = vec3(0.0); // Example color
+								// else if (i == 1) paletteColor = vec3(1.0); // Example color
+								// Define other palette colors similarly
+
+								// Calculate the difference manually
+								vec3 difference = inputColour - sRGBtoLinear(paletteColor);
+								float distance = dot(difference, difference);
+
+								if (distance < closestDistance) {
+									closestDistance = distance;
+									closestColour = i;
+								}
+							}
+
+							return closestColour;
+						}
 
 						// palette[0] = RGB8(0x1e1e2e);
 						// palette[1] = RGB8(0x313244);
