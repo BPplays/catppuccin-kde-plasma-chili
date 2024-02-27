@@ -179,7 +179,7 @@ FocusScope {
 
 					void main() {
 
-						if (done > 0) {
+						if (done > 0.5) {
 							discard;
 						}
 
