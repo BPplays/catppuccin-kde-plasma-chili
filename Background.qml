@@ -116,7 +116,7 @@ FocusScope {
 						// vec2 offset = 0.5 / vec2(textureSize(iChannel1, 0).xy);
 						// return texture2D(iChannel1, uv + offset).x * (N - 1);
 
-						ivec2 pixel = ivec2(coord) % ivec2(qt_TexCoord0.xy);
+						ivec2 pixel = ivec2(coord) % ivec2(qt_TexCoord1.xy);
 						vec2 uv = vec2(pixel) / vec2(textureSize(iChannel1, 0).xy);
 						vec2 offset = 0.5 / vec2(textureSize(iChannel1, 0).xy);
 						return texture2D(iChannel1, uv + offset).x * (N - 1);
