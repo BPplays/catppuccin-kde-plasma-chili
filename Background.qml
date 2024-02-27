@@ -25,7 +25,7 @@ FocusScope {
 
     Image {
         id: bayer8x8
-        source: "components/artwork/bayer-8-8-test.png"
+        source: "components/artwork/bayer-8-8.png"
         smooth: false
 		width: 8; height: 8
         visible: false
