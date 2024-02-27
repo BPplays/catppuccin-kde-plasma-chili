@@ -48,12 +48,12 @@ FocusScope {
 
     }
 
-	Component.onCompleted: {
-	// Render the shader effect to the offscreen item once
-	// shaderCacheItem.width = sceneImageBackground_base.width
-	// shaderCacheItem.height = sceneImageBackground_base.height
-	sceneImageBackground_ShaderEffect.done = 1
-    }
+	// Component.onCompleted: {
+	// // Render the shader effect to the offscreen item once
+	// // shaderCacheItem.width = sceneImageBackground_base.width
+	// // shaderCacheItem.height = sceneImageBackground_base.height
+	// sceneImageBackground_ShaderEffect.done = 1
+    // }
 
     Image {
         id: sceneImageBackground_base
@@ -69,10 +69,16 @@ FocusScope {
         // layer.effect: 
     }
 
-ShaderEffect {
+	ShaderEffect {
 			id: sceneImageBackground_ShaderEffect
             width: sceneImageBackground_base.width
             height: sceneImageBackground_base.height
+				Component.onCompleted: {
+				// Render the shader effect to the offscreen item once
+				// shaderCacheItem.width = sceneImageBackground_base.width
+				// shaderCacheItem.height = sceneImageBackground_base.height
+				setProperty("done", 1);
+				}
 
 			property variant iChannel1: ShaderEffectSource {
 				// Specify the source for iChannel1 if needed
