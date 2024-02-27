@@ -72,8 +72,8 @@ FocusScope {
 
 					vec3 sRGBtoLinear(vec3 colour)
 					{
-						// return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
-						return colour;
+						return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
+						// return colour;
 					}
 
 					// Get the luminance value of a given colour
