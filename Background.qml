@@ -79,7 +79,7 @@ FocusScope {
 
 					
 					// uniform lowp sampler2D source;
-					var highp sampler2D iChannel0;
+					highp sampler2D iChannel0;
 					uniform highp sampler2D iChannel1;
 					varying highp vec2 qt_TexCoord0;
 					varying highp vec2 qt_TexCoord1;
