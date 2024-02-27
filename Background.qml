@@ -7,40 +7,11 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
-    // // Offscreen surface to render the shader effect
-    // ShaderEffectSource {
-    //     id: shaderSource
-    //     sourceItem: sceneImageBackground_base
-    //     live: false // Ensure the source is not updated continuously
-    //     width: sceneImageBackground_base.width
-    //     height: sceneImageBackground_base.height
-
-    //     // Shader effect
-    //     fragmentShader: "
-    //         // Your fragment shader code here...
-    //     "
-    // }
-
-    Image {
-        id: bayer8x8
-        source: "components/artwork/bayer-8-8.png"
-        smooth: false
-		width: 8; height: 8
-        visible: false
-        opacity: 0
-
-    }
-
-    Image {
-        id: sceneImageBackground_base
-        anchors.fill: parent
-        // fillMode: Image.PreserveAspectFit
-		fillMode: Image.PreserveAspectFill
-        source: config.background || config.Background
-        smooth: true
-
-        layer.enabled: true
-        layer.effect: ShaderEffect {
+    // Offscreen surface to render the shader effect
+    ShaderEffectSource {
+        id: shaderSource
+        sourceItem: sceneImageBackground_base
+        live: false // Ensure the source is not updated continuously
             width: sceneImageBackground_base.width
             height: sceneImageBackground_base.height
 
@@ -282,6 +253,31 @@ FocusScope {
                 hideSource: true
 				live: false
             }
+    }
+
+    Image {
+        id: bayer8x8
+        source: "components/artwork/bayer-8-8.png"
+        smooth: false
+		width: 8; height: 8
+        visible: false
+        opacity: 0
+
+    }
+
+    Image {
+        id: sceneImageBackground_base
+        anchors.fill: parent
+        // fillMode: Image.PreserveAspectFit
+		fillMode: Image.PreserveAspectFill
+        source: config.background || config.Background
+        smooth: true
+
+        layer.enabled: true
+        layer.effect: ShaderEffect {
+            width: sceneImageBackground_base.width
+            height: sceneImageBackground_base.height
+            property variant source: shaderSource
         }
     }
 }
