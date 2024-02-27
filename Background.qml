@@ -8,6 +8,16 @@ FocusScope {
     property int screenHeight: Screen.height
 
     Image {
+        id: bayer8x8
+        source: "components/artwork/bayer-8-8.png"
+        smooth: false
+		width: 8; height: 8
+        visible: false
+        opacity: 0
+
+    }
+
+    Image {
         id: sceneImageBackground_base
         anchors.fill: parent
         // fillMode: Image.PreserveAspectFit
@@ -22,8 +32,8 @@ FocusScope {
 
 			property variant iChannel1: ShaderEffectSource {
 				// Specify the source for iChannel1 if needed
-				// sourceItem: someItem
-				// hideSource: true
+				sourceItem: bayer8x8
+				hideSource: true
 			}
 
 			property var iMouse: Qt.vector2d(0, 0) // Default value, adjust as needed
