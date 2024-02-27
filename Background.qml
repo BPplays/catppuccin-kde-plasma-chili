@@ -32,6 +32,7 @@ FocusScope {
 			//#version 330 core
 
 			fragmentShader: "
+					#version 330
 					#define N 32                   // Number of iterations per fragment (higher N = more samples)
 					#define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
 					#define PALETTE_SIZE 4        // Number of colours in the palette
