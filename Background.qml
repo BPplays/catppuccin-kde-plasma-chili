@@ -16,10 +16,10 @@ FocusScope {
     //     // Update any necessary properties or trigger functions when the height changes
     //     sceneImageBackground_ShaderEffect.iResolution = Qt.vector2d(sceneImageBackground_base.width, height);
     // }
-    onScreenChanged: {
-        screenHeight = Screen.height;
-        screenWidth = Screen.width;
-    }
+    // onScreenChanged: {
+    //     screenHeight = Screen.height;
+    //     screenWidth = Screen.width;
+    // }
 
 
 
