@@ -121,9 +121,9 @@ FocusScope {
 						// return texture2D(iChannel1, uv + offset).x * (N - 1);
 
 						// Sample the center of the texel
-						ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(iChannelResolution[1]);
-						vec2 uv = vec2(pixel) / iChannelResolution[1].xy;
-						vec2 offset = 0.5 / iChannelResolution[1].xy;
+						ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(iChannelResolution);
+						vec2 uv = vec2(pixel) / iChannelResolution;
+						vec2 offset = 0.5 / iChannelResolution;
 						return texture2D(iChannel1, uv + offset) * (N - 1.0);
 					}
 
