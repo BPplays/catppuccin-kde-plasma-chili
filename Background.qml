@@ -85,7 +85,7 @@ ShaderEffect {
 			property var iResolution: Qt.vector2d(width, height)
 			property variant iChannelResolution: Qt.size(width, height)
 
-			property var done: 0
+			property variant done: 0
 
 			// property var done: 0
 
@@ -121,7 +121,7 @@ ShaderEffect {
 
 					uniform highp vec2 iChannelResolution;
 
-					// varying highp float done = 0;
+					varying highp float done = 0;
 
 
 
