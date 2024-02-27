@@ -89,6 +89,8 @@ FocusScope {
 
 					uniform highp vec2 iChannelResolution;
 
+					uniform highp float done = 0;
+
 
 
 					uniform highp vec2 iMouse;
@@ -180,7 +182,7 @@ FocusScope {
 
 
 					void main() {
-						highp float done;
+						// highp float done;
 
 						if (done > 0.5) {
 						
