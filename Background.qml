@@ -180,11 +180,12 @@ FocusScope {
 
 
 					void main() {
+						float mutableValue;
 
 						if (done > 0.5) {
 						
 						} else {
-							float mutableValue;
+							
 							// palette[0] = RGB8(0x1e1e2e);
 							// palette[1] = RGB8(0x313244);
 							// palette[2] = RGB8(0x45475a);
