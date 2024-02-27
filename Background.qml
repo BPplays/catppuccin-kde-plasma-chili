@@ -87,7 +87,8 @@ FocusScope {
 					varying highp vec2 qt_TexCoord1;
 					uniform highp vec2 iResolution;
 
-					varying flat int done;
+					// varying flat int done;
+					uniform highp float done;
 
 					uniform highp vec2 iChannelResolution;
 
@@ -183,7 +184,7 @@ FocusScope {
 
 					void main() {
 
-						if (done == 1) {
+						if (done > 0) {
 							exit;
 						}
 
