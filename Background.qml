@@ -244,7 +244,7 @@ FocusScope {
 							int index = int(sampleThreshold(gl_FragCoord.xy));
 							gl_FragColor = vec4(palette[candidates[index]], 1.0);
 							done = 1;
-							console.log("done1");
+							console.log(done);
 						}
 
 
