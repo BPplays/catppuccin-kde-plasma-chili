@@ -72,7 +72,8 @@ FocusScope {
 
 					vec3 sRGBtoLinear(vec3 colour)
 					{
-						return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
+						// return colour * (colour * (colour * 0.305306011 + 0.682171111) + 0.012522878);
+						return colour;
 					}
 
 					// Get the luminance value of a given colour
@@ -151,10 +152,10 @@ FocusScope {
 						vec3 colour = texture2D(source, qt_TexCoord0).rgb;
 
 						// Screen wipe effect
-						// if (gl_FragCoord.x < iMouse.x) {
-						// 	gl_FragColor = vec4(colour, 1.0);
-						// 	return;
-						// }
+						if (gl_FragCoord.x < iMouse.x) {
+							gl_FragColor = vec4(colour, 1.0);
+							return;
+						}
 
 						// ====================================== //
 						// Actual dithering algorithm starts here //
