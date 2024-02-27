@@ -69,7 +69,7 @@ FocusScope {
 					#define PIXEL_SIZE 1.0         // Size of pixels in the shader output
 					#define ENABLE_SORT            // Choose whether to enable the sorting procedures
 					// #define OPTIMISED_KNOLL        // Run an optimised version of the algorithm
-					#define ENABLE 1
+					#define ENABLE 0
 
 
 					#define INFINITY 3.4e38        // 'Infinity'
