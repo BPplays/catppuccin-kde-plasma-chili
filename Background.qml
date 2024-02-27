@@ -254,14 +254,14 @@ FocusScope {
 					}
 				#else
 					void main() {
-						vec4 sourceColor = texture2D(source, qt_TexCoord0);
+						vec4 sourceColor = texture2D(iChannel1, qt_TexCoord0);
 						gl_FragColor = vec4(sourceColor);
 					}
 				#endif
 				"
 
             property variant source: ShaderEffectSource {
-                sourceItem: bayer8x8
+                sourceItem: sceneImageBackground_base
                 hideSource: true
             }
         }
