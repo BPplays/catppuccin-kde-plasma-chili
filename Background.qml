@@ -84,13 +84,13 @@ FocusScope {
 						return closestColour;
 					}
 
-					float sampleThreshold(vec2 coord) {
-						// Sample the centre of the texel
-						// ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(textureSize(iChannel1, 0));
-						// vec2 uv = vec2(pixel) / vec2(textureSize(iChannel1, 0));
-						// vec2 offset = 0.5 / vec2(textureSize(iChannel1, 0));
-						// return texture2D(iChannel1, uv + offset).x * (N - 1.0);
-					}
+					// float sampleThreshold(vec2 coord) {
+					// 	// Sample the centre of the texel
+					// 	ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(textureSize(iChannel1, 0));
+					// 	vec2 uv = vec2(pixel) / vec2(textureSize(iChannel1, 0));
+					// 	vec2 offset = 0.5 / vec2(textureSize(iChannel1, 0));
+					// 	return texture2D(iChannel1, uv + offset).x * (N - 1.0);
+					// }
 
 					// float getClosestColour(vec3 inputColour)
 					// {
