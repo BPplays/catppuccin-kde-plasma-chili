@@ -145,7 +145,7 @@ FocusScope {
 
 						// Get the color for this fragment
 						vec2 pixelSizeNormalised = PIXEL_SIZE * ivec2(textureSize(source, 0));
-						vec2 uv = pixelSizeNormalised * floor(gl_FragCoord / ivec2(textureSize(source, 0)) / pixelSizeNormalised);
+						vec2 uv = pixelSizeNormalised * floor(gl_FragCoord.xy / ivec2(textureSize(source, 0)) / pixelSizeNormalised);
 						vec3 colour = texture2D(source, uv).rgb;
 
 						// Screen wipe effect
