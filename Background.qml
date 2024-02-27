@@ -7,6 +7,20 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
+    // // Offscreen surface to render the shader effect
+    // ShaderEffectSource {
+    //     id: shaderSource
+    //     sourceItem: sceneImageBackground_base
+    //     live: false // Ensure the source is not updated continuously
+    //     width: sceneImageBackground_base.width
+    //     height: sceneImageBackground_base.height
+
+    //     // Shader effect
+    //     fragmentShader: "
+    //         // Your fragment shader code here...
+    //     "
+    // }
+
     Image {
         id: bayer8x8
         source: "components/artwork/bayer-8-8.png"
@@ -39,6 +53,7 @@ FocusScope {
 			property var iMouse: Qt.vector2d(0, 0) // Default value, adjust as needed
 			property var iResolution: Qt.vector2d(width, height)
 			property variant iChannelResolution: Qt.size(width, height)
+			live: false
 			//#version 330 core
 
 
@@ -260,15 +275,6 @@ FocusScope {
 				#endif
 				"
 
-            onSourceChanged: {
-                // Check if the shader effect has already been applied
-                if (!sceneBackground_base.shaderEffectApplied) {
-                    // Apply the shader effect only once
-                    sceneBackground_base.shaderEffectApplied = true;
-                } else {
-                    // Set the output color to the original image if the shader has already been applied
-                    gl_FragColor = texture2D(source, qt_TexCoord0);
-                }
 
             property variant source: ShaderEffectSource {
                 sourceItem: sceneImageBackground_base
