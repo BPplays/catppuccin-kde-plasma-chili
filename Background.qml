@@ -112,7 +112,7 @@ FocusScope {
 						ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(textureSize(iChannel1, 0).xy);
 						vec2 uv = vec2(pixel) / vec2(textureSize(iChannel1, 0).xy);
 						vec2 offset = 0.5 / vec2(textureSize(iChannel1, 0).xy);
-						return texture2D(iChannel1, uv + offset).x * (N - 1.0);
+						return texture2D(iChannel1, uv + offset).x * (N - 1);
 					}
 
 					// float getClosestColour(vec3 inputColour)
@@ -147,9 +147,10 @@ FocusScope {
 
 
 						// Get the color for this fragment
-						// vec2 pixelSizeNormalised = PIXEL_SIZE * ivec2(textureSize(source, 0));
-						// vec2 uv = pixelSizeNormalised * floor(gl_FragCoord.xy / ivec2(textureSize(source, 0)) / pixelSizeNormalised);
-						vec3 colour = texture2D(source, qt_TexCoord0).rgb;
+						vec2 pixelSizeNormalised = PIXEL_SIZE * ivec2(textureSize(source, 0).xy);
+						vec2 uv = pixelSizeNormalised * floor(gl_FragCoord.xy / ivec2(textureSize(source, 0).xy) / pixelSizeNormalised);
+						// vec3 colour = texture2D(source, qt_TexCoord0).rgb;
+						vec3 colour = texture2D(source, uv).rgb;
 
 						// Screen wipe effect
 						if (gl_FragCoord.x < iMouse.x) {
