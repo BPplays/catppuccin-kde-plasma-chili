@@ -31,6 +31,13 @@ FocusScope {
 
     }
 
+	Component.onCompleted: {
+	// Render the shader effect to the offscreen item once
+	// shaderCacheItem.width = sceneImageBackground_base.width
+	// shaderCacheItem.height = sceneImageBackground_base.height
+	sceneImageBackground_base.layer.enabled = false
+    }
+
     Image {
         id: sceneImageBackground_base
         anchors.fill: parent
@@ -41,6 +48,7 @@ FocusScope {
 
         layer.enabled: true
         layer.effect: ShaderEffect {
+			id: sceneImageBackground_ShaderEffect
             width: sceneImageBackground_base.width
             height: sceneImageBackground_base.height
 
