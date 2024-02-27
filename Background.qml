@@ -28,6 +28,7 @@ FocusScope {
 
 			property var iMouse: Qt.vector2d(0, 0) // Default value, adjust as needed
 			property var iResolution: Qt.vector2d(width, height)
+			property variant iChannelResolution: Qt.size(width, height)
 
 			fragmentShader: "
 					#version 330 core
@@ -55,6 +56,8 @@ FocusScope {
 					varying highp vec2 qt_TexCoord0;
 					varying highp vec2 qt_TexCoord1;
 					uniform highp vec2 iResolution;
+
+					uniform highp vec2 iChannelResolution;
 
 					uniform vec2 iMouse;
 					// uniform sampler2D iChannel0;
