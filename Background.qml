@@ -47,7 +47,7 @@ FocusScope {
 					#define N 32                   // Number of iterations per fragment (higher N = more samples)
 					#define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
 					#define PALETTE_SIZE 4        // Number of colours in the palette
-					#define ERROR_FACTOR 0.8       // Quantisation error coefficient (0 = no dithering)
+					#define ERROR_FACTOR 0.5       // Quantisation error coefficient (0 = no dithering)
 					#define PIXEL_SIZE 1.0         // Size of pixels in the shader output
 					#define ENABLE_SORT            // Choose whether to enable the sorting procedures
 					// #define OPTIMISED_KNOLL        // Run an optimised version of the algorithm
