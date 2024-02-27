@@ -38,6 +38,7 @@ FocusScope {
 
 					
 					uniform lowp sampler2D source;
+					uniform lowp sampler2D iChannel1;
 					varying highp vec2 qt_TexCoord0;
 
 					vec3 palette[PALETTE_SIZE];
@@ -86,10 +87,10 @@ FocusScope {
 
 					float sampleThreshold(vec2 coord) {
 						// Sample the centre of the texel
-						ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(textureSize(source, 0));
-						vec2 uv = vec2(pixel) / vec2(textureSize(source, 0));
-						vec2 offset = 0.5 / vec2(textureSize(source, 0));
-						return texture2D(source, uv + offset).x * (N - 1.0);
+						ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(textureSize(iChannel1, 0));
+						vec2 uv = vec2(pixel) / vec2(textureSize(iChannel1, 0));
+						vec2 offset = 0.5 / vec2(textureSize(iChannel1, 0));
+						return texture2D(iChannel1, uv + offset).x * (N - 1.0);
 					}
 
 					// float getClosestColour(vec3 inputColour)
