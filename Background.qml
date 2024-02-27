@@ -183,7 +183,7 @@ FocusScope {
 
 					void main() {
 
-						if (!hasExecuted) { {
+						if (!hasExecuted) {
 							
 							// palette[0] = RGB8(0x1e1e2e);
 							// palette[1] = RGB8(0x313244);
