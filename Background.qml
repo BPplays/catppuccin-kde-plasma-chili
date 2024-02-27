@@ -29,9 +29,9 @@ FocusScope {
 			property var iMouse: Qt.vector2d(0, 0) // Default value, adjust as needed
 			property var iResolution: Qt.vector2d(width, height)
 			property variant iChannelResolution: Qt.size(width, height)
+			//#version 330 core
 
 			fragmentShader: "
-					#version 330 core
 					#define N 32                   // Number of iterations per fragment (higher N = more samples)
 					#define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
 					#define PALETTE_SIZE 4        // Number of colours in the palette
@@ -59,14 +59,14 @@ FocusScope {
 
 					uniform highp vec2 iChannelResolution;
 
-					uniform vec2 iMouse;
+					uniform highp vec2 iMouse;
 					// uniform sampler2D iChannel0;
 
 					// vec3 palette[PALETTE_SIZE];
 
 				#if ENABLE == 1
 
-					const vec3 palette[PALETTE_SIZE] = vec3[](
+					const highp vec3 palette[PALETTE_SIZE] = highp vec3[](
 						RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7)
 					);
 
@@ -83,8 +83,7 @@ FocusScope {
 					}
 
 					// Get the luminance value of a given colour
-					float getLuminance(vec3 colour)
-					{
+					float getLuminance(vec3 colour) {
 						return colour.r * 0.299 + colour.g * 0.587 + colour.b * 0.114;
 					}
 
