@@ -81,8 +81,8 @@ FocusScope {
 					// uniform lowp sampler2D source;
 					highp sampler2D iChannel0;
 					uniform highp sampler2D iChannel1;
-					varying highp vec2 qt_TexCoord0;
-					varying highp vec2 qt_TexCoord1;
+					highp vec2 qt_TexCoord0;
+					highp vec2 qt_TexCoord1;
 					uniform highp vec2 iResolution;
 
 					uniform highp vec2 iChannelResolution;
