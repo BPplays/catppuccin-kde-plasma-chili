@@ -20,6 +20,14 @@ FocusScope {
             width: sceneImageBackground_base.width
             height: sceneImageBackground_base.height
 
+			property variant iChannel1: ShaderEffectSource {
+				// Specify the source for iChannel1 if needed
+				// sourceItem: someItem
+				// hideSource: true
+			}
+
+			property var iMouse: Qt.vector2d(0, 0) // Default value, adjust as needed
+
 			fragmentShader: "
 					#version 330 core
 					#define N 32                   // Number of iterations per fragment (higher N = more samples)
