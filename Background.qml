@@ -7,34 +7,19 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
-    // // Offscreen surface to render the shader effect
-    // ShaderEffectSource {
-    //     id: shaderSource
-    //     sourceItem: sceneImageBackground_base
-    //     live: false // Ensure the source is not updated continuously
-    //     width: sceneImageBackground_base.width
-    //     height: sceneImageBackground_base.height
-
-    //     // Shader effect
-    //     fragmentShader: "
-    //         // Your fragment shader code here...
-    //     "
+    // onWidthChanged: {
+    //     // Update any necessary properties or trigger functions when the width changes
+    //     sceneImageBackground_ShaderEffect.iResolution = Qt.vector2d(width, sceneImageBackground_base.height);
     // }
 
-    // // Offscreen surface to render the shader effect
-    // ShaderEffectSource {
-    //     id: shaderSource
-    //     sourceItem: sceneImageBackground_base
-    //     live: false // Ensure the source is not updated continuously
-    //     hideSource: true // Prevent the original item from being rendered
-    //     width: sceneImageBackground_base.width
-    //     height: sceneImageBackground_base.height
-
-    //     // Shader effect
-    //     fragmentShader: "
-    //         // Your fragment shader code here...
-    //     "
+    // onHeightChanged: {
+    //     // Update any necessary properties or trigger functions when the height changes
+    //     sceneImageBackground_ShaderEffect.iResolution = Qt.vector2d(sceneImageBackground_base.width, height);
     // }
+    onScreenChanged: {
+        screenHeight = Screen.height;
+        screenWidth = Screen.width;
+    }
 
 
 
