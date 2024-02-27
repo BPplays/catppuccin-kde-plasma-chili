@@ -37,9 +37,13 @@ FocusScope {
 
 
 					
-					uniform lowp sampler2D source;
-					uniform lowp sampler2D iChannel1;
+					// uniform lowp sampler2D source;
+					uniform sampler2D source;
+					uniform sampler2D iChannel1;
 					varying highp vec2 qt_TexCoord0;
+
+					uniform vec2 iMouse;
+					// uniform sampler2D iChannel0;
 
 					vec3 palette[PALETTE_SIZE];
 
