@@ -7,19 +7,19 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
-    // Offscreen surface to render the shader effect
-    ShaderEffectSource {
-        id: shaderSource
-        sourceItem: sceneImageBackground_base
-        live: false // Ensure the source is not updated continuously
-        width: sceneImageBackground_base.width
-        height: sceneImageBackground_base.height
+    // // Offscreen surface to render the shader effect
+    // ShaderEffectSource {
+    //     id: shaderSource
+    //     sourceItem: sceneImageBackground_base
+    //     live: false // Ensure the source is not updated continuously
+    //     width: sceneImageBackground_base.width
+    //     height: sceneImageBackground_base.height
 
-        // Shader effect
-        fragmentShader: "
-            // Your fragment shader code here...
-        "
-    }
+    //     // Shader effect
+    //     fragmentShader: "
+    //         // Your fragment shader code here...
+    //     "
+    // }
 
     Image {
         id: bayer8x8
