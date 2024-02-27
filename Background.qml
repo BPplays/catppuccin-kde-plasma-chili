@@ -124,7 +124,7 @@ FocusScope {
 						ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(iChannelResolution);
 						vec2 uv = vec2(pixel) / iChannelResolution;
 						vec2 offset = 0.5 / iChannelResolution;
-						return texture2D(iChannel1, uv + offset) * (N - 1.0);
+						return texture2D(iChannel1, uv + offset).x * float(N - 1.0);
 					}
 
 					// float getClosestColour(vec3 inputColour)
