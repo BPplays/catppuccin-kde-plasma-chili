@@ -55,6 +55,8 @@ FocusScope {
 			property var iResolution: Qt.vector2d(width, height)
 			property variant iChannelResolution: Qt.size(width, height)
 
+			property var done: 0
+
 			//#version 330 core
 
 
