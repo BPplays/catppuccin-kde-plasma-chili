@@ -180,7 +180,7 @@ FocusScope {
 
 
 					void main() {
-						float done;
+						highp float done;
 
 						if (done > 0.5) {
 						
@@ -205,11 +205,11 @@ FocusScope {
 							// highp vec3 colour = texture2D(source, uv).rgb;
 							highp vec3 colour = texture2D(iChannel0, qt_TexCoord0).rgb;
 
-							// Screen wipe effect
-							if (gl_FragCoord.x < iMouse.x) {
-								gl_FragColor = vec4(colour, 1.0);
-								return;
-							}
+							// // Screen wipe effect
+							// if (gl_FragCoord.x < iMouse.x) {
+							// 	gl_FragColor = vec4(colour, 1.0);
+							// 	return;
+							// }
 
 							// ====================================== //
 							// Actual dithering algorithm starts here //
