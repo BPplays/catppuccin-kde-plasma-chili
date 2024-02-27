@@ -180,7 +180,7 @@ FocusScope {
 
 
 					void main() {
-						float mutableValue;
+						float done;
 
 						if (done > 0.5) {
 						
