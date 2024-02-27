@@ -89,9 +89,9 @@ FocusScope {
 
 					uniform highp vec2 iChannelResolution;
 
-					uniform highp float done;
+					highp float done;
 
-					highp vec2 iMouse;
+					uniform highp vec2 iMouse;
 					// uniform sampler2D iChannel0;
 
 					// vec3 palette[PALETTE_SIZE];
