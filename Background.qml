@@ -88,6 +88,8 @@ FocusScope {
 					uniform highp vec2 iChannelResolution;
 
 					uniform highp vec2 iMouse;
+
+					varying int done;
 					// uniform sampler2D iChannel0;
 
 					// vec3 palette[PALETTE_SIZE];
@@ -235,40 +237,16 @@ FocusScope {
 
 						// Select from the candidate array, using the value in the threshold matrix
 						int index = int(sampleThreshold(gl_FragCoord.xy));
-						gl_FragColor = vec4(palette[candidates[index]], 1.0);
+						iChannel0 = vec4(palette[candidates[index]], 1.0);
+
+
+						vec4 sourceColor2 = texture2D(iChannel0, qt_TexCoord0);
+						gl_FragColor = vec4(sourceColor2);
 
 
 
-
-
-
-
-
-
-
-						// palette[0] = RGB8(0x1e1e2e);
-						// palette[1] = RGB8(0x313244);
-						// palette[2] = RGB8(0x45475a);
-						// palette[3] = RGB8(0xf5c2e7);
-
-						// palette[0] = vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765);    // f5c2e7
-						// palette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
-						// palette[2] = vec3(0.11764705882352941, 0.11764705882352941, 0.1803921568627451);    // 1e1e2e
-						// palette[3] = vec3(0.27058823529411763, 0.2784313725490196, 0.35294117647058826);    // 45475a
-
-
-						
-						// vec4 sourceColor = texture2D(source, qt_TexCoord0);
-
-						// #if defined ENABLE
-						// 	gl_FragColor = vec4(1.0 - sourceColor.rgb, sourceColor.a);
-						// #else
-						// 	gl_FragColor = vec4(sourceColor);
-						// #endif
-						// gl_FragColor = vec4(sourceColor);
-						// gl_FragColor = vec4(candidateList[index], sourceColor.a);
 					}
-				#else
+				// #else
 					void main() {
 						vec4 sourceColor = texture2D(iChannel0, qt_TexCoord0);
 						gl_FragColor = vec4(sourceColor);
