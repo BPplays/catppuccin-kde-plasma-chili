@@ -89,7 +89,7 @@ FocusScope {
 
 					uniform highp vec2 iChannelResolution;
 
-					highp float done;
+
 
 					uniform highp vec2 iMouse;
 					// uniform sampler2D iChannel0;
@@ -184,6 +184,7 @@ FocusScope {
 						if (done > 0.5) {
 						
 						} else {
+							float mutableValue;
 							// palette[0] = RGB8(0x1e1e2e);
 							// palette[1] = RGB8(0x313244);
 							// palette[2] = RGB8(0x45475a);
