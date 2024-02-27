@@ -92,6 +92,7 @@ FocusScope {
 			property variant iChannelResolution: Qt.size(width, height)
 
 			property variant done: 0
+			test fds
 
 			// property var done: 0
 
