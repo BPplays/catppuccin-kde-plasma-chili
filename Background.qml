@@ -121,7 +121,7 @@ ShaderEffect {
 
 					uniform highp vec2 iChannelResolution;
 
-					varying highp float done = 0;
+					// varying highp float done = 0;
 
 
 
