@@ -89,7 +89,7 @@ FocusScope {
 
 					uniform highp vec2 iChannelResolution;
 
-					uniform highp float done = 0;
+					// uniform highp float done = 0;
 
 
 
@@ -182,11 +182,8 @@ FocusScope {
 
 
 					void main() {
-						// highp float done;
 
-						if (done > 0.5) {
-						
-						} else {
+						if (!hasExecuted) { {
 							
 							// palette[0] = RGB8(0x1e1e2e);
 							// palette[1] = RGB8(0x313244);
@@ -247,7 +244,7 @@ FocusScope {
 							// Select from the candidate array, using the value in the threshold matrix
 							int index = int(sampleThreshold(gl_FragCoord.xy));
 							gl_FragColor = vec4(palette[candidates[index]], 1.0);
-							done = 1;
+							hasExecuted = true;
 							// console.log(done);
 						}
 
