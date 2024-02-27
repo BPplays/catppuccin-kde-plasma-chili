@@ -214,7 +214,7 @@ SessionManagementScreen {
         // color: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0) // Initial alpha is 0
         // visible: opacity > 0
         // opacity: 0
-        color: cattpuccin_subtext0
+        color: cattpuccin_subtext1
         visible: opacity > 0
         opacity: 0
 
