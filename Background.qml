@@ -145,11 +145,11 @@ FocusScope {
 
 						// Get the color for this fragment
 						vec2 pixelSizeNormalised = PIXEL_SIZE * ivec2(textureSize(source, 0));
-						vec2 uv = pixelSizeNormalised * floor(fragCoord / ivec2(textureSize(source, 0)) / pixelSizeNormalised);
+						vec2 uv = pixelSizeNormalised * floor(gl_FragCoord / ivec2(textureSize(source, 0)) / pixelSizeNormalised);
 						vec3 colour = texture2D(source, uv).rgb;
 
 						// Screen wipe effect
-						if (fragCoord.x < iMouse.x) {
+						if (gl_FragCoord.x < iMouse.x) {
 							gl_FragColor = vec4(colour, 1.0);
 							return;
 						}
@@ -186,7 +186,7 @@ FocusScope {
 					#endif // ENABLE_SORT
 
 						// Select from the candidate array, using the value in the threshold matrix
-						int index = int(sampleThreshold(fragCoord));
+						int index = int(sampleThreshold(gl_FragCoord));
 						gl_FragColor = vec4(texture2D(source, uv).rgb, 1.0);
 
 
