@@ -55,7 +55,7 @@ FocusScope {
 			property var iResolution: Qt.vector2d(width, height)
 			property variant iChannelResolution: Qt.size(width, height)
 
-			property var done: 0
+			// property var done: 0
 
 			//#version 330 core
 
@@ -181,7 +181,9 @@ FocusScope {
 
 					void main() {
 
-						if (done < 0.5) {
+						if (done > 0.5) {
+						
+						} else {
 							// palette[0] = RGB8(0x1e1e2e);
 							// palette[1] = RGB8(0x313244);
 							// palette[2] = RGB8(0x45475a);
