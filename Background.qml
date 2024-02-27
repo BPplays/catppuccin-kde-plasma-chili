@@ -56,7 +56,11 @@ FocusScope {
 					uniform vec2 iMouse;
 					// uniform sampler2D iChannel0;
 
-					vec3 palette[PALETTE_SIZE];
+					// vec3 palette[PALETTE_SIZE];
+
+					const vec3 palette[PALETTE_SIZE] = vec3[](
+						RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7)
+					);
 
 					// colorPalette[0] = vec3(0.9607843137254902, 0.7607843137254902, 0.9058823529411765);    // f5c2e7
 					// colorPalette[1] = vec3(0.19215686274509805, 0.19607843137254902, 0.26666666666666666);   // 313244
@@ -131,10 +135,10 @@ FocusScope {
 
 					void main() {
 
-						palette[0] = RGB8(0x1e1e2e);
-						palette[1] = RGB8(0x313244);
-						palette[2] = RGB8(0x45475a);
-						palette[3] = RGB8(0xf5c2e7);
+						// palette[0] = RGB8(0x1e1e2e);
+						// palette[1] = RGB8(0x313244);
+						// palette[2] = RGB8(0x45475a);
+						// palette[3] = RGB8(0xf5c2e7);
 
 
 
