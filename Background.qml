@@ -37,7 +37,7 @@ FocusScope {
 					#define PIXEL_SIZE 1.0         // Size of pixels in the shader output
 					#define ENABLE_SORT            // Choose whether to enable the sorting procedures
 					// #define OPTIMISED_KNOLL        // Run an optimised version of the algorithm
-					#define ENABLE
+					#define ENABLE 1
 
 
 					#define INFINITY 3.4e38        // 'Infinity'
@@ -57,6 +57,8 @@ FocusScope {
 					// uniform sampler2D iChannel0;
 
 					// vec3 palette[PALETTE_SIZE];
+
+				#if ENABLE == 1
 
 					const vec3 palette[PALETTE_SIZE] = vec3[](
 						RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7)
@@ -220,6 +222,9 @@ FocusScope {
 						// gl_FragColor = vec4(sourceColor);
 						// gl_FragColor = vec4(candidateList[index], sourceColor.a);
 					}
+				#else
+					gl_FragColor = vec4(sourceColor);
+				#endif
 				"
 
             property variant source: ShaderEffectSource {
