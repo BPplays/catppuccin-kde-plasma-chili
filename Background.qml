@@ -177,7 +177,7 @@ FocusScope {
 						// Sort the candidate array by luminance (bubble sort)
 						for (int i = N - 1; i > 0; i--) {
 							for (int j = 0; j < i; j++) {
-								if (getLuminance(texture2D(source, qt_TexCoord0).rgb) > getLuminance(texture2D(source, qt_TexCoord0).rgb)) {
+								if (palette[candidates[j] > palette[candidates[j+1]) {
 									// Swap the candidates
 									int t = candidates[j];
 									candidates[j] = candidates[j + 1];
