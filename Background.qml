@@ -247,8 +247,8 @@ FocusScope {
 							// Select from the candidate array, using the value in the threshold matrix
 							int index = int(sampleThreshold(gl_FragCoord.xy));
 							gl_FragColor = vec4(palette[candidates[index]], 1.0);
-							done = 1;
-							console.log(done);
+							// done = 1;
+							// console.log(done);
 						}
 
 
