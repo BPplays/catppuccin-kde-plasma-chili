@@ -7,11 +7,40 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
-    // Offscreen surface to render the shader effect
-    ShaderEffectSource {
-        id: shaderSource
-        sourceItem: sceneImageBackground_base
-        live: false // Ensure the source is not updated continuously
+    // // Offscreen surface to render the shader effect
+    // ShaderEffectSource {
+    //     id: shaderSource
+    //     sourceItem: sceneImageBackground_base
+    //     live: false // Ensure the source is not updated continuously
+    //     width: sceneImageBackground_base.width
+    //     height: sceneImageBackground_base.height
+
+    //     // Shader effect
+    //     fragmentShader: "
+    //         // Your fragment shader code here...
+    //     "
+    // }
+
+    Image {
+        id: bayer8x8
+        source: "components/artwork/bayer-8-8.png"
+        smooth: false
+		width: 8; height: 8
+        visible: false
+        opacity: 0
+
+    }
+
+    Image {
+        id: sceneImageBackground_base
+        anchors.fill: parent
+        // fillMode: Image.PreserveAspectFit
+		fillMode: Image.PreserveAspectFill
+        source: config.background || config.Background
+        smooth: true
+
+        layer.enabled: true
+        layer.effect: ShaderEffect {
             width: sceneImageBackground_base.width
             height: sceneImageBackground_base.height
 
@@ -50,7 +79,7 @@ FocusScope {
 
 					
 					// uniform lowp sampler2D source;
-					uniform highp sampler2D source;
+					uniform highp sampler2D iChannel0;
 					uniform highp sampler2D iChannel1;
 					varying highp vec2 qt_TexCoord0;
 					varying highp vec2 qt_TexCoord1;
@@ -165,7 +194,7 @@ FocusScope {
 						// highp vec2 pixelSizeNormalised = 1.0 / iResolution.xy;
 						// highp vec2 uv = pixelSizeNormalised * floor(gl_FragCoord.xy / iResolution.xy / pixelSizeNormalised);
 						// highp vec3 colour = texture2D(source, uv).rgb;
-						highp vec3 colour = texture2D(source, qt_TexCoord0).rgb;
+						highp vec3 colour = texture2D(iChannel0, qt_TexCoord0).rgb;
 
 						// Screen wipe effect
 						if (gl_FragCoord.x < iMouse.x) {
@@ -241,7 +270,7 @@ FocusScope {
 					}
 				#else
 					void main() {
-						vec4 sourceColor = texture2D(source, qt_TexCoord0);
+						vec4 sourceColor = texture2D(iChannel0, qt_TexCoord0);
 						gl_FragColor = vec4(sourceColor);
 					}
 				#endif
@@ -253,31 +282,6 @@ FocusScope {
                 hideSource: true
 				live: false
             }
-    }
-
-    Image {
-        id: bayer8x8
-        source: "components/artwork/bayer-8-8.png"
-        smooth: false
-		width: 8; height: 8
-        visible: false
-        opacity: 0
-
-    }
-
-    Image {
-        id: sceneImageBackground_base
-        anchors.fill: parent
-        // fillMode: Image.PreserveAspectFit
-		fillMode: Image.PreserveAspectFill
-        source: config.background || config.Background
-        smooth: true
-
-        layer.enabled: true
-        layer.effect: ShaderEffect {
-            width: sceneImageBackground_base.width
-            height: sceneImageBackground_base.height
-            property variant source: shaderSource
         }
     }
 }
