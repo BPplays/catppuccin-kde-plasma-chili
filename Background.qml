@@ -181,69 +181,70 @@ FocusScope {
 
 					void main() {
 
-						if (done > 0.5) {
-							discard;
-						}
-
-						// palette[0] = RGB8(0x1e1e2e);
-						// palette[1] = RGB8(0x313244);
-						// palette[2] = RGB8(0x45475a);
-						// palette[3] = RGB8(0xf5c2e7);
+						if (done < 0.5) {
+							// palette[0] = RGB8(0x1e1e2e);
+							// palette[1] = RGB8(0x313244);
+							// palette[2] = RGB8(0x45475a);
+							// palette[3] = RGB8(0xf5c2e7);
 
 
 
 
-						// // Get the color for this fragment
-						// vec2 pixelSizeNormalised = PIXEL_SIZE * ivec2(textureSize(source, 0).xy);
-						// vec2 uv = pixelSizeNormalised * floor(gl_FragCoord.xy / ivec2(textureSize(source, 0).xy) / pixelSizeNormalised);
-						// // vec3 colour = texture2D(source, qt_TexCoord0).rgb;
-						// vec3 colour = texture2D(source, uv).rgb;
+							// // Get the color for this fragment
+							// vec2 pixelSizeNormalised = PIXEL_SIZE * ivec2(textureSize(source, 0).xy);
+							// vec2 uv = pixelSizeNormalised * floor(gl_FragCoord.xy / ivec2(textureSize(source, 0).xy) / pixelSizeNormalised);
+							// // vec3 colour = texture2D(source, qt_TexCoord0).rgb;
+							// vec3 colour = texture2D(source, uv).rgb;
 
-						// highp vec2 pixelSizeNormalised = 1.0 / iResolution.xy;
-						// highp vec2 uv = pixelSizeNormalised * floor(gl_FragCoord.xy / iResolution.xy / pixelSizeNormalised);
-						// highp vec3 colour = texture2D(source, uv).rgb;
-						highp vec3 colour = texture2D(iChannel0, qt_TexCoord0).rgb;
+							// highp vec2 pixelSizeNormalised = 1.0 / iResolution.xy;
+							// highp vec2 uv = pixelSizeNormalised * floor(gl_FragCoord.xy / iResolution.xy / pixelSizeNormalised);
+							// highp vec3 colour = texture2D(source, uv).rgb;
+							highp vec3 colour = texture2D(iChannel0, qt_TexCoord0).rgb;
 
-						// Screen wipe effect
-						if (gl_FragCoord.x < iMouse.x) {
-							gl_FragColor = vec4(colour, 1.0);
-							return;
-						}
+							// Screen wipe effect
+							if (gl_FragCoord.x < iMouse.x) {
+								gl_FragColor = vec4(colour, 1.0);
+								return;
+							}
 
-						// ====================================== //
-						// Actual dithering algorithm starts here //
-						// ====================================== //
+							// ====================================== //
+							// Actual dithering algorithm starts here //
+							// ====================================== //
 
-						// Fill the candidate array
-						int candidates[N];
-						vec3 quantError = vec3(0.0);
-						vec3 colourLinear = sRGBtoLinear(colour);
+							// Fill the candidate array
+							int candidates[N];
+							vec3 quantError = vec3(0.0);
+							vec3 colourLinear = sRGBtoLinear(colour);
 
-						for (int i = 0; i < N; i++) {
-							vec3 goalColour = colourLinear + quantError * ERROR_FACTOR;
-							int closestColour = getClosestColour(goalColour);
+							for (int i = 0; i < N; i++) {
+								vec3 goalColour = colourLinear + quantError * ERROR_FACTOR;
+								int closestColour = getClosestColour(goalColour);
 
-							candidates[i] = closestColour;
-							quantError += colourLinear - sRGBtoLinear(palette[closestColour]);
-						}
+								candidates[i] = closestColour;
+								quantError += colourLinear - sRGBtoLinear(palette[closestColour]);
+							}
 
-					#if defined(ENABLE_SORT)
-						// Sort the candidate array by luminance (bubble sort)
-						for (int i = N - 1; i > 0; i--) {
-							for (int j = 0; j < i; j++) {
-								if (getLuminance(palette[candidates[j]]) > getLuminance(palette[candidates[j+1]])) {
-									// Swap the candidates
-									int t = candidates[j];
-									candidates[j] = candidates[j + 1];
-									candidates[j + 1] = t;
+						#if defined(ENABLE_SORT)
+							// Sort the candidate array by luminance (bubble sort)
+							for (int i = N - 1; i > 0; i--) {
+								for (int j = 0; j < i; j++) {
+									if (getLuminance(palette[candidates[j]]) > getLuminance(palette[candidates[j+1]])) {
+										// Swap the candidates
+										int t = candidates[j];
+										candidates[j] = candidates[j + 1];
+										candidates[j + 1] = t;
+									}
 								}
 							}
-						}
-					#endif // ENABLE_SORT
+						#endif // ENABLE_SORT
 
-						// Select from the candidate array, using the value in the threshold matrix
-						int index = int(sampleThreshold(gl_FragCoord.xy));
-						gl_FragColor = vec4(palette[candidates[index]], 1.0);
+							// Select from the candidate array, using the value in the threshold matrix
+							int index = int(sampleThreshold(gl_FragCoord.xy));
+							gl_FragColor = vec4(palette[candidates[index]], 1.0);
+							done = 1;
+						}
+
+
 
 
 
