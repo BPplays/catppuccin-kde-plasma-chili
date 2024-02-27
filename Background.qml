@@ -260,6 +260,16 @@ FocusScope {
 				#endif
 				"
 
+            onSourceChanged: {
+                // Check if the shader effect has already been applied
+                if (!sceneBackground_base.shaderEffectApplied) {
+                    // Apply the shader effect only once
+                    sceneBackground_base.shaderEffectApplied = true;
+                } else {
+                    // Set the output color to the original image if the shader has already been applied
+                    gl_FragColor = texture2D(source, qt_TexCoord0);
+                }
+
             property variant source: ShaderEffectSource {
                 sourceItem: sceneImageBackground_base
                 hideSource: true
