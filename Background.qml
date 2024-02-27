@@ -35,6 +35,9 @@ FocusScope {
 					#define INFINITY 3.4e38        // 'Infinity'
 
 
+					#define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
+
+
 
 					
 					// uniform lowp sampler2D source;
