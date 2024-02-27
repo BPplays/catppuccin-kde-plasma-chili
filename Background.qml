@@ -21,20 +21,20 @@ FocusScope {
     //     "
     // }
 
-    // Offscreen surface to render the shader effect
-    ShaderEffectSource {
-        id: shaderSource
-        sourceItem: sceneImageBackground_base
-        live: false // Ensure the source is not updated continuously
-        hideSource: true // Prevent the original item from being rendered
-        width: sceneImageBackground_base.width
-        height: sceneImageBackground_base.height
+    // // Offscreen surface to render the shader effect
+    // ShaderEffectSource {
+    //     id: shaderSource
+    //     sourceItem: sceneImageBackground_base
+    //     live: false // Ensure the source is not updated continuously
+    //     hideSource: true // Prevent the original item from being rendered
+    //     width: sceneImageBackground_base.width
+    //     height: sceneImageBackground_base.height
 
-        // Shader effect
-        fragmentShader: "
-            // Your fragment shader code here...
-        "
-    }
+    //     // Shader effect
+    //     fragmentShader: "
+    //         // Your fragment shader code here...
+    //     "
+    // }
 
 
 
