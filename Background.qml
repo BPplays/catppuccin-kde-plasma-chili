@@ -170,14 +170,14 @@ FocusScope {
 							int closestColour = getClosestColour(goalColour);
 
 							candidates[i] = closestColour;
-							quantError += colourLinear - sRGBtoLinear(texture2D(source, uv).rgb);
+							quantError += colourLinear - sRGBtoLinear(texture2D(source, qt_TexCoord0).rgb);
 						}
 
 					#if defined(ENABLE_SORT)
 						// Sort the candidate array by luminance (bubble sort)
 						for (int i = N - 1; i > 0; i--) {
 							for (int j = 0; j < i; j++) {
-								if (getLuminance(texture2D(source, uv).rgb) > getLuminance(texture2D(source, uv).rgb)) {
+								if (getLuminance(texture2D(source, qt_TexCoord0).rgb) > getLuminance(texture2D(source, qt_TexCoord0).rgb)) {
 									// Swap the candidates
 									int t = candidates[j];
 									candidates[j] = candidates[j + 1];
@@ -189,7 +189,7 @@ FocusScope {
 
 						// Select from the candidate array, using the value in the threshold matrix
 						int index = int(sampleThreshold(gl_FragCoord.xy));
-						gl_FragColor = vec4(texture2D(source, uv).rgb, 1.0);
+						gl_FragColor = vec4(texture2D(source, qt_TexCoord0).rgb, 1.0);
 
 
 
