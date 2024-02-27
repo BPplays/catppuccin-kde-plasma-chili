@@ -67,7 +67,7 @@ FocusScope {
 
 				#if ENABLE == 1
 
-					const vec3 palette[PALETTE_SIZE] = vec3[](
+					const highp vec3 palette[PALETTE_SIZE] = highp vec3[](
 						RGB8(0x1e1e2e), RGB8(0x313244), RGB8(0x45475a), RGB8(0xf5c2e7)
 					);
 
