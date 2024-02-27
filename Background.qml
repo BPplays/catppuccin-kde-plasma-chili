@@ -125,17 +125,17 @@ FocusScope {
 					}
 
 					float sampleThreshold(vec2 coord) {
-						// // Sample the centre of the texel
-						// ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(textureSize(iChannel1, 0).xy);
-						// vec2 uv = vec2(pixel) / vec2(textureSize(iChannel1, 0).xy);
-						// vec2 offset = 0.5 / vec2(textureSize(iChannel1, 0).xy);
-						// return texture2D(iChannel1, uv + offset).x * (N - 1);
+						// Sample the centre of the texel
+						ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(textureSize(iChannel1, 0).xy);
+						vec2 uv = vec2(pixel) / vec2(textureSize(iChannel1, 0).xy);
+						vec2 offset = 0.5 / vec2(textureSize(iChannel1, 0).xy);
+						return texture2D(iChannel1, uv + offset).x * (N - 1);
 
-						// Sample the center of the texel
-						ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(iChannelResolution);
-						vec2 uv = vec2(pixel) / iChannelResolution;
-						vec2 offset = 0.5 / iChannelResolution;
-						return texture2D(iChannel1, uv + offset).x * float(N - 1.0);
+						// // Sample the center of the texel
+						// ivec2 pixel = ivec2(coord / PIXEL_SIZE) % ivec2(iChannelResolution);
+						// vec2 uv = vec2(pixel) / iChannelResolution;
+						// vec2 offset = 0.5 / iChannelResolution;
+						// return texture2D(iChannel1, uv + offset).x * float(N - 1.0);
 					}
 
 					// float getClosestColour(vec3 inputColour)
@@ -254,7 +254,7 @@ FocusScope {
 					}
 				#else
 					void main() {
-						vec4 sourceColor = texture2D(iChannel1, qt_TexCoord0);
+						vec4 sourceColor = texture2D(source, qt_TexCoord0);
 						gl_FragColor = vec4(sourceColor);
 					}
 				#endif
