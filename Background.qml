@@ -148,7 +148,7 @@ FocusScope {
 
 						// Get the color for this fragment
 						vec2 pixelSizeNormalised = PIXEL_SIZE * ivec2(textureSize(source, 0).xy);
-						vec2 uv = pixelSizeNormalised * floor(gl_FragCoord.xy / ivec2(textureSize(source, 0).xy) / pixelSizeNormalised);
+						vec2 uv = pixelSizeNormalised * floor(gl_FragCoord / ivec2(textureSize(source, 0).xy) / pixelSizeNormalised);
 						// vec3 colour = texture2D(source, qt_TexCoord0).rgb;
 						vec3 colour = texture2D(source, uv).rgb;
 
