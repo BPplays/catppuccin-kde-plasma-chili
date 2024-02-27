@@ -205,6 +205,7 @@ SessionManagementScreen {
         anchors.fill: loginButton_base
         source: loginButton_base
         smooth: true
+        cache: true
 
         // // Extract RGB components from hex color
         // property real redComponent: (cattpuccin_green >> 16) & 0xFF
