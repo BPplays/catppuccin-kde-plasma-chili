@@ -223,7 +223,9 @@ FocusScope {
 						// gl_FragColor = vec4(candidateList[index], sourceColor.a);
 					}
 				#else
-					gl_FragColor = vec4(sourceColor);
+					void main() {
+						gl_FragColor = vec4(sourceColor);
+					}
 				#endif
 				"
 
