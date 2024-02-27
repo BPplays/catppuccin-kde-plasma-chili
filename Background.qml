@@ -35,7 +35,7 @@ FocusScope {
 	// Render the shader effect to the offscreen item once
 	// shaderCacheItem.width = sceneImageBackground_base.width
 	// shaderCacheItem.height = sceneImageBackground_base.height
-	sceneImageBackground_base.layer.enabled = false
+	sceneImageBackground_base.layer.enabled = true
     }
 
     Image {
