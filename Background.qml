@@ -170,7 +170,7 @@ FocusScope {
 							int closestColour = getClosestColour(goalColour);
 
 							candidates[i] = closestColour;
-							quantError += colourLinear - sRGBtoLinear(texture2D(source, qt_TexCoord0).rgb);
+							quantError += colourLinear - sRGBtoLinear(palette[closestColour]);
 						}
 
 					#if defined(ENABLE_SORT)
