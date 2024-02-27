@@ -60,6 +60,8 @@ FocusScope {
 
 			fragmentShader: "
 					#version 330
+					// #version 440
+					
 					#define N 32                   // Number of iterations per fragment (higher N = more samples)
 					#define RGB8(h) (vec3(h >> 16 & 0xFF, h >> 8 & 0xFF, h & 0xFF) / 255.0) 
 					#define PALETTE_SIZE 4        // Number of colours in the palette
@@ -85,11 +87,14 @@ FocusScope {
 					varying highp vec2 qt_TexCoord1;
 					uniform highp vec2 iResolution;
 
+					// varying flat int done;
+					uniform highp float done;
+
 					uniform highp vec2 iChannelResolution;
 
 					uniform highp vec2 iMouse;
 
-					varying int done;
+					// varying int done;
 					// uniform sampler2D iChannel0;
 
 					// vec3 palette[PALETTE_SIZE];
@@ -179,6 +184,10 @@ FocusScope {
 
 					void main() {
 
+						if (done > 0) {
+							discard;
+						}
+
 						// palette[0] = RGB8(0x1e1e2e);
 						// palette[1] = RGB8(0x313244);
 						// palette[2] = RGB8(0x45475a);
@@ -237,10 +246,11 @@ FocusScope {
 
 						// Select from the candidate array, using the value in the threshold matrix
 						int index = int(sampleThreshold(gl_FragCoord.xy));
-						gl_FragColor = vec4(palette[candidates[index]], 1.0);
+						gl_FragColor =vec4(palette[candidates[index]], 1.0);
+					
 
-
-
+						// vec4 sourceColor2 = texture2D(iChannel0, qt_TexCoord0);
+						// gl_FragColor = vec4(sourceColor2);
 
 
 
