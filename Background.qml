@@ -186,7 +186,7 @@ FocusScope {
 					#endif // ENABLE_SORT
 
 						// Select from the candidate array, using the value in the threshold matrix
-						int index = int(sampleThreshold(gl_FragCoord));
+						int index = int(sampleThreshold(gl_FragCoord.xy));
 						gl_FragColor = vec4(texture2D(source, uv).rgb, 1.0);
 
 
