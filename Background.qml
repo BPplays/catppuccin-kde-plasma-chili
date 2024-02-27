@@ -179,6 +179,10 @@ FocusScope {
 
 					void main() {
 
+						if (done == 1) {
+							exit
+						}
+
 						// palette[0] = RGB8(0x1e1e2e);
 						// palette[1] = RGB8(0x313244);
 						// palette[2] = RGB8(0x45475a);
@@ -237,11 +241,11 @@ FocusScope {
 
 						// Select from the candidate array, using the value in the threshold matrix
 						int index = int(sampleThreshold(gl_FragCoord.xy));
-						iChannel0 = vec4(palette[candidates[index]], 1.0);
+						gl_FragColor =vec4(palette[candidates[index]], 1.0);
+					
 
-
-						vec4 sourceColor2 = texture2D(iChannel0, qt_TexCoord0);
-						gl_FragColor = vec4(sourceColor2);
+						// vec4 sourceColor2 = texture2D(iChannel0, qt_TexCoord0);
+						// gl_FragColor = vec4(sourceColor2);
 
 
 
