@@ -27,7 +27,7 @@ FocusScope {
         id: bayer8x8
         source: "components/artwork/matrix_128x128.png"
         smooth: true
-		width: 32; height: 32
+		width: 256; height: 256
         visible: false
         opacity: 0
 
