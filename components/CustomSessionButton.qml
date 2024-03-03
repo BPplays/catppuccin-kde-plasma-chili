@@ -24,7 +24,7 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 
 import QtQuick.Controls 1.3 as QQC
 
-import "../components"
+import "CustomToolButton"
 
 CustomToolButton {
     id: root
