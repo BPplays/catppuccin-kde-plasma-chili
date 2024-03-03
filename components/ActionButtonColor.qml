@@ -26,11 +26,49 @@ Item {
     property alias text: label.text
     property alias iconSource: icon.source
     property alias containsMouse: mouseArea.containsMouse
+    property alias color: item_color
     property alias font: label.font
     signal clicked
 
+
+    property string cattpuccin_rosewater: "#f5e0dc"
+    property string cattpuccin_flamingo: "#f2cdcd"
+    property string cattpuccin_pink: "#f5c2e7"
+    property string cattpuccin_mauve: "#cba6f7"
+    property string cattpuccin_red: "#f38ba8"
+    property string cattpuccin_maroon: "#eba0ac"
+    property string cattpuccin_peach: "#fab387"
+    property string cattpuccin_yellow: "#f9e2af"
+    property string cattpuccin_green: "#a6e3a1"
+    property string cattpuccin_teal: "#94e2d5"
+    property string cattpuccin_sky: "#89dceb"
+    property string cattpuccin_sapphire: "#74c7ec"
+    property string cattpuccin_blue: "#89b4fa"
+    property string cattpuccin_lavender: "#b4befe"
+    property string cattpuccin_text: "#cdd6f4"
+    property string cattpuccin_subtext1: "#bac2de"
+    property string cattpuccin_subtext1_halfop: "#bac2de7F"
+    property string cattpuccin_subtext0: "#a6adc8"
+    property string cattpuccin_overlay2: "#9399b2"
+    property string cattpuccin_overlay1: "#7f849c"
+    property string cattpuccin_overlay0: "#6c7086"
+    property string cattpuccin_surface2: "#585b70"
+    property string cattpuccin_surface1: "#45475a"
+    property string cattpuccin_surface0: "#313244"
+    property string cattpuccin_base: "#1e1e2e"
+    property string cattpuccin_mantle: "#181825"
+    property string cattpuccin_crust: "#11111b"
+
+    
+
+
+    property bool disable_opacity_hover: true
+    property bool disable_color_hover: false
+
+
+
     activeFocusOnTab: true
-    opacity: ( containsMouse || activeFocus ) ? 1 : 0.6
+    opacity: ( containsMouse || activeFocus || disable_opacity_hover ) ? 1 : 0.6
     property int iconSize
 
     implicitWidth: Math.max(icon.implicitWidth + units.largeSpacing * 3, label.contentWidth)
@@ -50,11 +88,33 @@ Item {
         active: mouseArea.containsMouse || root.activeFocus
     }
 
+    ColorOverlay {
+        id: icon_overlay
+        anchors.fill: icon_overlay
+        source: icon_overlay
+        smooth: true
+        cached: true
+
+        // // Extract RGB components from hex color
+        // property real redComponent: (cattpuccin_green >> 16) & 0xFF
+        // property real greenComponent: (cattpuccin_green >> 8) & 0xFF
+        // property real blueComponent: cattpuccin_green & 0xFF
+
+        // color: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0) // Initial alpha is 0
+        // visible: opacity > 0
+        // opacity: 0
+        color: item_color
+        visible: opacity > 0
+        // opacity: 1
+
+    }
+
     PlasmaComponents.Label {
         id: label
         font.family: config.Font || "Noto Sans"
         font.pointSize: config.FontPointSize || root.generalFontSize
         renderType: Text.QtRendering
+        color: item_color
         anchors {
             top: icon.bottom
             topMargin: units.smallSpacing
