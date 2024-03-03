@@ -114,13 +114,13 @@ PlasmaComponents.ToolButton {
             }
         }
 
-        background: Rectangle {
-            implicitWidth: 200
-            implicitHeight: 40
-            color: "#ffffff"
-            border.color: "#21be2b"
-            radius: 2
-        }
+        // background: Rectangle {
+        //     implicitWidth: 200
+        //     implicitHeight: 40
+        //     color: "#ffffff"
+        //     border.color: "#21be2b"
+        //     radius: 2
+        // }
 
 
 
