@@ -98,8 +98,8 @@ Item {
 
     ColorOverlay {
         id: icon_overlay
-        anchors.fill: icon_overlay
-        source: icon_overlay
+        anchors.fill: icon
+        source: icon
         smooth: true
         cached: true
 
