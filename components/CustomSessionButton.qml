@@ -22,7 +22,8 @@ import QtQuick 2.12
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
-import QtQuick.Controls 2.12 as QQC
+// import QtQuick.Controls 2.12 as QQC
+import QtQuick.Controls 2.12
 
 PlasmaComponents.ToolButton {
     id: root
@@ -39,9 +40,9 @@ PlasmaComponents.ToolButton {
         currentIndex = sessionModel.lastIndex
     }
 
-    menu: QQC.Menu {
+    menu: Menu {
         id: menu
-        QQC.MenuSeparator {
+        MenuSeparator {
             contentItem: Rectangle {
                 implicitWidth: 200
                 implicitHeight: 1
@@ -52,7 +53,7 @@ PlasmaComponents.ToolButton {
         topPadding: 2
         bottomPadding: 2
 
-        delegate: QQC.MenuItem {
+        delegate: MenuItem {
             id: menuItem
             implicitWidth: 200
             implicitHeight: 40
