@@ -149,7 +149,7 @@ Item {
     MouseArea {
         id: mouseArea
         hoverEnabled: true
-        onClicked: ( enable_click ) ? root.clicked()
+        onClicked: ( enable_click ) ? root.clicked() :
         anchors.fill: root
         // enable: enable_click
     }
