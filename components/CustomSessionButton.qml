@@ -24,7 +24,9 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 
 import QtQuick.Controls 1.3 as QQC
 
-import "compsrc"
+import QtQuick.Templates 2.0 as T
+
+// import "compsrc"
 
 CustomToolButton {
     id: root
@@ -41,14 +43,14 @@ CustomToolButton {
         currentIndex = sessionModel.lastIndex
     }
 
-    menu: QQC.Menu {
+    menu: T.Menu {
         id: menu
         Instantiator {
             id: instantiator
             model: sessionModel
             onObjectAdded: menu.insertItem(index, object)
             onObjectRemoved: menu.removeItem( object )
-            delegate: QQC.MenuItem {
+            delegate: T.MenuItem {
                 text: model.name
                 onTriggered: {
                     root.currentIndex = model.index
