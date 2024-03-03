@@ -17,15 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 2.15
+import QtQuick 2.2
+
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents
+import org.kde.plasma.components 2.0 as PlasmaComponents
 
-import QtQuick.Controls 2.15 as QQC
-import QtQuick.Templates 2.15 as T
-import QtGraphicalEffects 1.12
-
-// import "compsrc"
+import QtQuick.Controls 1.3 as QQC
 
 PlasmaComponents.ToolButton {
     id: root
@@ -36,28 +33,25 @@ PlasmaComponents.ToolButton {
     font.family: config.Font || "Noto Sans"
     font.pointSize: sessionFontSize
 
-    text: "test"
+    text: instantiator.objectAt(currentIndex).text || ""
 
-    // text: instantiator.itemAt(currentIndex).text || ""
+    Component.onCompleted: {
+        currentIndex = sessionModel.lastIndex
+    }
 
-    // Component.onCompleted: {
-    //     currentIndex = sessionModel.lastIndex
-    // }
-
-    // onClicked: {
-    //     menu.popup()
-    // }
-
-    // PlasmaComponents.Menu {
-    //     id: menu
-    //     Repeater {
-    //         model: sessionModel
-    //         delegate: QQC.MenuItem {
-    //             text: model.name
-    //             onClicked: {
-    //                 root.currentIndex = model.index
-    //             }
-    //         }
-    //     }
-    // }
+    menu: QQC.Menu {
+        id: menu
+        Instantiator {
+            id: instantiator
+            model: sessionModel
+            onObjectAdded: menu.insertItem(index, object)
+            onObjectRemoved: menu.removeItem( object )
+            delegate: QQC.MenuItem {
+                text: model.name
+                onTriggered: {
+                    root.currentIndex = model.index
+                }
+            }
+        }
+    }
 }
