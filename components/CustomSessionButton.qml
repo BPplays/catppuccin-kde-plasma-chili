@@ -22,38 +22,32 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import QtQuick.Controls 1.3 as QQC
 
-PlasmaCore.Dialog {
-    id: menuDialog
-    modal: true
-    visible: false
-    width: 200
-    height: 150
+Button {
+    id: root
+    property int currentIndex: -1
+    property int sessionFontSize
 
-    PlasmaComponents.ListView {
-        model: sessionModel
-        delegate: QQC.Item {
-            width: menuDialog.width
-            height: 50
+    text: instantiator.objectAt(currentIndex).text || ""
+    font.family: config.Font || "Noto Sans"
+    font.pointSize: sessionFontSize
 
-            QQC.Text {
-                anchors.centerIn: parent
+    onClicked: {
+        menu.popup();
+    }
+
+    Menu {
+        id: menu
+        Instantiator {
+            id: instantiator
+            model: sessionModel
+            onObjectAdded: menu.insertItem(index, object)
+            onObjectRemoved: menu.removeItem(object)
+            delegate: MenuItem {
                 text: model.name
-                font.pointSize: 16
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    menuDialog.close()
+                onTriggered: {
                     root.currentIndex = model.index
                 }
             }
         }
     }
-}
-
-PlasmaComponents.Button {
-    id: themableButton
-    text: "Select Session"
-    onClicked: menuDialog.open()
 }
