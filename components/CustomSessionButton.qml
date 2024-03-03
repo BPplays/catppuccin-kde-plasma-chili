@@ -44,14 +44,12 @@ PlasmaComponents.ToolButton {
 
     Menu {
         id: menu
-        PlasmaComponents.ApplicationMenu {
-            Repeater {
-                model: sessionModel
-                delegate: QQC.MenuItem {
-                    text: model.name
-                    onClicked: {
-                        root.currentIndex = model.index
-                    }
+        Repeater {
+            model: sessionModel
+            delegate: QQC.MenuItem {
+                text: model.name
+                onClicked: {
+                    root.currentIndex = model.index
                 }
             }
         }
