@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.15
-import org.kde.plasma.core 3.0 as PlasmaCore
+import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 
 import QtQuick.Controls 2.15 as QQC
