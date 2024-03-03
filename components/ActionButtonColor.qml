@@ -149,9 +149,9 @@ Item {
     MouseArea {
         id: mouseArea
         hoverEnabled: true
-        onClicked: root.clicked()
+        onClicked: ( enable_click ) ? root.clicked()
         anchors.fill: root
-        enable: enable_click
+        // enable: enable_click
     }
 
     Keys.onEnterPressed: clicked()
