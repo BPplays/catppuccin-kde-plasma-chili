@@ -36,26 +36,28 @@ PlasmaComponents.ToolButton {
     font.family: config.Font || "Noto Sans"
     font.pointSize: sessionFontSize
 
-    text: instantiator.itemAt(currentIndex).text || ""
+    text: "test"
 
-    Component.onCompleted: {
-        currentIndex = sessionModel.lastIndex
-    }
+    // text: instantiator.itemAt(currentIndex).text || ""
 
-    onClicked: {
-        menu.popup()
-    }
+    // Component.onCompleted: {
+    //     currentIndex = sessionModel.lastIndex
+    // }
 
-    PlasmaComponents.Menu {
-        id: menu
-        Repeater {
-            model: sessionModel
-            delegate: QQC.MenuItem {
-                text: model.name
-                onClicked: {
-                    root.currentIndex = model.index
-                }
-            }
-        }
-    }
+    // onClicked: {
+    //     menu.popup()
+    // }
+
+    // PlasmaComponents.Menu {
+    //     id: menu
+    //     Repeater {
+    //         model: sessionModel
+    //         delegate: QQC.MenuItem {
+    //             text: model.name
+    //             onClicked: {
+    //                 root.currentIndex = model.index
+    //             }
+    //         }
+    //     }
+    // }
 }
