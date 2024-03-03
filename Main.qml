@@ -102,6 +102,7 @@ PlasmaCore.ColorScope {
         anchors.rightMargin: 14
         anchors.topMargin: 10
         clockSize: root.generalFontSize
+        color: cattpuccin_text
     }
 
 
