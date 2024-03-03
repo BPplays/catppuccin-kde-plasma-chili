@@ -33,12 +33,18 @@ PlasmaComponents.ToolButton {
     property int currentIndex: -1
     property int sessionFontSize
 
+    theme: QQC.MenuStyle {
+        background: "lightblue"
+        textColor: "darkblue"
+        itemTextColor: "darkblue"
+        highlightColor: "orange"
+    }
+
     visible: menu.items.length > 1
     font.family: config.Font || "Noto Sans"
     font.pointSize: sessionFontSize
 
     text: instantiator.objectAt(currentIndex).text || ""
-    color: "#000000"
 
     Component.onCompleted: {
         currentIndex = sessionModel.lastIndex
