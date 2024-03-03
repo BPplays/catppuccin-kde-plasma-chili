@@ -28,7 +28,7 @@ import QtQuick.Templates 2.0 as T
 
 // import "compsrc"
 
-T.ToolButton {
+PlasmaComponents.ToolButton {
     id: root
     property int currentIndex: -1
     property int sessionFontSize
@@ -38,6 +38,7 @@ T.ToolButton {
     font.pointSize: sessionFontSize
 
     text: instantiator.objectAt(currentIndex).text || ""
+    color: "#000000"
 
     Component.onCompleted: {
         currentIndex = sessionModel.lastIndex
