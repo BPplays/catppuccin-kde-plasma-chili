@@ -377,7 +377,7 @@ PlasmaCore.ColorScope {
             visible: inputPanel.status == Loader.Ready
         }
 
-        CustomSessionButton {
+        SessionButton {
             id: sessionButton
             sessionFontSize: root.generalFontSize
         }
