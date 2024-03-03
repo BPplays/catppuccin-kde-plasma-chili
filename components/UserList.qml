@@ -43,6 +43,7 @@ ListView {
 
     delegate: UserDelegate {
         avatarPath: model.icon || ""
+        console.log("Avatar Path:", model.icon || "");
         iconSource: model.iconName || "user-identity"
 
         name: {
