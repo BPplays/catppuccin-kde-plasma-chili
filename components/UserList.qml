@@ -25,6 +25,9 @@ ListView {
     readonly property int userItemWidth: units.gridUnit * 8
     readonly property int userItemHeight: units.gridUnit * 8
 
+
+    property string avatar_base_path: "/var/lib/AccountsService/icons/"
+
     implicitHeight: userItemHeight
 
     activeFocusOnTab : true
@@ -42,7 +45,8 @@ ListView {
     preferredHighlightEnd: preferredHighlightBegin
 
     delegate: UserDelegate {
-        avatarPath: model.icon || ""
+        // avatarPath: model.icon || ""
+        avatarPath: avatar_base_path+currentItem.userName || ""
         iconSource: model.iconName || "user-identity"
 
         name: {
