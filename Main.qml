@@ -376,13 +376,14 @@ PlasmaCore.ColorScope {
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
                 },
-                ActionButton {
+                ActionButtonColor {
                     iconSource: "system-reboot"
                     text: config.TranslationReboot ? config.TranslationReboot : i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Restart")
                     onClicked: sddm.reboot()
                     enabled: sddm.canReboot
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
+                    color: cattpuccin_subtext1
                 },
                 ActionButton {
                     id: ab_shutdown_base
