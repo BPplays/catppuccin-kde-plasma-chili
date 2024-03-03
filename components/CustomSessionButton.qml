@@ -24,7 +24,9 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 
 import QtQuick.Controls 1.3 as QQC
 
-PlasmaComponents.ToolButton {
+import "components"
+
+CustomToolButton {
     id: root
     property int currentIndex: -1
     property int sessionFontSize
