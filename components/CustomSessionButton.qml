@@ -28,7 +28,7 @@ import QtQuick.Templates 2.0 as T
 
 // import "compsrc"
 
-CustomToolButton {
+T.ToolButton {
     id: root
     property int currentIndex: -1
     property int sessionFontSize
@@ -43,14 +43,14 @@ CustomToolButton {
         currentIndex = sessionModel.lastIndex
     }
 
-    menu: T.Menu {
+    menu: QQC.Menu {
         id: menu
         Instantiator {
             id: instantiator
             model: sessionModel
             onObjectAdded: menu.insertItem(index, object)
             onObjectRemoved: menu.removeItem( object )
-            delegate: T.MenuItem {
+            delegate: QQC.MenuItem {
                 text: model.name
                 onTriggered: {
                     root.currentIndex = model.index
