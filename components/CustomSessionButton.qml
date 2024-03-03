@@ -23,6 +23,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
 import QtQuick.Controls 1.3 as QQC
+import QtQuick.Controls 2.12 as QQC2
 
 import QtQuick.Templates 2.0 as T
 
@@ -33,7 +34,7 @@ PlasmaComponents.ToolButton {
     property int currentIndex: -1
     property int sessionFontSize
 
-    theme: QQC.MenuStyle {
+    theme: QQC2.MenuStyle {
         background: "lightblue"
         textColor: "darkblue"
         itemTextColor: "darkblue"
