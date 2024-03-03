@@ -29,6 +29,7 @@ Item {
     property alias iconSource: icon.source
     property alias containsMouse: mouseArea.containsMouse
     property alias color: root.item_color
+    property alias color_hovered: root.item_color_hov
     property alias font: label.font
     signal clicked
 
@@ -62,6 +63,7 @@ Item {
     property string cattpuccin_crust: "#11111b"
 
     property string item_color: cattpuccin_base
+    property string item_color_hov: cattpuccin_base
 
     
 
@@ -107,7 +109,7 @@ Item {
         // color: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0) // Initial alpha is 0
         // visible: opacity > 0
         // opacity: 0
-        color: item_color
+        color: ( containsMouse || activeFocus ) ? item_color_hov : item_color
         visible: opacity > 0
         // opacity: 1
 
@@ -118,7 +120,7 @@ Item {
         font.family: config.Font || "Noto Sans"
         font.pointSize: config.FontPointSize || root.generalFontSize
         renderType: Text.QtRendering
-        color: item_color
+        color: ( containsMouse || activeFocus ) ? item_color_hov : item_color
         anchors {
             top: icon.bottom
             topMargin: units.smallSpacing
