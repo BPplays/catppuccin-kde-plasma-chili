@@ -24,6 +24,9 @@ import org.kde.plasma.core 2.0
 import org.kde.plasma.components 2.0
 
 RowLayout {
+    id: root
+
+    property alias color: root.item_color
 
 
     // Define color variables
@@ -55,6 +58,9 @@ RowLayout {
     property string cattpuccin_crust: "#11111b"
 
 
+    property string item_color: "#11111b"
+
+
 
     property int clockSize
     
@@ -64,14 +70,15 @@ RowLayout {
         font.family: config.Font || "Noto Sans"
         font.pointSize: clockSize
         text: Qt.formatDateTime(timeSource.data["Local"]["DateTime"], "yyyy/MM/dd,") // MMMM shows month right
-        // color: cattpuccin_text
-        color: cattpuccin_base
+        color: item_color
+        // color: cattpuccin_base
         renderType: Text.QtRendering
     }
     Label {
         font.family: config.Font || "Noto Sans"
         font.pointSize: clockSize
         text: Qt.formatTime(timeSource.data["Local"]["DateTime"])
+        color: item_color
         renderType: Text.QtRendering
     }
     DataSource {
