@@ -43,20 +43,8 @@ Item {
         source: sessionButton
         smooth: true
         cached: true
-
-        // // Extract RGB components from hex color
-        // property real redComponent: (cattpuccin_green >> 16) & 0xFF
-        // property real greenComponent: (cattpuccin_green >> 8) & 0xFF
-        // property real blueComponent: cattpuccin_green & 0xFF
-
-        // color: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0) // Initial alpha is 0
-        // visible: opacity > 0
-        // opacity: 0
         color: root.color
-        // visible: opacity > 0
-        visible: true
-        // opacity: 1
-        // active: mouseArea.containsMouse || root.activeFocus
+        visible: sessionButton.visible
 
     }
 }
