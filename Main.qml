@@ -380,6 +380,7 @@ PlasmaCore.ColorScope {
         SessionButtonColor {
             id: sessionButton
             sessionFontSize: root.generalFontSize
+            color: cattpuccin_text
         }
 
     }
