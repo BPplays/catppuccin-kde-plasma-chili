@@ -18,48 +18,42 @@
  */
 
 import QtQuick 2.2
+import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.components 2.0 as PlasmaComponents
 import QtQuick.Controls 1.3 as QQC
-import QtQuick.Controls 1.3
 
+PlasmaCore.Dialog {
+    id: menuDialog
+    modal: true
+    visible: false
+    width: 200
+    height: 150
 
+    PlasmaComponents.ListView {
+        model: sessionModel
+        delegate: QQC.Item {
+            width: menuDialog.width
+            height: 50
 
-import QtQuick.Layouts 1.1
-
-import QtGraphicalEffects 1.12
-
-
-ApplicationWindow {
-    visible: true
-    header: ToolBar {
-        RowLayout {
-            anchors.fill: parent
-            ToolButton {
-                text: qsTr("Menu")
-                onClicked: menu.open()
-            }
-            Label {
-                text: "Title"
-                elide: Label.ElideRight
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                Layout.fillWidth: true
-            }
-        }
-    }
-
-    Menu {
-        id: menu
-        Instantiator {
-            id: instantiator
-            model: sessionModel
-            onObjectAdded: menu.insertItem(index, object)
-            onObjectRemoved: menu.removeItem(object)
-            delegate: QQC.MenuItem {
+            QQC.Text {
+                anchors.centerIn: parent
                 text: model.name
-                onTriggered: {
+                font.pointSize: 16
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    menuDialog.close()
                     root.currentIndex = model.index
                 }
             }
         }
     }
+}
+
+PlasmaComponents.Button {
+    id: themableButton
+    text: "Select Session"
+    onClicked: menuDialog.open()
 }
