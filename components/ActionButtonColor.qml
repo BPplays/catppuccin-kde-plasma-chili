@@ -31,7 +31,7 @@ Item {
     property alias color: root.item_color
     property alias color_hovered: root.item_color_hov
 
-    property alias opacity: root.item_op
+    property alias opacity_norm: root.item_op
     property alias opacity_hovered: root.item_op_hov
     property alias font: label.font
     signal clicked
