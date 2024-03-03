@@ -383,7 +383,7 @@ PlasmaCore.ColorScope {
                     enabled: sddm.canReboot
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                    color: cattpuccin_subtext1
+                    color: cattpuccin_subtext0
                     color_hovered: cattpuccin_text
                 },
                 ActionButton {
