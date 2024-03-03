@@ -42,16 +42,19 @@ PlasmaComponents.ToolButton {
         currentIndex = sessionModel.lastIndex
     }
 
-    menu: QQC.Menu {
+    Menu {
         id: menu
-        Repeater {
-            model: sessionModel
-            delegate: QQC.MenuItem {
-                text: model.name
-                onClicked: {
-                    root.currentIndex = model.index
+        PlasmaComponents.ApplicationMenu {
+            Repeater {
+                model: sessionModel
+                delegate: QQC.MenuItem {
+                    text: model.name
+                    onClicked: {
+                        root.currentIndex = model.index
+                    }
                 }
             }
         }
+        associatedMenu: menu
     }
 }
