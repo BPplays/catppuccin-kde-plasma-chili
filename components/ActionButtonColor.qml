@@ -111,9 +111,11 @@ Item {
         // color: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0) // Initial alpha is 0
         // visible: opacity > 0
         // opacity: 0
-        color: ( containsMouse || activeFocus ) ? item_color_hov : item_color
-        visible: opacity > 0
+        color: ( mouseArea.containsMouse || root.activeFocus ) ? item_color_hov : item_color
+        // visible: opacity > 0
+        visible: true
         // opacity: 1
+        active: mouseArea.containsMouse || root.activeFocus
 
     }
 
@@ -122,7 +124,7 @@ Item {
         font.family: config.Font || "Noto Sans"
         font.pointSize: config.FontPointSize || root.generalFontSize
         renderType: Text.QtRendering
-        color: ( containsMouse || activeFocus ) ? item_color_hov : item_color
+        color: ( mouseArea.containsMouse || root.activeFocus ) ? item_color_hov : item_color
         anchors {
             top: icon.bottom
             topMargin: units.smallSpacing
