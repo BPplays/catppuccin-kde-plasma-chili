@@ -30,6 +30,9 @@ import QtGraphicalEffects 1.12
 
 // import "compsrc"
 Item {
+    property alias currentIndex: root.currentIndex
+    property alias sessionFontSize: root.sessionFontSize
+
     PlasmaComponents.ToolButton {
         id: root
         property int currentIndex: -1
