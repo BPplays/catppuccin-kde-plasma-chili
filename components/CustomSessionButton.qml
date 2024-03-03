@@ -35,7 +35,7 @@ PlasmaComponents.ToolButton {
 
 
 
-    visible: menu.items.length > 1
+    visible: false
     font.family: config.Font || "Noto Sans"
     font.pointSize: sessionFontSize
 
@@ -60,4 +60,28 @@ PlasmaComponents.ToolButton {
             }
         }
     }
+}
+
+
+ColorOverlay {
+    id: root_overlay
+    anchors.fill: root
+    source: root
+    smooth: true
+    cached: true
+
+    // // Extract RGB components from hex color
+    // property real redComponent: (cattpuccin_green >> 16) & 0xFF
+    // property real greenComponent: (cattpuccin_green >> 8) & 0xFF
+    // property real blueComponent: cattpuccin_green & 0xFF
+
+    // color: Qt.rgba(redComponent / 255, greenComponent / 255, blueComponent / 255, 0) // Initial alpha is 0
+    // visible: opacity > 0
+    // opacity: 0
+    color: ( mouseArea.containsMouse || root.activeFocus ) ? item_color_hov : item_color
+    // visible: opacity > 0
+    visible: menu.items.length > 1
+    // opacity: 1
+    // active: mouseArea.containsMouse || root.activeFocus
+
 }
