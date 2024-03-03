@@ -90,6 +90,8 @@ Item {
         width: config.PowerIconSize ? config.PowerIconSize : iconSize
         height: config.PowerIconSize ? config.PowerIconSize : iconSize
 
+        visible: false
+
         colorGroup: PlasmaCore.ColorScope.colorGroup
         active: mouseArea.containsMouse || root.activeFocus
     }
