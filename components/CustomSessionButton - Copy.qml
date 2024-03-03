@@ -18,34 +18,46 @@
  */
 
 import QtQuick 2.2
-import QtQuick.Controls 1.3 as QQC
 
-ApplicationWindow {
-    visible: true
-    header: ToolBar {
-        RowLayout {
-            anchors.fill: parent
-            ToolButton {
-                text: qsTr("Menu")
-                onClicked: menu.open()
-            }
-            Label {
-                text: "Title"
-                elide: Label.ElideRight
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                Layout.fillWidth: true
-            }
-        }
+import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.components 2.0 as PlasmaComponents
+
+import QtQuick.Controls 1.3 as QQC
+import QtQuick.Controls 2.12 as QQC2
+
+import QtQuick.Templates 2.0 as T
+
+// import "compsrc"
+
+PlasmaComponents.ToolButton {
+    id: root
+    property int currentIndex: -1
+    property int sessionFontSize
+
+    theme: QQC2.MenuStyle {
+        background: "lightblue"
+        textColor: "darkblue"
+        itemTextColor: "darkblue"
+        highlightColor: "orange"
     }
 
-    Menu {
+    visible: menu.items.length > 1
+    font.family: config.Font || "Noto Sans"
+    font.pointSize: sessionFontSize
+
+    text: instantiator.objectAt(currentIndex).text || ""
+
+    Component.onCompleted: {
+        currentIndex = sessionModel.lastIndex
+    }
+
+    menu: QQC.Menu {
         id: menu
         Instantiator {
             id: instantiator
             model: sessionModel
             onObjectAdded: menu.insertItem(index, object)
-            onObjectRemoved: menu.removeItem(object)
+            onObjectRemoved: menu.removeItem( object )
             delegate: QQC.MenuItem {
                 text: model.name
                 onTriggered: {
