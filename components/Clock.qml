@@ -24,9 +24,9 @@ import org.kde.plasma.core 2.0
 import org.kde.plasma.components 2.0
 
 RowLayout {
-    id: root
+    id: clockroot
 
-    property alias color: root.item_color
+    property alias color: clockroot.item_color
 
 
     // Define color variables
