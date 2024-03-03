@@ -384,6 +384,7 @@ PlasmaCore.ColorScope {
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
                     color: cattpuccin_subtext1
+                    color_hovered: cattpuccin_text
                 },
                 ActionButton {
                     id: ab_shutdown_base
