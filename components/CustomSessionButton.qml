@@ -37,7 +37,7 @@ PlasmaComponents.ToolButton {
 
 
 
-    visible: false
+    visible: menu.items.length > 1
     font.family: config.Font || "Noto Sans"
     font.pointSize: sessionFontSize
 
