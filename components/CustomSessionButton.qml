@@ -29,44 +29,38 @@ import QtQuick.Templates 2.0 as T
 import QtGraphicalEffects 1.12
 
 // import "compsrc"
-Item {
-    property alias currentIndex: root.currentIndex
-    property alias sessionFontSize: root.sessionFontSize
 
-    PlasmaComponents.ToolButton {
-        id: root
-        property int currentIndex: -1
-        property int sessionFontSize
+PlasmaComponents.ToolButton {
+    id: root
+    property int currentIndex: -1
+    property int sessionFontSize
 
 
 
-        visible: true
-        font.family: config.Font || "Noto Sans"
-        font.pointSize: sessionFontSize
+    visible: false
+    font.family: config.Font || "Noto Sans"
+    font.pointSize: sessionFontSize
 
-        text: instantiator.objectAt(currentIndex).text || ""
+    text: instantiator.objectAt(currentIndex).text || ""
 
-        Component.onCompleted: {
-            currentIndex = sessionModel.lastIndex
-        }
+    Component.onCompleted: {
+        currentIndex = sessionModel.lastIndex
+    }
 
-        menu: QQC.Menu {
-            id: menu
-            Instantiator {
-                id: instantiator
-                model: sessionModel
-                onObjectAdded: menu.insertItem(index, object)
-                onObjectRemoved: menu.removeItem( object )
-                delegate: QQC.MenuItem {
-                    text: model.name
-                    onTriggered: {
-                        root.currentIndex = model.index
-                    }
+    menu: QQC.Menu {
+        id: menu
+        Instantiator {
+            id: instantiator
+            model: sessionModel
+            onObjectAdded: menu.insertItem(index, object)
+            onObjectRemoved: menu.removeItem( object )
+            delegate: QQC.MenuItem {
+                text: model.name
+                onTriggered: {
+                    root.currentIndex = model.index
                 }
             }
         }
     }
-
-
-
 }
+
