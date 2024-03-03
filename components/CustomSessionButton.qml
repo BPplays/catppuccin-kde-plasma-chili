@@ -52,7 +52,7 @@ PlasmaComponents.ToolButton {
         topPadding: 2
         bottomPadding: 2
 
-        delegate: QCC.MenuItem {
+        delegate: QQC.MenuItem {
             id: menuItem
             implicitWidth: 200
             implicitHeight: 40
