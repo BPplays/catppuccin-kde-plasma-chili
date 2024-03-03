@@ -30,6 +30,9 @@ Item {
     property alias containsMouse: mouseArea.containsMouse
     property alias color: root.item_color
     property alias color_hovered: root.item_color_hov
+
+    property alias opacity: root.item_op
+    property alias opacity_hovered: root.item_op_hov
     property alias font: label.font
     signal clicked
 
@@ -65,16 +68,19 @@ Item {
     property string item_color: cattpuccin_base
     property string item_color_hov: cattpuccin_base
 
+    property float item_op: 100
+    property float item_op_hov: 100
+
     
 
 
-    property bool disable_opacity_hover: true
+    property bool disable_opacity_hover: false
     property bool disable_color_hover: false
 
 
 
     activeFocusOnTab: true
-    opacity: ( containsMouse || activeFocus || disable_opacity_hover ) ? 1 : 0.6
+    opacity: ( containsMouse || activeFocus || disable_opacity_hover ) ? item_op_hov : item_op
     property int iconSize
 
     implicitWidth: Math.max(icon.implicitWidth + units.largeSpacing * 3, label.contentWidth)
