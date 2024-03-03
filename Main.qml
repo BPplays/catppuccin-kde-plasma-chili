@@ -136,15 +136,16 @@ PlasmaCore.ColorScope {
             usernameFontSize: root.generalFontSize
             usernameFontColor: root.generalFontColor
 
-            showUserList: {
-                if ( !userListModel.hasOwnProperty("count")
-                || !userListModel.hasOwnProperty("disableAvatarsThreshold"))
-                    return (userList.y + mainStack.y) > 0
+            // showUserList: {
+            //     if ( !userListModel.hasOwnProperty("count")
+            //     || !userListModel.hasOwnProperty("disableAvatarsThreshold"))
+            //         return (userList.y + mainStack.y) > 0
 
-                if ( userListModel.count == 0 ) return false
+            //     if ( userListModel.count == 0 ) return false
 
-                return userListModel.count <= userListModel.disableAvatarsThreshold && (userList.y + mainStack.y) > 0
-            }
+            //     return userListModel.count <= userListModel.disableAvatarsThreshold && (userList.y + mainStack.y) > 0
+            // }
+            showUserList: true
 
             notificationMessage: {
                 var text = ""
