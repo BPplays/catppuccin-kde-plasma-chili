@@ -372,7 +372,8 @@ PlasmaCore.ColorScope {
                     iconSource: "system-suspend"
                     text: config.TranslationSuspend ? config.TranslationSuspend : i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Suspend")
                     onClicked: sddm.suspend()
-                    enabled: sddm.canSuspend
+                    // enabled: sddm.canSuspend
+                    enable_click: sddm.canSuspend
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
                     color: cattpuccin_subtext0

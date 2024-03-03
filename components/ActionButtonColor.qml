@@ -71,6 +71,9 @@ Item {
     property real item_op: 1
     property real item_op_hov: 1
 
+
+    property bool enable_click: true
+
     
 
 
@@ -148,6 +151,7 @@ Item {
         hoverEnabled: true
         onClicked: root.clicked()
         anchors.fill: root
+        enable: enable_click
     }
 
     Keys.onEnterPressed: clicked()
