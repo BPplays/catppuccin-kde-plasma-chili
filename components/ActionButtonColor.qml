@@ -115,7 +115,7 @@ Item {
         // visible: opacity > 0
         visible: true
         // opacity: 1
-        active: mouseArea.containsMouse || root.activeFocus
+        // active: mouseArea.containsMouse || root.activeFocus
 
     }
 
