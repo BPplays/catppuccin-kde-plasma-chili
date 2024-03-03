@@ -28,7 +28,7 @@ Item {
     property alias text: label.text
     property alias iconSource: icon.source
     property alias containsMouse: mouseArea.containsMouse
-    property alias color: item_color
+    property alias color: root.item_color
     property alias font: label.font
     signal clicked
 
@@ -61,7 +61,7 @@ Item {
     property string cattpuccin_mantle: "#181825"
     property string cattpuccin_crust: "#11111b"
 
-    // property string item_color: color
+    property string item_color: cattpuccin_base
 
     
 
@@ -118,7 +118,7 @@ Item {
         font.family: config.Font || "Noto Sans"
         font.pointSize: config.FontPointSize || root.generalFontSize
         renderType: Text.QtRendering
-        color: cattpuccin_surface2
+        color: item_color
         anchors {
             top: icon.bottom
             topMargin: units.smallSpacing
