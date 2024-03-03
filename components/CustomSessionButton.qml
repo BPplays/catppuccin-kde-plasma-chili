@@ -42,7 +42,7 @@ PlasmaComponents.ToolButton {
         currentIndex = sessionModel.lastIndex
     }
 
-    Menu {
+    PlasmaComponents.Menu {
         id: menu
         Repeater {
             model: sessionModel
