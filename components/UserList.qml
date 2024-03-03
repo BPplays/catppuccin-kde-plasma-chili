@@ -46,7 +46,7 @@ ListView {
 
     delegate: UserDelegate {
         // avatarPath: model.icon || ""
-        avatarPath: avatar_base_path+currentItem.userName || ""
+        avatarPath: avatar_base_path+model.name || ""
         iconSource: model.iconName || "user-identity"
 
         name: {
