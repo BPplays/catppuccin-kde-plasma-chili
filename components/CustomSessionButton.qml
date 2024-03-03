@@ -41,7 +41,7 @@ PlasmaComponents.ToolButton {
 
     menu: QQC.Menu {
         id: menu
-        MenuSeparator {
+        QQC.MenuSeparator {
             contentItem: Rectangle {
                 implicitWidth: 200
                 implicitHeight: 1
