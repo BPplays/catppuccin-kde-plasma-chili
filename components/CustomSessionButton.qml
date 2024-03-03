@@ -18,31 +18,41 @@
  */
 
 import QtQuick 2.2
+
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
-import QtQuick.Controls 1.3
 
-Button {
+import QtQuick.Controls 1.3 as QQC
+
+import QtQuick.Templates 2.0 as T
+
+// import "compsrc"
+
+PlasmaComponents.ToolButton {
     id: root
     property int currentIndex: -1
     property int sessionFontSize
 
-    text: instantiator.objectAt(currentIndex).text || ""
+
+
+    visible: menu.items.length > 1
     font.family: config.Font || "Noto Sans"
     font.pointSize: sessionFontSize
 
-    onClicked: {
-        menu.popup();
+    text: instantiator.objectAt(currentIndex).text || ""
+
+    Component.onCompleted: {
+        currentIndex = sessionModel.lastIndex
     }
 
-    Menu {
+    menu: QQC.Menu {
         id: menu
         Instantiator {
             id: instantiator
             model: sessionModel
             onObjectAdded: menu.insertItem(index, object)
-            onObjectRemoved: menu.removeItem(object)
-            delegate: MenuItem {
+            onObjectRemoved: menu.removeItem( object )
+            delegate: QQC.MenuItem {
                 text: model.name
                 onTriggered: {
                     root.currentIndex = model.index
