@@ -61,6 +61,8 @@ Item {
     property string cattpuccin_mantle: "#181825"
     property string cattpuccin_crust: "#11111b"
 
+    property string item_color
+
     
 
 
