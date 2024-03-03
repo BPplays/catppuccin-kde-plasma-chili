@@ -26,6 +26,8 @@ import QtQuick.Controls 1.3 as QQC
 
 import QtQuick.Templates 2.0 as T
 
+import QtGraphicalEffects 1.12
+
 // import "compsrc"
 Item {
     PlasmaComponents.ToolButton {
