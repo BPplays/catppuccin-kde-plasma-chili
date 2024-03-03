@@ -368,13 +368,15 @@ PlasmaCore.ColorScope {
             // }
 
             actionItems: [
-                ActionButton {
+                ActionButtonColor {
                     iconSource: "system-suspend"
                     text: config.TranslationSuspend ? config.TranslationSuspend : i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Suspend")
                     onClicked: sddm.suspend()
                     enabled: sddm.canSuspend
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
+                    color: cattpuccin_subtext0
+                    color_hovered: cattpuccin_text
                 },
                 ActionButtonColor {
                     iconSource: "system-reboot"
@@ -386,7 +388,7 @@ PlasmaCore.ColorScope {
                     color: cattpuccin_subtext0
                     color_hovered: cattpuccin_text
                 },
-                ActionButton {
+                ActionButtonColor {
                     id: ab_shutdown_base
                     iconSource: "system-shutdown"
                     text: config.TranslationPowerOff ? config.TranslationPowerOff : i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Shutdown")
@@ -394,6 +396,8 @@ PlasmaCore.ColorScope {
                     enabled: sddm.canPowerOff
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
+                    color: cattpuccin_subtext0
+                    color_hovered: cattpuccin_text
                 }
             ]
 
