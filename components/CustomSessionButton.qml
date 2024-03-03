@@ -133,7 +133,7 @@ PlasmaComponents.ToolButton {
             model: sessionModel
             onObjectAdded: menu.insertItem(index, object)
             onObjectRemoved: menu.removeItem( object )
-            delegate: QQC.MenuItem {
+            delegate: MenuItem {
                 text: model.name
                 onTriggered: {
                     root.currentIndex = model.index
