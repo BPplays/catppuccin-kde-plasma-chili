@@ -118,7 +118,7 @@ Item {
         font.family: config.Font || "Noto Sans"
         font.pointSize: config.FontPointSize || root.generalFontSize
         renderType: Text.QtRendering
-        color: item_color
+        color: cattpuccin_surface2
         anchors {
             top: icon.bottom
             topMargin: units.smallSpacing
