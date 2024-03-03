@@ -42,6 +42,10 @@ PlasmaComponents.ToolButton {
         currentIndex = sessionModel.lastIndex
     }
 
+    onClicked: {
+        menu.popup()
+    }
+
     PlasmaComponents.Menu {
         id: menu
         Repeater {
@@ -53,6 +57,5 @@ PlasmaComponents.ToolButton {
                 }
             }
         }
-        associatedMenu: menu
     }
 }
