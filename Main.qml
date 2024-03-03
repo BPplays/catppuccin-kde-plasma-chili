@@ -376,7 +376,7 @@ PlasmaCore.ColorScope {
                     enable_click: sddm.canSuspend
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                    color: ( sddm.canSuspend ) ? cattpuccin_subtext1 : cattpuccin_overlay1
+                    color: ( sddm.canSuspend ) ? cattpuccin_subtext1 : cattpuccin_overlay2
                     color_hovered: cattpuccin_text
                 },
                 ActionButtonColor {
