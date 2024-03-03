@@ -376,7 +376,7 @@ PlasmaCore.ColorScope {
                     enable_click: sddm.canSuspend
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                    color: ( sddm.canSuspend ) ? cattpuccin_subtext0 : cattpuccin_surface2
+                    color: ( sddm.canSuspend ) ? cattpuccin_subtext1 : cattpuccin_surface2
                     color_hovered: cattpuccin_text
                 },
                 ActionButtonColor {
@@ -387,7 +387,7 @@ PlasmaCore.ColorScope {
                     enable_click: sddm.canReboot
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                    color: ( sddm.canReboot ) ? cattpuccin_subtext0 : cattpuccin_surface2
+                    color: ( sddm.canReboot ) ? cattpuccin_subtext1 : cattpuccin_surface2
                     color_hovered: cattpuccin_text
                 },
                 ActionButtonColor {
@@ -399,7 +399,7 @@ PlasmaCore.ColorScope {
                     enable_click: sddm.canPowerOff
                     visible: !inputPanel.keyboardActive
                     iconSize: root.generalFontSize * 4.25
-                    color: ( sddm.canPowerOff ) ? cattpuccin_subtext0 : cattpuccin_surface2
+                    color: ( sddm.canPowerOff ) ? cattpuccin_subtext1 : cattpuccin_surface2
                     color_hovered: cattpuccin_text
                 }
             ]
