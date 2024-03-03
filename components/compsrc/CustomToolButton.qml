@@ -4,10 +4,10 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
  
-import QtQuick
-import QtQuick.Layouts
-import QtQuick.Templates as T
-import org.kde.kirigami as Kirigami
+import QtQuick 2.0
+import QtQuick.Layouts 2.0
+import QtQuick.Templates 2.0 as T
+import org.kde.kirigami 2.0 as Kirigami
 import "private" as Private
  
 T.ToolButton {
