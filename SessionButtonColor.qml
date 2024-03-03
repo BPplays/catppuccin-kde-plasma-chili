@@ -26,7 +26,7 @@ import QtQuick.Controls 1.3 as QQC
 
 import QtGraphicalEffects 1.12
 
-item {
+Item {
     id: root
 
     property int sessionFontSize
