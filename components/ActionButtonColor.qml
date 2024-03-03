@@ -68,8 +68,8 @@ Item {
     property string item_color: cattpuccin_base
     property string item_color_hov: cattpuccin_base
 
-    property float item_op: 100
-    property float item_op_hov: 100
+    property int item_op: 100
+    property int item_op_hov: 100
 
     
 
