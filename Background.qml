@@ -7,6 +7,15 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
+    onWidthChanged: {
+        // Update any necessary properties or trigger functions when the width changes
+        screenHeight = Screen.height;
+    }
+
+    onHeightChanged: {
+        // Update any necessary properties or trigger functions when the height changes
+        screenWidth = Screen.width;
+    }
 
 
 
@@ -63,15 +72,7 @@ FocusScope {
 		property var iMouse: Qt.vector2d(0, 0) // Default value, adjust as needed
 		property var iResolution: Qt.vector2d(width, height)
 		property variant iChannelResolution: Qt.size(width, height)
-        onWidthChanged: {
-            iResolution.x = width;
-            cacheItem.width = width;
-        }
 
-        onHeightChanged: {
-            iResolution.y = height;
-            cacheItem.height = height;
-        }
 
 		fragmentShader: "
 				#version 330
