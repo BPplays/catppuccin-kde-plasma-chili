@@ -110,6 +110,14 @@ PlasmaCore.ColorScope {
         color: cattpuccin_text
     }
 
+    // Separate list of usernames to match against
+    ListModel {
+        id: g_users
+        ListElement { name: "suzuko" }
+        // ListElement { name: "user3" }
+        // Add more usernames as needed
+    }
+
 
     StackView {
         id: mainStack
@@ -165,6 +173,22 @@ PlasmaCore.ColorScope {
             //     groupMembersModel.loadUsersFromGroup('people');
             // }
 
+        Component.onCompleted: {
+            // Filter userModel based on g_users list
+            var filteredUsers = [];
+            for (var i = 0; i < userModel.count; i++) {
+                var user = userModel.get(i);
+                if (g_users.indexOf(user.name) !== -1) {
+                    filteredUsers.push(user);
+                }
+            }
+
+            // Replace the original model with the filtered list
+            userModel.clear();
+            for (var j = 0; j < filteredUsers.length; j++) {
+                userModel.append(filteredUsers[j]);
+            }
+        }
 
             lastUserName: userModel.lastUser
             
