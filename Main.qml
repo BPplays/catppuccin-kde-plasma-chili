@@ -157,7 +157,8 @@ PlasmaCore.ColorScope {
     }
 
             userListModel: c_users
-            userListCurrentIndex: c_users.lastIndex >= 0 ? c_users.lastIndex : 0
+            // userListCurrentIndex: c_users.lastIndex >= 0 ? c_users.lastIndex : 0
+            userListCurrentIndex: 0
 
             // Component.onCompleted: {
             //     groupMembersModel.loadUsersFromGroup('people');
