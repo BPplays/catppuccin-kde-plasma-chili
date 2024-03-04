@@ -118,6 +118,10 @@ PlasmaCore.ColorScope {
         // Add more usernames as needed
     }
 
+    ListModel {
+        id: filteredUserModel // New model for filtered users
+    }
+
 
     StackView {
         id: mainStack
@@ -174,19 +178,12 @@ PlasmaCore.ColorScope {
             // }
 
         Component.onCompleted: {
-            // Filter userModel based on g_users list
-            var filteredUsers = [];
+            // Filter userModel based on g_users list and populate filteredUserModel
             for (var i = 0; i < userModel.count; i++) {
                 var user = userModel.get(i);
                 if (g_users.indexOf(user.name) !== -1) {
-                    filteredUsers.push(user);
+                    filteredUserModel.append(user);
                 }
-            }
-
-            // Replace the original model with the filtered list
-            userModel.clear();
-            for (var j = 0; j < filteredUsers.length; j++) {
-                userModel.append(filteredUsers[j]);
             }
         }
 
