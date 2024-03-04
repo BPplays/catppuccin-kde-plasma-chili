@@ -235,7 +235,7 @@ FocusScope {
 		property variant iChannel0: ShaderEffectSource {
 			sourceItem: sceneImageBackground_base
 			hideSource: true
-			live: false
+			live: true
 		}
 	}
 
