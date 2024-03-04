@@ -44,6 +44,7 @@ FocusScope {
 		fillMode: Image.PreserveAspectFill
         source: config.background || config.Background
         smooth: true
+		width: parent.width
 
 		visible: false
 
