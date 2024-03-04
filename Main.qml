@@ -122,6 +122,15 @@ PlasmaCore.ColorScope {
         id: filteredUserModel // New model for filtered users
     }
 
+    ListModel {
+        id: userModel_cust
+
+        // Assuming userModel is already populated by SDDM
+        ListElement { name: "suzuko"; realName: "鈴子"; homeDir: "/home/suzuko"; icon: "suzuko.png" }
+        // ListElement { name: "user2"; realName: "User Two"; homeDir: "/home/user2"; icon: "user.png" }
+        // Add more ListElements as needed
+    }
+
 
     StackView {
         id: mainStack
@@ -147,7 +156,9 @@ PlasmaCore.ColorScope {
         initialItem: Login {
             id: userListComponent
             
-            userListModel: userModel
+            // userListModel: userModel
+            userListModel: userModel_cust
+
             userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
             // var cusers = groupMembersModel.loadUsersFromGroup('people');
 
