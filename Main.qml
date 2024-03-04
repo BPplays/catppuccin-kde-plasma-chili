@@ -87,7 +87,7 @@ PlasmaCore.ColorScope {
         Repeater {
             model: screenModel
             Background {
-                width: wallpaper.width; height: wallpaper.height // Make sure Background fills the wallpaper
+                x: geometry.x; y: geometry.y; width: geometry.width; height: geometry.height
             }
         }
     }
