@@ -19,7 +19,7 @@ FocusScope {
         screenWidth = Screen.width;
         sceneImageBackground_base.width = parent.width;
         sceneImageBackground_ShaderEffect.width = parent.width;
-
+		console.log(Screen.width);
     }
 
 
