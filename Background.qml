@@ -12,6 +12,7 @@ FocusScope {
         screenHeight = Screen.height;
         sceneImageBackground_base.height = parent.height;
         sceneImageBackground_ShaderEffect.height = parent.height;
+		console.log("Height changed:", height);
     }
 
     onWidthChanged: {
@@ -19,8 +20,7 @@ FocusScope {
         screenWidth = Screen.width;
         sceneImageBackground_base.width = parent.width;
         sceneImageBackground_ShaderEffect.width = parent.width;
-		console.log("custlog");
-		console.log(Screen.width);
+		console.log("Width changed:", width);
     }
 
 
