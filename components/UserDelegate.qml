@@ -142,7 +142,7 @@ Item {
         height: implicitHeight // work around stupid bug in Plasma Components that sets the height
         // width: constrainText ? parent.width : implicitWidth
         text: wrapper.name
-        color: cattpuccin_text
+        color: cattpuccin_base
         // elide: Text.ElideRight
         horizontalAlignment: Text.AlignHCenter
         //make an indication that this has active focus, this only happens when reached with keyboard navigation
