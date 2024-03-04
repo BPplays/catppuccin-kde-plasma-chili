@@ -140,35 +140,24 @@ PlasmaCore.ColorScope {
             // var cusers = groupMembersModel.loadUsersFromGroup('people');
 
 
-        property var cusers: Qt.binding(function() {
-            var process = Qt.createQmlObject('import QtQuick 2.15; QtObject{}', Qt.application);
+    property var c_users: []
 
-            // Execute the command and capture its output
-            process.setProperty('script', 'getent group ' + groupName + ' | cut -d: -f4');
-            process.run();
+    Component.onCompleted: {
+        // Execute the command and capture its output
+        var command = "getent group people | cut -d: -f4";
+        var result = Qt.openUrlExternally("sh", ["-c", command]);
 
-            // Process the command output
-            process.onExitCodeChanged: {
-                if (process.exitCode === 0) {
-                    // Clear existing data
-                    clear();
+        // Check if the command was successful and parse the output
+        if (result.exitCode === 0) {
+            // Split the comma-separated list into an array
+            c_users = result.stdout.trim().split(",");
+        } else {
+            console.error("Error executing command:", result.stderr);
+        }
+    }
 
-                    // Split the comma-separated list of users
-                    var users = process.standardOutput.split(',');
-
-                    // Add users to the model
-                    for (var i = 0; i < users.length; ++i) {
-                        append({username: users[i]});
-                    }
-                } else {
-                    console.error('Error executing command: ' + process.exitCode);
-                }
-            }
-            return users
-        })
-
-            userListModel: cusers
-            userListCurrentIndex: cusers.lastIndex >= 0 ? cusers.lastIndex : 0
+            userListModel: c_users
+            userListCurrentIndex: c_users.lastIndex >= 0 ? c_users.lastIndex : 0
 
             // Component.onCompleted: {
             //     groupMembersModel.loadUsersFromGroup('people');
