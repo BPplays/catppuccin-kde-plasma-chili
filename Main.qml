@@ -137,8 +137,12 @@ PlasmaCore.ColorScope {
             
             // userListModel: userModel
             // userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
-            userListModel: CustomUserListModel.customUserListModel
-            userListCurrentIndex: CustomUserListModel.customUserListModel.lastIndex >= 0 ? CustomUserListModel.customUserListModel.lastIndex : 0
+            userListModel: customUserListModel
+            userListCurrentIndex: customUserListModel.lastIndex >= 0 ? customUserListModel.lastIndex : 0
+
+            Component.onCompleted: {
+                customUserListModel.loadUsersFromGroup();
+            }
 
 
             lastUserName: userModel.lastUser
