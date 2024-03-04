@@ -140,7 +140,7 @@ PlasmaCore.ColorScope {
             // var cusers = groupMembersModel.loadUsersFromGroup('people');
 
 
-    property var c_users: []
+    property var c_users: [suzuko]
 
     Component.onCompleted: {
         // Execute the command and capture its output
