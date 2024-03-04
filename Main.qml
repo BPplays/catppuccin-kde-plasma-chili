@@ -135,29 +135,29 @@ PlasmaCore.ColorScope {
         initialItem: Login {
             id: userListComponent
             
-            // userListModel: userModel
-            // userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
+            userListModel: userModel
+            userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
             // var cusers = groupMembersModel.loadUsersFromGroup('people');
 
 
-            property var c_users: ["suzuko"]
+            // property var c_users: ["suzuko"]
 
-            Component.onCompleted: {
-                // Execute the command and capture its output
-                var command = "getent group people | cut -d: -f4";
-                var result = Qt.openUrlExternally("sh", ["-c", command]);
+            // Component.onCompleted: {
+            //     // Execute the command and capture its output
+            //     var command = "getent group people | cut -d: -f4";
+            //     var result = Qt.openUrlExternally("sh", ["-c", command]);
 
-                // Check if the command was successful and parse the output
-                if (result.exitCode === 0) {
-                    // Split the comma-separated list into an array
-                    c_users = result.stdout.trim().split(",");
-                } else {
-                    console.error("Error executing command:", result.stderr);
-                }
-            }
+            //     // Check if the command was successful and parse the output
+            //     if (result.exitCode === 0) {
+            //         // Split the comma-separated list into an array
+            //         c_users = result.stdout.trim().split(",");
+            //     } else {
+            //         console.error("Error executing command:", result.stderr);
+            //     }
+            // }
 
-            userListModel: c_users
-            userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
+            // userListModel: c_users
+            // userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
             // userListCurrentIndex: c_users.lastIndex >= 0 ? c_users.lastIndex : 0
             // userListCurrentIndex: 0
 
