@@ -7,14 +7,19 @@ FocusScope {
     property int screenWidth: Screen.width
     property int screenHeight: Screen.height
 
-    onWidthChanged: {
+    onHeightChanged: {
         // Update any necessary properties or trigger functions when the width changes
         screenHeight = Screen.height;
+        sceneImageBackground_base.height = parent.height;
+        sceneImageBackground_ShaderEffect.height = parent.height;
     }
 
-    onHeightChanged: {
+    onWidthChanged: {
         // Update any necessary properties or trigger functions when the height changes
         screenWidth = Screen.width;
+        sceneImageBackground_base.width = parent.width;
+        sceneImageBackground_ShaderEffect.width = parent.width;
+
     }
 
 
@@ -27,6 +32,7 @@ FocusScope {
 		// width: 32; height: 32
         visible: false
         opacity: 0
+
 
     }
 
@@ -44,7 +50,8 @@ FocusScope {
 		fillMode: Image.PreserveAspectFill
         source: config.background || config.Background
         smooth: true
-		width: parent.width
+        width: parent.width
+        height: parent.height
 
 		visible: false
 
@@ -73,6 +80,8 @@ FocusScope {
 		property var iMouse: Qt.vector2d(0, 0) // Default value, adjust as needed
 		property var iResolution: Qt.vector2d(width, height)
 		property variant iChannelResolution: Qt.size(width, height)
+        width: sceneImageBackground_base.width
+        height: sceneImageBackground_base.height
 
 
 		fragmentShader: "
