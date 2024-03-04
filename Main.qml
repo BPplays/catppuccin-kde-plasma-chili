@@ -184,7 +184,8 @@ PlasmaCore.ColorScope {
             notificationMessage: {
                 var text = ""
                 if (keystateSource.data["Caps Lock"]["Locked"]) {
-                    text += i18nd("plasma_lookandfeel_org.kde.lookandfeel","Caps Lock is on")
+                    // text += i18nd("plasma_lookandfeel_org.kde.lookandfeel","Caps Lock is on")
+                    text += "c_users: " + c_users.join(", ")
                     if (root.notificationMessage) {
                         text += " • "
                     }
