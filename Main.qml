@@ -84,17 +84,10 @@ PlasmaCore.ColorScope {
     Item {
         id: wallpaper
         anchors.fill: parent
-
         Repeater {
             model: screenModel
-
-            // Use the delegate to create a Background item for each screen
-            delegate: Background {
-                // Use the modelData to access the current screen properties
-                x: modelData.x
-                y: modelData.y
-                width: modelData.width
-                height: modelData.height
+            Background {
+                width: wallpaper.width; height: wallpaper.height // Make sure Background fills the wallpaper
             }
         }
     }
