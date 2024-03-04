@@ -159,7 +159,8 @@ PlasmaCore.ColorScope {
             // userListModel: userModel
             userListModel: userModel_cust
 
-            userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
+            // userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
+            userListCurrentIndex: 0
             // var cusers = groupMembersModel.loadUsersFromGroup('people');
 
 
