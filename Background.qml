@@ -63,7 +63,15 @@ FocusScope {
 		property var iMouse: Qt.vector2d(0, 0) // Default value, adjust as needed
 		property var iResolution: Qt.vector2d(width, height)
 		property variant iChannelResolution: Qt.size(width, height)
+        onWidthChanged: {
+            iResolution.x = width;
+            cacheItem.width = width;
+        }
 
+        onHeightChanged: {
+            iResolution.y = height;
+            cacheItem.height = height;
+        }
 
 		fragmentShader: "
 				#version 330
