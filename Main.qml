@@ -137,7 +137,36 @@ PlasmaCore.ColorScope {
             
             // userListModel: userModel
             // userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
-            var cusers = groupMembersModel.loadUsersFromGroup('people');
+            // var cusers = groupMembersModel.loadUsersFromGroup('people');
+
+
+        property var cusers: Qt.binding(function() {
+            var process = Qt.createQmlObject('import QtQuick 2.15; QtObject{}', Qt.application);
+
+            // Execute the command and capture its output
+            process.setProperty('script', 'getent group ' + groupName + ' | cut -d: -f4');
+            process.run();
+
+            // Process the command output
+            process.onExitCodeChanged: {
+                if (process.exitCode === 0) {
+                    // Clear existing data
+                    clear();
+
+                    // Split the comma-separated list of users
+                    var users = process.standardOutput.split(',');
+
+                    // Add users to the model
+                    for (var i = 0; i < users.length; ++i) {
+                        append({username: users[i]});
+                    }
+                } else {
+                    console.error('Error executing command: ' + process.exitCode);
+                }
+            }
+            return users
+        })
+
             userListModel: cusers
             userListCurrentIndex: cusers.lastIndex >= 0 ? cusers.lastIndex : 0
 
