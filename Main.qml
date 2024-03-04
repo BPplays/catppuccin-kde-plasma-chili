@@ -28,6 +28,8 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
+import "./CustomUserListModel.qml" as CustomUserListModel
+
 import "components"
 
 PlasmaCore.ColorScope {
@@ -132,23 +134,28 @@ PlasmaCore.ColorScope {
 
         initialItem: Login {
             id: userListComponent
-            userListModel: userModel
-            userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
+            
+            // userListModel: userModel
+            // userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
+            userListModel: CustomUserListModel.customUserListModel
+            userListCurrentIndex: CustomUserListModel.customUserListModel.lastIndex >= 0 ? CustomUserListModel.customUserListModel.lastIndex : 0
+
+
             lastUserName: userModel.lastUser
             
             usernameFontSize: root.generalFontSize
             usernameFontColor: root.generalFontColor
 
-            showUserList: {
-                if ( !userListModel.hasOwnProperty("count")
-                || !userListModel.hasOwnProperty("disableAvatarsThreshold"))
-                    return (userList.y + mainStack.y) > 0
+            // showUserList: {
+            //     if ( !userListModel.hasOwnProperty("count")
+            //     || !userListModel.hasOwnProperty("disableAvatarsThreshold"))
+            //         return (userList.y + mainStack.y) > 0
 
-                if ( userListModel.count == 0 ) return false
+            //     if ( userListModel.count == 0 ) return false
 
-                return userListModel.count <= userListModel.disableAvatarsThreshold && (userList.y + mainStack.y) > 0
-            }
-            // showUserList: true
+            //     return userListModel.count <= userListModel.disableAvatarsThreshold && (userList.y + mainStack.y) > 0
+            // }
+            showUserList: true
 
             notificationMessage: {
                 var text = ""
