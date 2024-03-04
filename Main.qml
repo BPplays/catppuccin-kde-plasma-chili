@@ -84,15 +84,18 @@ PlasmaCore.ColorScope {
     Item {
         id: wallpaper
         anchors.fill: parent
-        Repeater {
-            model: screenModel
-            // Background {
-            //     x: geometry.x; y: geometry.y; width: geometry.width; height: geometry.height
-            // }
-            Background {
-                width: wallpaper.width; height: wallpaper.height // Make sure Background fills the wallpaper
-            }
+        Background {
+            width: wallpaper.width; height: wallpaper.height // Make sure Background fills the wallpaper
         }
+        // Repeater {
+        //     model: screenModel
+        //     // Background {
+        //     //     x: geometry.x; y: geometry.y; width: geometry.width; height: geometry.height
+        //     // }
+        //     Background {
+        //         width: wallpaper.width; height: wallpaper.height // Make sure Background fills the wallpaper
+        //     }
+        // }
     }
 
     Clock {
