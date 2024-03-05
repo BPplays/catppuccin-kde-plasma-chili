@@ -203,15 +203,15 @@ PlasmaCore.ColorScope {
             //     groupMembersModel.loadUsersFromGroup('people');
             // }
 
-        Component.onCompleted: {
-            // Filter userModel based on g_users list and populate filteredUserModel
-            for (var i = 0; i < userModel.count; i++) {
-                var user = userModel.get(i);
-                if (g_users.indexOf(user.name) !== -1) {
-                    filteredUserModel.append(user);
-                }
-            }
-        }
+        // Component.onCompleted: {
+        //     // Filter userModel based on g_users list and populate filteredUserModel
+        //     for (var i = 0; i < userModel.count; i++) {
+        //         var user = userModel.get(i);
+        //         if (g_users.indexOf(user.name) !== -1) {
+        //             filteredUserModel.append(user);
+        //         }
+        //     }
+        // }
 
             lastUserName: userModel.lastUser
             
