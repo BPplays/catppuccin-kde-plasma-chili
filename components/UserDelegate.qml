@@ -131,11 +131,11 @@ Item {
             cached: true
         }
 
-        ColorOverlay {
-            anchors.fill: op_mask
-            source: op_mask
-            color: "#801e1e2e"
-        }
+        // ColorOverlay {
+        //     anchors.fill: op_mask
+        //     source: op_mask
+        //     color: "#801e1e2e"
+        // }
 
         // Blend {
         //     anchors.fill: op_mask
