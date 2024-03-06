@@ -157,26 +157,26 @@ PlasmaCore.ColorScope {
             id: userListComponent
             
             // userListModel: userModel
-            // userListModel: userModel_cust
-            userListModel: filteredUserModel
+            userListModel: userModel_cust
+            // userListModel: filteredUserModel
 
             // userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
             userListCurrentIndex: 0
             // var cusers = groupMembersModel.loadUsersFromGroup('people');
 
-            Component.onCompleted: {
-                for (var i = 0; i < userModel.count; i++) {
-                    var currentItem = userModel.get(i);
-                    for (var j = 0; j < g_users.count; j++) {
-                        var compareItem = g_users.get(j);
-                        if (currentItem.name === compareItem.name) {
-                            console.log("Match found:", currentItem.name);
-                            // Do something with the matching elements
-                            filteredUserModel.append({currentItem});
-                        }
-                    }
-                }
-            }
+            // Component.onCompleted: {
+            //     for (var i = 0; i < userModel.count; i++) {
+            //         var currentItem = userModel.get(i);
+            //         for (var j = 0; j < g_users.count; j++) {
+            //             var compareItem = g_users.get(j);
+            //             if (currentItem.name === compareItem.name) {
+            //                 console.log("Match found:", currentItem.name);
+            //                 // Do something with the matching elements
+            //                 filteredUserModel.append({currentItem});
+            //             }
+            //         }
+            //     }
+            // }
 
             // property var c_users: ["suzuko"]
 
