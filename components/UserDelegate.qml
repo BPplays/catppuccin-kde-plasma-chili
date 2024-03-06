@@ -113,10 +113,17 @@ Item {
             smooth: true
         }
         OpacityMask {
+            id: op_mask
             anchors.fill: face
             source: face
             maskSource: mask
             cached: true
+        }
+
+        ColorOverlay {
+            anchors.fill: op_mask
+            source: op_mask
+            color: "#cdd6f4"
         }
 
         PlasmaCore.IconItem {
