@@ -123,7 +123,7 @@ Item {
         ColorOverlay {
             anchors.fill: op_mask
             source: op_mask
-            color: "#80cdd6f4"
+            color: "#801e1e2e"
         }
 
         PlasmaCore.IconItem {
