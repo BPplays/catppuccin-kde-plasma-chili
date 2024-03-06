@@ -141,7 +141,8 @@ Item {
             anchors.fill: op_mask
             source: op_mask
             foregroundSource: color_base
-            mode: "subtract"
+            mode: "overlay"
+            cached: true
         }
 
         PlasmaCore.IconItem {
