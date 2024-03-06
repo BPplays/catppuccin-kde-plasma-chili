@@ -87,6 +87,17 @@ Item {
         anchors.bottomMargin: usernameDelegate.height * 0.5
 
         Rectangle {
+            id: color_base
+            anchors.fill: parent
+            // anchors.margins: -(config.AvatarOutlineWidth) || -2
+            color: "#1e1e2e"
+            // border.width: config.AvatarOutlineWidth || 2
+            // border.color: "#1e1e2e"
+            radius: 1000
+            visible: true
+        }
+
+        Rectangle {
             id: outline
             anchors.fill: parent
             anchors.margins: -(config.AvatarOutlineWidth) || -2
@@ -120,10 +131,17 @@ Item {
             cached: true
         }
 
-        ColorOverlay {
+        // ColorOverlay {
+        //     anchors.fill: op_mask
+        //     source: op_mask
+        //     color: "#801e1e2e"
+        // }
+
+        Blend {
             anchors.fill: op_mask
             source: op_mask
-            color: "#801e1e2e"
+            foregroundSource: color_base
+            mode: "subtract"
         }
 
         PlasmaCore.IconItem {
