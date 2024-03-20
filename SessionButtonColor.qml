@@ -31,6 +31,7 @@ Item {
 
     property int sessionFontSize
     property string color: "#11111b"
+    property int currentIndex: sessionButton.currentIndex
     
     SessionButton {
         id: sessionButton
