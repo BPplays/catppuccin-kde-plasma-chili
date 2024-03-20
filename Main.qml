@@ -461,7 +461,7 @@ PlasmaCore.ColorScope {
             visible: inputPanel.status == Loader.Ready
         }
 
-        SessionButtonColor {
+        SessionButton {
             id: sessionButton
             sessionFontSize: root.generalFontSize
             color: cattpuccin_text
